@@ -1,0 +1,315 @@
+@media (max-aspect-ratio: 29/26) {
+    .measure {
+        width: adjust-unit(1px, vertical);
+    }
+
+    .logo {
+        @include circle-hover(adjust-unit(30px, vertical));
+
+        border-radius: adjust-unit(6px, vertical);
+        height: adjust-unit(65px, vertical);
+        left: adjust-unit(5px, vertical);
+        top: adjust-unit(5px, vertical);
+        width: adjust-unit(85px, vertical);
+
+        .icon {
+            width: adjust-unit(75px, vertical);
+        }
+    }
+
+    .banner {
+        height: calc(100% - #{adjust-unit(260px, vertical)});
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .banner-inner {
+        &.no-object-fit {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .contents {
+        background: inherit;
+        height: adjust-unit(260px, vertical);
+        top: auto;
+    }
+
+    .main-pane,
+    .extra-pane {
+        background: inherit;
+        padding: adjust-unit(40px, vertical) adjust-unit(20px, vertical) 0;
+    }
+
+    .more-btn,
+    .back-btn {
+        @include circle-hover(adjust-unit(20px, vertical));
+
+        left: adjust-unit(10px, vertical);
+        top: adjust-unit(10px, vertical);
+    }
+
+    .volume {
+        font-size: adjust-unit(22px, vertical);
+        left: adjust-unit(40px, vertical);
+        top: adjust-unit(14px, vertical);
+    }
+
+    .volume-waves {
+        border-width: adjust-unit(1px, vertical);
+
+        &::before,
+        &::after {
+            border-width: adjust-unit(1px, vertical);
+        }
+
+        &::before {
+            left: adjust-unit(2px, vertical);
+        }
+
+        &::after {
+            left: 2 * adjust-unit(2px, vertical) + adjust-unit(1px, vertical);
+        }
+    }
+
+    .volume-range-wrapper {
+        height: adjust-unit(11px, vertical);
+        position: relative;
+        width: adjust-unit(120px, vertical);
+    }
+
+    .volume-range {
+        &:focus + div > .volume-range-thumb {
+            box-shadow: 0 0 0 adjust-unit(2px, vertical)
+                fade-out($main-color, 0.75);
+        }
+    }
+
+    .volume-range-thumb {
+        border-width: adjust-unit(2px, vertical);
+        height: adjust-unit(15px, vertical);
+        width: adjust-unit(15px, vertical);
+    }
+
+    .play-btn {
+        @include circle-hover(adjust-unit(60px, vertical));
+
+        right: adjust-unit(10px, vertical);
+        top: 0;
+        transform: translateY(-50%);
+
+        &-paused {
+            margin-left: adjust-unit(8px, vertical);
+        }
+
+        &-buffering {
+            &::before,
+            &::after {
+                border-width: adjust-unit(12px, vertical);
+            }
+        }
+    }
+
+    .stopped-message {
+        left: 0;
+        padding: 0 adjust-unit(10px, vertical);
+        right: 0;
+    }
+
+    .program-name-wrapper,
+    .program-who {
+        text-align: center;
+    }
+
+    .program-name-wrapper {
+        font-size: adjust-unit(28px, vertical);
+    }
+
+    .program-who {
+        font-size: adjust-unit(12px, vertical);
+        padding: adjust-unit(10px, vertical) 0;
+    }
+
+    .program-description {
+        font-size: adjust-unit(12px, vertical);
+        padding-bottom: adjust-unit(5px, vertical);
+
+        &::after {
+            left: adjust-unit(10px, vertical);
+            right: adjust-unit(10px, vertical);
+        }
+    }
+
+    .song-metadata {
+        .song-current {
+            bottom: adjust-unit(20px, vertical);
+            font-size: adjust-unit(16px, vertical);
+            left: adjust-unit(60px, vertical);
+            right: adjust-unit(60px, vertical);
+
+            .mimic {
+                margin-left: adjust-unit(30px, vertical);
+            }
+
+            &.left-overflow {
+                mask-image: linear-gradient(
+                    to right,
+                    transparent,
+                    $bg-color adjust-unit(15px, vertical)
+                );
+            }
+
+            &.right-overflow {
+                mask-image: linear-gradient(
+                    to left,
+                    transparent,
+                    $bg-color adjust-unit(15px, vertical)
+                );
+
+                &.left-overflow {
+                    mask-image: linear-gradient(
+                            to left,
+                            transparent,
+                            $bg-color adjust-unit(15px, vertical),
+                            $bg-color 51%,
+                            transparent 51%
+                        ),
+                        linear-gradient(
+                            to right,
+                            transparent,
+                            $bg-color adjust-unit(15px, vertical),
+                            $bg-color 51%,
+                            transparent 51%
+                        );
+                }
+            }
+        }
+    }
+
+    .song-analyser {
+        display: none;
+
+        .song-metadata & {
+            bottom: adjust-unit(58px, vertical);
+            display: block;
+            height: adjust-unit(40px, vertical);
+            left: adjust-unit(10px, vertical);
+            opacity: 1;
+            text-align: center;
+            top: auto;
+            width: calc(100% - #{adjust-unit(20px, vertical)});
+        }
+    }
+
+    .song-progress-wrapper {
+        border-radius: adjust-unit(2.5px, vertical);
+        bottom: adjust-unit(50px, vertical);
+        height: adjust-unit(6px, vertical);
+        left: adjust-unit(10px, vertical);
+        width: calc(100% - #{adjust-unit(20px, vertical)});
+
+        .song-progress-fill {
+            border-radius: adjust-unit(2.5px, vertical);
+        }
+    }
+
+    .song-current-time,
+    .song-total-time {
+        bottom: adjust-unit(30px, vertical);
+        font-size: adjust-unit(14px, vertical);
+    }
+
+    .song-current-time {
+        left: adjust-unit(10px, vertical);
+    }
+
+    .song-total-time {
+        right: adjust-unit(10px, vertical);
+    }
+
+    .tabs {
+        display: block;
+    }
+
+    .tabs-list-paneless {
+        display: none;
+    }
+
+    .tabs-list {
+        height: adjust-unit(40px, vertical);
+    }
+
+    .tabs-tab {
+        @include circle-hover(adjust-unit(12px, vertical));
+
+        border-radius: adjust-unit(6px, vertical);
+        height: adjust-unit(30px, vertical);
+    }
+
+    .panes {
+        height: adjust-unit(160px, vertical);
+    }
+
+    .pane {
+        border-top-width: adjust-unit(1px, vertical);
+        font-size: adjust-unit(14px, vertical);
+
+        a {
+            &:focus {
+                box-shadow: 0 0 0 adjust-unit(1px, vertical);
+            }
+        }
+
+        &.requests {
+            font-size: adjust-unit(12px, vertical);
+        }
+
+        &::before {
+            border-width: adjust-unit(1px, vertical);
+            height: adjust-unit(10px, vertical);
+            width: adjust-unit(10px, vertical);
+        }
+    }
+
+    .widget {
+        border-top-width: adjust-unit(1px, vertical);
+
+        button {
+            &[type='submit'] {
+                @include circle-hover-base($main-color);
+                @include circle-hover(adjust-unit(12px, vertical));
+
+                border-radius: adjust-unit(3px, vertical);
+                height: auto;
+                width: auto;
+            }
+        }
+
+        .label {
+            width: adjust-unit(100px, vertical);
+        }
+
+        textarea {
+            height: adjust-unit(35px, vertical);
+        }
+    }
+
+    .playlist-li {
+        .playlist-link {
+            @include circle-hover-base($main-color);
+            @include circle-hover(adjust-unit(18px, vertical));
+
+            border-radius: adjust-unit(6px, vertical);
+            width: adjust-unit(65px, vertical);
+        }
+    }
+}

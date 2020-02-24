@@ -1,0 +1,39 @@
+{
+    "defines": {
+        "SOURCES": [
+            {
+                "type": "audio/ogg;codecs=\"opus\"",
+                "bitrate": 24000,
+                "burst": 524288,
+                "src": "https://example.com/listen.ogg"
+            },
+            {
+                "type": "audio/mp4",
+                "bitrate": 32000,
+                "burst": 524288,
+                "src": "https://example.com/listen.aac"
+            },
+            {
+                "type": "audio/mpeg",
+                "bitrate": 128000,
+                "burst": 524288,
+                "src": "https://example.com/listen.mp3"
+            }
+        ],
+        "METADATA_URL": "https://example.com/metadata.json",
+        "METADATA_INTERVAL": 20000,
+        "PLAYER_DOMAIN": "https://example.com/players",
+        "PLAYER_NAMESPACE": "myplayer",
+        "PLAYER_INITIAL_VOLUME": 0.75,
+        "MAIN_WEBSITE_HOME": "http://example.com/",
+        "MAIN_WEBSITE_TIMETABLE": "http://example.com/timetable",
+        "MAIN_WEBSITE_REQUESTS": "http://example.com/requests",
+        "MAIN_WEBSITE_CHAT": "http://example.com/chat",
+        "MAIN_WEBSITE_LISTEN": "http://example.com/listen",
+        "LISTEN_URL": "http://listen.example.com/",
+        "LISTEN_MANUAL_URL": "http://listen.example.com/l",
+        "SONG_REQUEST_URL": "http://example.com/requests",
+        "TRACKER_URL": "http://example.com/track"
+    },
+    "banner": "My Cool Banner"
+}

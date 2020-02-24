@@ -1,0 +1,4 @@
+/*
+    Access-Control-Allow-Origin: *
+    X-Content-Type-Options: nosniff
+    Cache-Control: public, max-age=172800, must-revalidate

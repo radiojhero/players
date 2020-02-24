@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noEmitOnError": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "target": "esnext"
+    }
+}

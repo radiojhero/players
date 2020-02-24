@@ -1,0 +1,259 @@
+@media (min-aspect-ratio: 52001/13000) {
+    .logo {
+        @include circle-hover(adjust-unit(50px, long-horizontal));
+
+        border-radius: adjust-unit(6px, long-horizontal);
+        height: adjust-unit(45px, long-horizontal);
+        overflow: hidden;
+        right: adjust-unit(5px, long-horizontal);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .banner {
+        .program-avatar {
+            display: none;
+        }
+
+        .song-progress-wrapper {
+            background-color: transparent;
+            border-radius: adjust-unit(1px, long-horizontal);
+            display: block;
+            height: adjust-unit(4px, long-horizontal);
+
+            .night & {
+                background-color: transparent;
+            }
+
+            .song-progress-fill {
+                border-radius: adjust-unit(1px, long-horizontal);
+            }
+        }
+    }
+
+    .contents {
+        box-shadow: none;
+        margin: 0 auto;
+
+        @media (min-aspect-ratio: 10/1) {
+            left: calc(25% - #{adjust-unit(162.5px, long-horizontal)});
+            right: calc(25% - #{adjust-unit(162.5px, long-horizontal)});
+        }
+    }
+
+    .main-pane,
+    .extra-pane {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding-left: adjust-unit(130px, long-horizontal);
+        right: adjust-unit(80px, long-horizontal);
+    }
+
+    .extra-pane {
+        padding-left: adjust-unit(35px, long-horizontal);
+    }
+
+    .more-btn,
+    .back-btn {
+        @include circle-hover(adjust-unit(11px, long-horizontal));
+
+        left: adjust-unit(5px, long-horizontal);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .volume {
+        font-size: adjust-unit(12px, long-horizontal);
+        left: adjust-unit(35px, long-horizontal);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .volume-waves {
+        border-width: adjust-unit(1px, long-horizontal);
+
+        &::before,
+        &::after {
+            border-width: adjust-unit(1px, long-horizontal);
+        }
+
+        &::before {
+            left: adjust-unit(2px, long-horizontal);
+        }
+
+        &::after {
+            left: 2 * adjust-unit(2px, long-horizontal) +
+                adjust-unit(1px, long-horizontal);
+        }
+    }
+
+    .volume-range-wrapper {
+        height: adjust-unit(8px, long-horizontal);
+        left: 50%;
+        top: 160%;
+        transform: translateX(-50%);
+        width: adjust-unit(60px, long-horizontal);
+    }
+
+    .volume-range {
+        &:focus + div > .volume-range-thumb {
+            box-shadow: 0 0 0 adjust-unit(2px, long-horizontal)
+                fade-out($main-color, 0.75);
+        }
+    }
+
+    .volume-range-thumb {
+        border-width: adjust-unit(1px, long-horizontal);
+        height: adjust-unit(10px, long-horizontal);
+        width: adjust-unit(10px, long-horizontal);
+    }
+
+    .play-btn {
+        @include circle-hover(adjust-unit(22px, long-horizontal));
+
+        left: adjust-unit(65px, long-horizontal);
+        top: 50%;
+        transform: translateY(-50%);
+
+        &-paused {
+            margin-left: adjust-unit(3px, long-horizontal);
+        }
+
+        &-buffering {
+            &::before,
+            &::after {
+                border-width: adjust-unit(4.4px, long-horizontal);
+            }
+        }
+    }
+
+    .stopped-message {
+        left: adjust-unit(95px, long-horizontal);
+        right: 0;
+    }
+
+    .program-metadata {
+        @include pseudo-padding;
+
+        display: flex;
+        flex-flow: column;
+        order: 1;
+        overflow: hidden;
+        text-align: center;
+
+        @media (max-aspect-ratio: 600/65) {
+            display: none;
+        }
+    }
+
+    .program-name-wrapper {
+        font-size: adjust-unit(14px, long-horizontal);
+    }
+
+    .program-who {
+        @include pseudo-padding;
+
+        font-size: adjust-unit(10px, long-horizontal);
+    }
+
+    .program-description {
+        display: none;
+    }
+
+    .song-metadata {
+        align-items: stretch;
+        display: flex;
+        flex: 0 0 60%;
+        height: adjust-unit(44px, long-horizontal);
+
+        @media (max-aspect-ratio: 600/65) {
+            flex: 1;
+        }
+
+        .program-avatar-wrapper {
+            display: block;
+            flex-basis: adjust-unit(44px, long-horizontal);
+            height: adjust-unit(44px, long-horizontal);
+            margin-right: adjust-unit(10px, long-horizontal);
+            width: adjust-unit(44px, long-horizontal);
+
+            @media (max-aspect-ratio: 375/65) {
+                display: none;
+            }
+        }
+
+        .song-current {
+            flex: 1;
+            margin: 0;
+            overflow: visible;
+            padding: 0;
+            position: relative;
+            text-align: left;
+
+            .song-current-scrollable {
+                transform: none;
+            }
+        }
+
+        .song-artist,
+        .song-title {
+            @include pseudo-padding;
+
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            text-overflow: ellipsis;
+        }
+
+        .song-artist {
+            bottom: 15%;
+            font-size: adjust-unit(10px, long-horizontal);
+            font-weight: 300;
+        }
+
+        .song-separator {
+            display: none;
+        }
+
+        .song-title {
+            font-size: adjust-unit(14px, long-horizontal);
+            font-weight: 600;
+            top: 15%;
+        }
+
+        .song-progress-wrapper {
+            display: none;
+        }
+
+        .song-progress-time {
+            align-self: center;
+            font-size: adjust-unit(11px, long-horizontal);
+            font-weight: 300;
+            margin-left: 0;
+            white-space: nowrap;
+
+            @media (max-aspect-ratio: 375/65) {
+                display: none;
+            }
+        }
+
+        .song-current-time,
+        .song-total-time {
+            color: inherit;
+            position: static;
+        }
+    }
+
+    .tabs-list-paneless {
+        width: 100%;
+    }
+
+    .tabs-tab {
+        @include circle-hover(adjust-unit(12px, long-horizontal));
+
+        border-radius: adjust-unit(6px, long-horizontal);
+        height: adjust-unit(30px, long-horizontal);
+    }
+}

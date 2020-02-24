@@ -1,0 +1,269 @@
+@media (min-aspect-ratio: 26001/13000) and (max-aspect-ratio: 4/1) {
+    .measure {
+        width: adjust-unit(0.7px, horizontal);
+    }
+
+    @media (max-aspect-ratio: 38999/13000) {
+        .logo {
+            @include circle-hover(adjust-unit(15px, horizontal));
+
+            border-radius: adjust-unit(4px, horizontal);
+            left: 0;
+            margin: 0 auto;
+            right: 0;
+            top: 0;
+            width: adjust-unit(50px, horizontal);
+
+            .icon {
+                width: adjust-unit(75px, horizontal);
+            }
+        }
+    }
+
+    @media (min-aspect-ratio: 3/1) {
+        .logo {
+            @include circle-hover(adjust-unit(30px, horizontal));
+
+            border-radius: adjust-unit(6px, horizontal);
+            bottom: adjust-unit(5px, horizontal);
+            left: adjust-unit(5px, horizontal);
+            width: adjust-unit(85px, horizontal);
+
+            .icon {
+                width: adjust-unit(75px, horizontal);
+            }
+        }
+    }
+
+    .banner {
+        bottom: 0;
+        display: none;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: adjust-unit(130px, horizontal);
+
+        @media (min-aspect-ratio: 3/1) {
+            display: block;
+        }
+    }
+
+    .contents {
+        @media (min-aspect-ratio: 3/1) {
+            left: adjust-unit(130px, horizontal);
+            overflow: hidden;
+        }
+    }
+
+    .main-pane,
+    .extra-pane {
+        margin: 0 auto;
+        width: adjust-unit(260px, horizontal);
+    }
+
+    .main-pane {
+        padding: adjust-unit(20px, horizontal) adjust-unit(20px, horizontal) 0;
+    }
+
+    .extra-pane {
+        padding: adjust-unit(10px, horizontal) adjust-unit(20px, horizontal) 0
+            adjust-unit(25px, horizontal);
+    }
+
+    .more-btn,
+    .back-btn {
+        @include circle-hover(adjust-unit(12px, horizontal));
+
+        left: adjust-unit(5px, horizontal);
+        top: adjust-unit(5px, horizontal);
+    }
+
+    .volume {
+        font-size: adjust-unit(12px, horizontal);
+        right: adjust-unit(10px, horizontal);
+        top: adjust-unit(8px, horizontal);
+    }
+
+    .volume-waves {
+        border-width: adjust-unit(1px, horizontal);
+
+        &::before,
+        &::after {
+            border-width: adjust-unit(1px, horizontal);
+        }
+
+        &::before {
+            left: adjust-unit(2px, horizontal);
+        }
+
+        &::after {
+            left: 2 * adjust-unit(2px, horizontal) +
+                adjust-unit(1px, horizontal);
+        }
+    }
+
+    .volume-range-wrapper {
+        height: adjust-unit(8px, horizontal);
+        right: 0;
+        top: adjust-unit(10px, horizontal);
+        transform: rotate(-90deg);
+        transform-origin: bottom right;
+        vertical-align: top;
+        width: adjust-unit(60px, horizontal);
+    }
+
+    .volume-range {
+        cursor: ns-resize;
+
+        &:focus + div > .volume-range-thumb {
+            box-shadow: 0 0 0 adjust-unit(2px, horizontal)
+                fade-out($main-color, 0.75);
+        }
+    }
+
+    .volume-range-thumb {
+        border-width: adjust-unit(1px, horizontal);
+        height: adjust-unit(10px, horizontal);
+        width: adjust-unit(10px, horizontal);
+    }
+
+    .play-btn {
+        @include circle-hover(adjust-unit(20px, horizontal));
+
+        bottom: adjust-unit(5px, horizontal);
+        right: adjust-unit(5px, horizontal);
+
+        &-paused {
+            margin-left: adjust-unit(2px, horizontal);
+        }
+
+        &-buffering {
+            &::before,
+            &::after {
+                border-width: adjust-unit(4px, horizontal);
+            }
+        }
+    }
+
+    .stopped-message {
+        left: adjust-unit(20px, horizontal);
+        right: adjust-unit(40px, horizontal);
+    }
+
+    .program-metadata {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .program-name-wrapper {
+        font-size: adjust-unit(17px, horizontal);
+    }
+
+    .program-who {
+        @include pseudo-padding;
+
+        font-size: adjust-unit(10px, horizontal);
+    }
+
+    .program-description {
+        font-size: adjust-unit(10px, horizontal);
+        padding-top: adjust-unit(3px, horizontal);
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .song-metadata {
+        .song-current {
+            bottom: adjust-unit(15px, horizontal);
+            font-size: adjust-unit(11px, horizontal);
+            left: adjust-unit(55px, horizontal);
+            right: adjust-unit(75px, horizontal);
+
+            .mimic {
+                margin-left: adjust-unit(20px, horizontal);
+            }
+
+            &.left-overflow {
+                mask-image: linear-gradient(
+                    to right,
+                    transparent,
+                    $bg-color adjust-unit(15px, horizontal)
+                );
+            }
+
+            &.right-overflow {
+                mask-image: linear-gradient(
+                    to left,
+                    transparent,
+                    $bg-color adjust-unit(15px, horizontal)
+                );
+
+                &.left-overflow {
+                    mask-image: linear-gradient(
+                            to left,
+                            transparent,
+                            $bg-color adjust-unit(15px, horizontal),
+                            $bg-color 51%,
+                            transparent 51%
+                        ),
+                        linear-gradient(
+                            to right,
+                            transparent,
+                            $bg-color adjust-unit(15px, horizontal),
+                            $bg-color 51%,
+                            transparent 51%
+                        );
+                }
+            }
+        }
+    }
+
+    .song-analyser {
+        @media (min-aspect-ratio: 3/1) {
+            left: adjust-unit(130px, horizontal);
+        }
+    }
+
+    .song-progress-wrapper {
+        border-radius: adjust-unit(1.5px, horizontal);
+        bottom: adjust-unit(32px, horizontal);
+        height: adjust-unit(4px, horizontal);
+        left: adjust-unit(20px, horizontal);
+        width: calc(100% - #{adjust-unit(60px, horizontal)});
+
+        .song-progress-fill {
+            border-radius: adjust-unit(1.5px, horizontal);
+        }
+    }
+
+    .song-current-time,
+    .song-total-time {
+        bottom: adjust-unit(20px, horizontal);
+        font-size: adjust-unit(10px, horizontal);
+    }
+
+    .song-current-time {
+        left: adjust-unit(20px, horizontal);
+    }
+
+    .song-total-time {
+        right: adjust-unit(40px, horizontal);
+    }
+
+    .tabs-list-paneless {
+        margin-top: adjust-unit(-10px, horizontal);
+    }
+
+    .tabs-tab-wrapper {
+        flex-basis: 50%;
+    }
+
+    .tabs-tab {
+        @include circle-hover(adjust-unit(12px, horizontal));
+
+        border-radius: adjust-unit(6px, horizontal);
+        height: adjust-unit(30px, horizontal);
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "spec": true,
+                "modules": false,
+                "debug": true
+            }
+        ],
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        [
+            "babel-plugin-transform-builtin-extend",
+            {
+                "globals": ["Audio"]
+            }
+        ]
+    ]
+}

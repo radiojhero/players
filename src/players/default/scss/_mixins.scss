@@ -1,0 +1,118 @@
+@mixin visibility-transition(
+    $props: (),
+    $no-opacity: false,
+    $duration: $transition-duration
+) {
+    @if not $no-opacity {
+        $props: append($props, opacity, comma);
+    }
+
+    $transition-value: ();
+
+    @each $prop in $props {
+        $transition-value: append($transition-value, $prop $duration, comma);
+    }
+
+    transition: $transition-value, visibility 0s 0s;
+
+    &.hidden {
+        @if not $no-opacity {
+            opacity: 0;
+        }
+
+        transition: $transition-value, visibility 0s $duration;
+    }
+}
+
+@mixin ellipsis-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin pseudo-padding {
+    margin: -0.5em 0;
+    padding: 0.5em 0;
+}
+
+@mixin circle-hover-base($color, $night-color: null) {
+    align-items: center;
+    border: solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    color: $color;
+    display: flex;
+    justify-content: center;
+    transition: background-color $transition-duration,
+        color $transition-duration;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: fade-out($color, 0.9);
+    }
+
+    &:focus {
+        border-color: fade-out($color, 0.8);
+        outline: 0;
+    }
+
+    @if $night-color {
+        .night & {
+            color: $night-color;
+
+            &:hover,
+            &:active,
+            &:focus {
+                background-color: fade-out($night-color, 0.9);
+            }
+
+            &:focus {
+                border-color: fade-out($night-color, 0.8);
+            }
+        }
+    }
+}
+
+@mixin circle-hover($font-size) {
+    border-width: ($font-size / 10);
+    font-size: $font-size;
+    height: $font-size * 1.5;
+    width: $font-size * 1.5;
+}
+
+@function adjust-unit($value, $mode) {
+    @if $mode == vertical {
+        @return ($value * 100 / 350px) * 1vw;
+    }
+
+    @if $mode == compact-horizontal {
+        @return ($value * 100 / 260px) * 1vw;
+    }
+
+    @if $mode == horizontal {
+        @return ($value * 100 / 130px) * 1vh;
+    }
+
+    @if $mode == long-horizontal {
+        @return ($value * 100 / 65px) * 1vh;
+    }
+
+    @return $value;
+}
+
+@keyframes ripple {
+    0% {
+        border-color: $main-color;
+        color: $main-color;
+        height: 0;
+        width: 0;
+    }
+
+    100% {
+        border-color: fade-out($main-color, 1);
+        color: fade-out($main-color, 1);
+        height: 100%;
+        width: 100%;
+    }
+}
