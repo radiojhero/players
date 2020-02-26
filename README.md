@@ -10,7 +10,7 @@ Go for the [code generator at the main website][1] instead. Otherwise, if you
 want to _help out with enhancements, bugfixes, or even contribute new players_,
 then read `CONTRIBUTING.md`.
 
-[1]: https://radiojhero.com/player
+[1]: https://radiojhero.com/no-seu-site
 
 ## License
 
