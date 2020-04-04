@@ -1,2 +1,3 @@
 /                                          https://radiojhero.com/no-seu-site     301
 https://radiojhero-player.netlify.com/*    https://player.radiojhero.com/:splat   301!
+https://radiojhero-player.netlify.app/*    https://player.radiojhero.com/:splat   301!
