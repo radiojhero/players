@@ -96,7 +96,7 @@ export default ({
                 {
                     test: /\.html$/,
                     exclude: /node_modules/,
-                    use: ['html-loader?minimize', 'transform-loader?0'],
+                    use: ['html-loader', 'transform-loader?0'],
                 },
                 {
                     test: /\.ts$/,
@@ -145,11 +145,11 @@ export default ({
                         () => {
                             let data = '';
                             return through2(
-                                function(buffer, _, callback) {
+                                function (buffer, _, callback) {
                                     data += buffer;
                                     callback(null, '');
                                 },
-                                function(callback) {
+                                function (callback) {
                                     for (const [k, v] of Object.entries(
                                         settings.defines,
                                     )) {

@@ -22,7 +22,7 @@ if (!Array.from) {
 }
 
 // CustomEvent for IE
-(function() {
+(function () {
     if (typeof window.CustomEvent === 'function') {
         return;
     }
