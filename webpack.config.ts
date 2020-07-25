@@ -133,12 +133,14 @@ export default ({
         plugins: [
             ...(production ? [] : [new webpack.HotModuleReplacementPlugin()]),
             ...(analyze ? [new BundleAnalyzerPlugin()] : []),
-            new CopyPlugin([
-                {
-                    from: path.resolve(__dirname, 'src', 'public'),
-                    to: path.resolve(__dirname, 'dist'),
-                },
-            ]),
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: path.resolve(__dirname, 'src', 'public'),
+                        to: path.resolve(__dirname, 'dist'),
+                    },
+                ],
+            }),
             new webpack.LoaderOptionsPlugin({
                 options: {
                     transforms: [
@@ -147,6 +149,7 @@ export default ({
                             return through2(
                                 function (buffer, _, callback) {
                                     data += buffer;
+                                    // eslint-disable-next-line unicorn/no-null
                                     callback(null, '');
                                 },
                                 function (callback) {
