@@ -74,7 +74,12 @@ export default class MetadataWatcher {
         ajaxGet(
             this._url,
             data => {
-                if (!(this._intervalId && data)) {
+                if (!this._intervalId) {
+                    return;
+                }
+
+                if (!data) {
+                    this._events.fire('metadataerror');
                     return;
                 }
 

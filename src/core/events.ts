@@ -15,6 +15,7 @@ export interface EventDetailMap {
     volumechange: never;
     gotmetadata: Metadata;
     error: never;
+    metadataerror: never;
     songprogress: number;
     castavailabilitychange: never;
 }
