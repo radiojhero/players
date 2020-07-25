@@ -1,10 +1,10 @@
 function zeroFill(value: number, width: number) {
     width -= value.toString().length;
     if (width > 0) {
-        return (
-            new Array(width + (/\./.test(value.toString()) ? 2 : 1)).join('0') +
-            value
-        );
+        const fill = new Array(
+            width + (/\./.test(value.toString()) ? 2 : 1),
+        ).join('0');
+        return `${fill}${value}`;
     }
     return value.toString();
 }

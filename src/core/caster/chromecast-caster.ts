@@ -35,7 +35,7 @@ export default class ChromecastCaster extends Caster {
         }
 
         if (this._chromecastCallbackId !== -1) {
-            remote.cancelWatchAvailability(this._chromecastCallbackId);
+            void remote.cancelWatchAvailability(this._chromecastCallbackId);
             this._chromecastCallbackId = -1;
         }
     };
@@ -45,6 +45,6 @@ export default class ChromecastCaster extends Caster {
     };
 
     public showCastPicker() {
-        this._audio.remote.prompt();
+        void this._audio.remote.prompt();
     }
 }

@@ -25,6 +25,7 @@
     "rules": {
         "prettier/prettier": "error",
         "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/prefer-includes": "off",
         "unicorn/prefer-includes": "off",
@@ -34,6 +35,12 @@
         "unicorn/prefer-spread": "off"
     },
     "settings": {
-        "polyfills": ["Array.from", "CustomEvent"]
+        "polyfills": [
+            "Array.from",
+            "CustomEvent",
+            "MediaMetadata",
+            "navigator.mediaSession",
+            "location.hostname"
+        ]
     }
 }

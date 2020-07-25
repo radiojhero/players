@@ -20,7 +20,7 @@ function setupXhr(
             callback(request.responseText);
         });
         request.addEventListener('error', () => {
-            callback(undefined);
+            callback();
         });
     }
     request.open(verb, url);

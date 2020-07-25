@@ -20,7 +20,7 @@ export function unwrap<T extends WrappableFunction<T>>(
         return toRemove[0].wrapper;
     }
 
-    return undefined;
+    return;
 }
 
 export function wrap<T extends WrappableFunction<T>>(

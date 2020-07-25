@@ -1,6 +1,6 @@
 import { parse, stringify } from 'querystring';
 
-export default (url: string, parameters: object) => {
+export default (url: string, parameters: Record<string, any>) => {
     const path = document.createElement('a');
     path.href = url;
     path.search = `?${stringify({

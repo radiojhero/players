@@ -2,7 +2,7 @@ import css from '../scss/index.scss';
 import { DefaultPlayer } from '.';
 import root from './root';
 
-let currentSongText: string | null | undefined;
+let currentSongText: string | undefined;
 let originalSongTextRight: number;
 let mimickedSongTextLeft: number;
 let marqueeFrame: number;
@@ -99,7 +99,7 @@ function maybeDoMarquee(force = false) {
     currentSongWrapper.classList.remove(css.rightOverflow);
     currentSongWrapper.removeEventListener('mouseenter', pauseMarquee);
     currentSongWrapper.removeEventListener('mouseleave', resumeMarquee);
-    currentSongText = originalSongText?.textContent;
+    currentSongText = originalSongText?.textContent ?? '';
 
     if (mimickedSongText) {
         currentSong.removeChild(mimickedSongText);

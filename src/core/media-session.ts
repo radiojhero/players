@@ -20,7 +20,7 @@ export default class MediaSessionWrapper {
 
         mediaSession.setActionHandler('play', () => {
             mediaSession.playbackState = 'playing';
-            this._player.play();
+            void this._player.play();
         });
         mediaSession.setActionHandler('pause', () => {
             mediaSession.playbackState = 'paused';

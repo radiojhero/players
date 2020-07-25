@@ -16,6 +16,6 @@ export default class CasterFactory {
             }
         }
 
-        return undefined;
+        return;
     }
 }

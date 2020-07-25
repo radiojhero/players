@@ -5,6 +5,7 @@ export default (root: Element, selector: string) => {
 
     const matches = (root.ownerDocument ?? document).querySelectorAll(selector);
     let i: number;
+    // eslint-disable-next-line unicorn/no-null
     let element: Element | null = root;
 
     do {

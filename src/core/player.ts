@@ -15,7 +15,7 @@ import CasterFactory from './caster/factory';
 
 interface ChildPlayer {
     element: Element;
-    parameters: any;
+    parameters: Record<string, any>;
     playerType: string;
     iframe: HTMLIFrameElement;
 }
@@ -191,7 +191,7 @@ export default class Player {
         }
 
         if (this._audioSource) {
-            this._audioSource.context.resume();
+            void this._audioSource.context.resume();
         }
 
         return this._audio.play();
@@ -203,7 +203,7 @@ export default class Player {
 
     public toggle(toggle?: boolean) {
         toggle = toggle === undefined ? !this.playing : toggle;
-        this[toggle ? 'play' : 'pause']();
+        void this[toggle ? 'play' : 'pause']();
     }
 
     public fetchMetadata() {

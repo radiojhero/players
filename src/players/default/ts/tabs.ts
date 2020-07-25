@@ -13,12 +13,14 @@ export function setup() {
 
             selectedTab.removeAttribute('aria-selected');
             document
-                .querySelector('#' + selectedTab.getAttribute('aria-controls'))
+                .querySelector(
+                    `#${selectedTab.getAttribute('aria-controls') ?? ''}`,
+                )
                 ?.classList.add(css.hidden);
 
             target.setAttribute('aria-selected', 'true');
             document
-                .querySelector('#' + target.getAttribute('aria-controls'))
+                .querySelector(`#${target.getAttribute('aria-controls') ?? ''}`)
                 ?.classList.remove(css.hidden);
 
             selectedTab = target;
