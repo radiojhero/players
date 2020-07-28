@@ -52,7 +52,7 @@ export default class MediaSessionWrapper {
                 this._songDuration > 0
                     ? {
                           duration: this._songDuration,
-                          position: event.detail,
+                          position: Math.min(this._songDuration, event.detail),
                       }
                     : {},
             );
