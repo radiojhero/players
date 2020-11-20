@@ -1,8 +1,6 @@
 /* eslint-disable compat/compat */
 
-import * as autoprefixer from 'autoprefixer';
 import * as CopyPlugin from 'copy-webpack-plugin';
-import * as cssnano from 'cssnano';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as through2 from 'through2';
@@ -44,7 +42,7 @@ export default ({
         process.env.PLAYER_SETTINGS || fs.readFileSync(settingsFile, 'utf8'),
     ) as Settings;
 
-    const defines: { [prop: string]: string } = {};
+    const defines: Record<string, string> = {};
     for (const [k, v] of Object.entries(settings.defines)) {
         defines[k] = JSON.stringify(v);
     }
@@ -111,15 +109,18 @@ export default ({
                         {
                             loader: 'css-loader',
                             options: {
-                                modules: true,
-                                localsConvention: 'camelCaseOnly',
+                                modules: {
+                                    exportLocalsConvention: 'camelCaseOnly',
+                                },
                                 importLoaders: 1,
                             },
                         },
                         {
                             loader: 'postcss-loader',
                             options: {
-                                plugins: () => [autoprefixer, cssnano],
+                                postcssOptions: {
+                                    plugins: [['autoprefixer'], ['cssnano']],
+                                },
                             },
                         },
                         'sass-loader',

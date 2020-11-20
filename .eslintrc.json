@@ -28,6 +28,14 @@
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/prefer-includes": "off",
+        "unicorn/import-style": [
+            "error",
+            {
+                "styles": {
+                    "path": false
+                }
+            }
+        ],
         "unicorn/prefer-includes": "off",
         "unicorn/prefer-node-append": "off",
         "unicorn/prefer-node-remove": "off",
