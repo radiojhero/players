@@ -143,9 +143,25 @@
         font-size: adjust-unit(12px, vertical);
         padding-bottom: adjust-unit(5px, vertical);
 
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: adjust-unit(5px, vertical);
+            background: $bg-color;
+            z-index: 1;
+
+            .night & {
+                background: $night-bg-color;
+            }
+        }
+
         &::after {
             left: adjust-unit(10px, vertical);
             right: adjust-unit(10px, vertical);
+            z-index: 2;
         }
     }
 

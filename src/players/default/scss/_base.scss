@@ -466,8 +466,12 @@ img {
 }
 
 .program-description {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
     hyphens: auto;
+    -webkit-line-clamp: 3;
     margin: 0;
+    overflow: hidden;
     position: relative;
 
     &::after {
