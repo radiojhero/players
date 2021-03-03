@@ -41,15 +41,19 @@ function analyseAudio(event?: AudioAnalysis) {
 
         const slicesNumber = Math.round(width / 10);
         const sliceWidth = width / slicesNumber;
-        const sliceValues = new Array<number>(slicesNumber).fill(0);
-        const sliceDivisors = new Array<number>(slicesNumber).fill(0);
+        const sliceValues = Array.from<number>({ length: slicesNumber }).fill(
+            0,
+        );
+        const sliceDivisors = Array.from<number>({ length: slicesNumber }).fill(
+            0,
+        );
         const frequenciesNumber = frequencyData.length / 2;
 
-        for (let i = 0; i < frequenciesNumber; i++) {
+        for (let index = 0; index < frequenciesNumber; index++) {
             const sliceIndex = Math.floor(
-                (i * slicesNumber) / frequenciesNumber,
+                (index * slicesNumber) / frequenciesNumber,
             );
-            sliceValues[sliceIndex] += frequencyData[i];
+            sliceValues[sliceIndex] += frequencyData[index];
             sliceDivisors[sliceIndex]++;
         }
 
@@ -88,9 +92,9 @@ function analyseAudio(event?: AudioAnalysis) {
             }
         });
 
-        for (let i = 0; i < height; i++) {
-            if (i % 2) {
-                canvasContext.clearRect(0, height - i, width, 1);
+        for (let index = 0; index < height; index++) {
+            if (index % 2) {
+                canvasContext.clearRect(0, height - index, width, 1);
             }
         }
     });

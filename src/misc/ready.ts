@@ -1,5 +1,5 @@
 type Callback = () => void;
-const funcs: Callback[] = [];
+const callbacks: Callback[] = [];
 let loaded = /^(?:interactive|complete)$/.test(document.readyState);
 
 if (!loaded) {
@@ -7,17 +7,17 @@ if (!loaded) {
         document.removeEventListener('DOMContentLoaded', listener);
         loaded = true;
 
-        while (funcs.length) {
-            funcs.shift()?.();
+        while (callbacks.length > 0) {
+            callbacks.shift()?.();
         }
     });
 }
 
-export default (func: Callback) => {
+export default (callback: Callback) => {
     if (loaded) {
-        setTimeout(func, 0);
+        setTimeout(callback, 0);
         return;
     }
 
-    funcs.push(func);
+    callbacks.push(callback);
 };

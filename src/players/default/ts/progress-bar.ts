@@ -9,10 +9,12 @@ function updateProgressBar(event: EventObject<number>) {
     const fills = root.queryMultiple<HTMLElement>(css.songProgressFill);
 
     root.queryMultiple<HTMLProgressElement>(css.songProgress).forEach(
-        (element, i) => {
+        (element, index) => {
             element.value = event.detail;
-            fills[i].style.transform = `translateX(${element.position * 100}%)`;
-            if (!i) {
+            fills[index].style.transform = `translateX(${
+                element.position * 100
+            }%)`;
+            if (!index) {
                 root.query(css.songCurrentTime).textContent = formattedValue;
             }
         },

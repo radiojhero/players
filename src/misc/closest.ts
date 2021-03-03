@@ -4,17 +4,17 @@ export default (root: Element, selector: string) => {
     }
 
     const matches = (root.ownerDocument ?? document).querySelectorAll(selector);
-    let i: number;
+    let index: number;
     // eslint-disable-next-line unicorn/no-null
     let element: Element | null = root;
 
     do {
-        i = matches.length;
-        while (--i >= 0 && matches.item(i) !== element) {
+        index = matches.length;
+        while (--index >= 0 && matches.item(index) !== element) {
             /* no-op */
         }
         element = element.parentElement;
-    } while (i < 0 && element);
+    } while (index < 0 && element);
 
     return element;
 };

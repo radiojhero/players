@@ -42,7 +42,7 @@ declare interface HTMLAudioElement {
         type: 'webkitplaybacktargetavailabilitychanged',
         listener: (
             this: HTMLAudioElement,
-            ev: WebKitPlaybackTargetAvailabilityEvent,
+            event: WebKitPlaybackTargetAvailabilityEvent,
         ) => any,
         options?: boolean | AddEventListenerOptions,
     ): void;
@@ -55,7 +55,7 @@ declare interface HTMLAudioElement {
         type: 'webkitplaybacktargetavailabilitychanged',
         listener: (
             this: HTMLAudioElement,
-            ev: WebKitPlaybackTargetAvailabilityEvent,
+            event: WebKitPlaybackTargetAvailabilityEvent,
         ) => any,
         options?: boolean | EventListenerOptions,
     ): void;

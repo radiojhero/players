@@ -6,14 +6,14 @@ interface WrappableFunction<T> extends Function {
 }
 
 export function unwrap<T extends WrappableFunction<T>>(
-    func: T,
+    callback: T,
     ...guards: unknown[]
 ) {
-    if (func.__wrappers__ !== undefined) {
-        const toRemove = func.__wrappers__.filter(entry =>
+    if (callback.__wrappers__ !== undefined) {
+        const toRemove = callback.__wrappers__.filter(entry =>
             guards.every(item => entry.guards.indexOf(item) !== -1),
         );
-        func.__wrappers__ = func.__wrappers__.filter(
+        callback.__wrappers__ = callback.__wrappers__.filter(
             entry => toRemove.indexOf(entry) === -1,
         );
 
@@ -24,15 +24,15 @@ export function unwrap<T extends WrappableFunction<T>>(
 }
 
 export function wrap<T extends WrappableFunction<T>>(
-    func: T,
+    callback: T,
     wrapper: T,
     ...guards: unknown[]
 ) {
-    if (func.__wrappers__ === undefined) {
-        func.__wrappers__ = [];
+    if (callback.__wrappers__ === undefined) {
+        callback.__wrappers__ = [];
     }
 
-    unwrap(func, ...guards);
-    func.__wrappers__.push({ guards, wrapper });
+    unwrap(callback, ...guards);
+    callback.__wrappers__.push({ guards, wrapper });
     return wrapper;
 }

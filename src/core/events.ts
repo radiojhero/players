@@ -5,7 +5,7 @@ export interface EventObject<T = any> {
     detail: T;
 }
 
-type EventHandler<T = any> = (e: EventObject<T>) => void;
+type EventHandler<T = any> = (event: EventObject<T>) => void;
 export type EventHandlers<T = any> = EventHandler<T> | EventHandler<T>[];
 
 export interface EventDetailMap {
@@ -65,7 +65,7 @@ export default class Events {
 
     public hasBindings(types: string, all = false) {
         return this._initTypes(types)[all ? 'every' : 'some'](
-            type => !!this._callbacks[type].length,
+            type => this._callbacks[type].length > 0,
         );
     }
 

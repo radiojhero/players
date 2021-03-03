@@ -31,7 +31,7 @@ export default class SimpleQuery {
     public addDelegateEventListener(
         event: string,
         delegate: string,
-        callback: (e: Event) => void,
+        callback: (event: Event) => void,
     ) {
         delegate = `.${delegate}`;
 
@@ -52,7 +52,7 @@ export default class SimpleQuery {
     public removeDelegateEventListener(
         event: string,
         delegate: string,
-        callback: (e: Event) => void,
+        callback: (event: Event) => void,
     ) {
         const listener = wrapper.unwrap(
             callback,
