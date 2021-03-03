@@ -7,7 +7,7 @@ function setupXhr(
     url: string,
     callback?: AjaxCallback,
     data?: Document | BodyInit,
-    credentials = true,
+    credentials = false,
     bustCache = false,
 ) {
     if (bustCache) {
@@ -24,14 +24,18 @@ function setupXhr(
         });
     }
     request.open(verb, url);
-    request.withCredentials = credentials;
+
+    if (credentials) {
+        request.withCredentials = credentials;
+    }
+
     request.send(data);
 }
 
 export function ajaxGet(
     url: string,
     callback?: AjaxCallback,
-    credentials = true,
+    credentials = false,
     bustCache = false,
 ) {
     setupXhr('GET', url, callback, undefined, credentials, bustCache);
@@ -41,7 +45,7 @@ export function ajaxPost(
     url: string,
     data: Document | BodyInit,
     callback?: AjaxCallback,
-    credentials = true,
+    credentials = false,
     bustCache = false,
 ) {
     setupXhr('POST', url, callback, data, credentials, bustCache);
