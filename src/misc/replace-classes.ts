@@ -4,7 +4,7 @@ function camelcase(cls: string) {
 
 export default function replaceClasses(
     html: string,
-    css: { [prop: string]: string },
+    css: Record<string, string>,
 ) {
     function substitute(s0: string, s1: string, s2: string) {
         return (
@@ -17,10 +17,10 @@ export default function replaceClasses(
     }
 
     return html
-        .replace(/(<.*?\sclass=")([^"]+)/g, substitute)
-        .replace(/(<.*?\sclass=')([^']+)/g, substitute)
+        .replace(/(<[\S\s]*?\sclass=")([^"]+)/g, substitute)
+        .replace(/(<[\S\s]*?\sclass=')([^']+)/g, substitute)
         .replace(
-            /(<.*?\sclass=)([^\s"'<=>`]+)/g,
+            /(<[\S\s]*?\sclass=)([^\s"'<=>`]+)/g,
             (s0, s1: string, s2: string) => {
                 let string = substitute(s0, s1, s2);
 
