@@ -5,19 +5,19 @@ import css from '../scss/index.scss';
 let requestsLoaded = false;
 
 function toggleRequestFields(requests: HTMLElement, value: string) {
-    Array.from(
+    for (const element of Array.from(
         requests.querySelectorAll<HTMLElement>('[data-dependson]'),
-    ).forEach(element => {
+    )) {
         const toggle = element.dataset.value === value;
         element.style.display = toggle ? '' : 'none';
-        Array.from(
+        for (const input of Array.from(
             element.querySelectorAll<HTMLInputElement>(
                 'input, select, textarea',
             ),
-        ).forEach(input => {
+        )) {
             input.disabled = !toggle;
-        });
-    });
+        }
+    }
 }
 
 function parseForm(data?: string) {
@@ -40,7 +40,15 @@ function parseForm(data?: string) {
         return;
     }
 
-    requests.querySelector('form')?.addEventListener('submit', event => {
+    const form = requests.querySelector('form');
+
+    if (!form) {
+        requests.innerHTML =
+            document.querySelector('#container')?.innerHTML ?? '';
+        return;
+    }
+
+    form.addEventListener('submit', event => {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
         form.classList.add(css.hidden);
