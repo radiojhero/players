@@ -4,6 +4,25 @@ import css from '../scss/index.scss';
 
 let requestsLoaded = false;
 
+function validateForm(data?: string) {
+    if (!data) {
+        requestsLoaded = false;
+        return;
+    }
+
+    if (data === 'true') {
+        const requests = document.querySelector('#requests') as HTMLElement;
+        requests.classList.add(css.requests);
+        requests.innerHTML =
+            '<p>Pedido enviado com sucesso. Cabe exclusivamente ao DJ no ar atendê-lo ou não.</p>';
+        requestsLoaded = false;
+        return;
+    }
+
+    alert(data);
+    document.querySelector('#requests form')?.classList.remove(css.hidden);
+}
+
 function parseForm(data?: string) {
     if (!data) {
         requestsLoaded = false;
@@ -24,15 +43,7 @@ function parseForm(data?: string) {
         return;
     }
 
-    const form = requests.querySelector('form');
-
-    if (!form) {
-        requests.innerHTML =
-            document.querySelector('#container')?.outerHTML ?? '';
-        return;
-    }
-
-    form.addEventListener('submit', event => {
+    requests.querySelector('form')?.addEventListener('submit', event => {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
         form.classList.add(css.hidden);
@@ -42,7 +53,8 @@ function parseForm(data?: string) {
             data.set('aba', 'recado');
         }
 
-        ajaxPost(MAIN_WEBSITE_REQUESTS, data, parseForm);
+        data.set('is_app', 'true');
+        ajaxPost(form.action, data, validateForm);
     });
 }
 
