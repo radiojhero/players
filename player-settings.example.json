@@ -32,7 +32,6 @@
         "MAIN_WEBSITE_LISTEN": "http://example.com/listen",
         "LISTEN_URL": "http://listen.example.com/",
         "LISTEN_MANUAL_URL": "http://listen.example.com/l",
-        "SONG_REQUEST_URL": "http://example.com/requests",
         "TRACKER_URL": "http://example.com/track"
     },
     "banner": "My Cool Banner"

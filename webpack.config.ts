@@ -27,7 +27,6 @@ interface Settings {
         MAIN_WEBSITE_LISTEN: string;
         LISTEN_URL: string;
         LISTEN_MANUAL_URL: string;
-        SONG_REQUEST_URL: string;
     };
     banner: string;
 }

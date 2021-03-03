@@ -296,26 +296,40 @@
         }
     }
 
-    .widget {
-        border-top-width: adjust-unit(1px, vertical);
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin: adjust-unit(5px, vertical) 0;
 
-        button {
-            &[type='submit'] {
-                @include circle-hover-base($main-color);
-                @include circle-hover(adjust-unit(12px, vertical));
-
-                border-radius: adjust-unit(3px, vertical);
-                height: auto;
-                width: auto;
-            }
-        }
-
-        .label {
-            width: adjust-unit(100px, vertical);
+        input,
+        textarea {
+            border: 0;
+            border-bottom: adjust-unit(1px, vertical) solid;
+            color: inherit;
+            flex: 1;
+            font: inherit;
+            margin: 0 0 0 adjust-unit(10px, vertical);
+            outline: 0;
+            padding: 0;
         }
 
         textarea {
             height: adjust-unit(35px, vertical);
+            resize: none;
+        }
+    }
+
+    .text-center {
+        justify-content: center;
+
+        button {
+            @include circle-hover-base($main-color);
+            @include circle-hover(adjust-unit(12px, vertical));
+
+            border-radius: adjust-unit(3px, vertical);
+            height: auto;
+            padding: adjust-unit(2px, vertical) adjust-unit(5px, vertical);
+            width: auto;
         }
     }
 
