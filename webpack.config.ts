@@ -1,8 +1,9 @@
 /* eslint-disable compat/compat */
 
-import * as CopyPlugin from 'copy-webpack-plugin';
 import * as fs from 'fs';
 import * as path from 'path';
+
+import * as CopyPlugin from 'copy-webpack-plugin';
 import * as through2 from 'through2';
 import * as webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -51,13 +52,6 @@ export default ({
         .readdirSync(path.resolve(context, 'players'))
         .filter(file => fs.statSync(`./src/players/${file}`).isDirectory());
 
-    const developmentEntries = production
-        ? []
-        : [
-              `webpack-dev-server/client?http://0.0.0.0:${port}`,
-              'webpack/hot/only-dev-server',
-          ];
-
     return {
         mode: production ? 'production' : 'development',
         optimization: {
@@ -69,7 +63,6 @@ export default ({
 
             for (const player of players) {
                 entries[`players/${player}`] = [
-                    ...developmentEntries,
                     './other/polyfills.ts',
                     `./players/${player}/index.ts`,
                 ];
@@ -131,7 +124,6 @@ export default ({
             extensions: ['.ts', '.js'],
         },
         plugins: [
-            ...(production ? [] : [new webpack.HotModuleReplacementPlugin()]),
             ...(analyze ? [new BundleAnalyzerPlugin()] : []),
             new CopyPlugin({
                 patterns: [
@@ -179,13 +171,14 @@ export default ({
         devtool: 'source-map',
         devServer: {
             hot: true,
-            contentBase: path.resolve(__dirname, 'dist'),
-            compress: true,
-            host: '0.0.0.0',
+            host: 'local-ip',
             port,
-            publicPath: '/',
-            watchOptions: {
-                poll: 1000,
+            static: {
+                directory: path.resolve(__dirname, 'dist'),
+                watch: true,
+            },
+            devMiddleware: {
+                publicPath: '/',
             },
         },
     };
