@@ -1,13 +1,3 @@
-declare interface MediaSession {
-    setPositionState?(state: MediaPositionState): void;
-}
-
-declare interface MediaPositionState {
-    duration?: number;
-    playbackRate?: number;
-    position?: number;
-}
-
 declare interface RemotePlayback extends EventTarget {
     watchAvailability(
         callback: RemotePlaybackAvailabilityCallback,

@@ -72,6 +72,6 @@ export default class MediaSessionWrapper {
     }
 
     private _setPosition(state: MediaPositionState) {
-        mediaSession?.setPositionState?.({ duration: 0, ...state });
+        mediaSession?.setPositionState({ duration: 0, ...state });
     }
 }
