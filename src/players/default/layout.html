@@ -1,4 +1,4 @@
-<svg style="display: none;">
+<svg style="display: none">
     <symbol id="play" viewBox="0 0 54.3915558 59.8793144">
         <title>Play</title>
         <path
@@ -200,8 +200,39 @@
                     id="requests"
                     aria-labelledby="requests-tab"
                     role="tabpanel"
-                    class="pane"
-                ></div>
+                    class="pane requests"
+                >
+                    <form action="SONG_REQUEST_URL" method="post">
+                        <div class="form-group">
+                            <label for="request-name">Nome ou apelido</label>
+                            <input
+                                required
+                                minlength="3"
+                                id="request-name"
+                                name="nome"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="request-song">Música pedida</label>
+                            <input
+                                minlength="8"
+                                id="request-song"
+                                name="pedido"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="request-message">Recado</label>
+                            <textarea
+                                minlength="10"
+                                id="request-message"
+                                name="recado"
+                            ></textarea>
+                        </div>
+                        <div class="form-group buttons">
+                            <button type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
 
                 <div
                     id="timetable"

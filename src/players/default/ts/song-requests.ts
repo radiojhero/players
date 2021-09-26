@@ -1,75 +1,50 @@
-import { ajaxGet, ajaxPost } from '../../../misc/ajax';
-import replaceClasses from '../../../misc/replace-classes';
-import css from '../scss/index.scss';
+import { ajaxPost } from '../../../misc/ajax';
 
-let requestsLoaded = false;
+function toggleControls(form: HTMLElement, disabled: boolean) {
+    const button = form.querySelector('button');
 
-function validateForm(data?: string) {
-    if (!data) {
-        requestsLoaded = false;
+    if (!button) {
         return;
     }
 
-    if (data === 'true') {
-        const requests = document.querySelector('#requests') as HTMLElement;
-        requests.classList.add(css.requests);
-        requests.innerHTML =
-            '<p>Pedido enviado com sucesso. Cabe exclusivamente ao DJ no ar atendê-lo ou não.</p>';
-        requestsLoaded = false;
-        return;
-    }
-
-    alert(data);
-    document.querySelector('#requests form')?.classList.remove(css.hidden);
+    button.disabled = disabled;
 }
 
-function parseForm(data?: string) {
-    if (!data) {
-        requestsLoaded = false;
-        return;
-    }
+function onSubmit(event: Event) {
+    event.preventDefault();
 
-    data = data
-        .replace(/^[\S\s]*(?=<form)/i, '')
-        .replace(/(<\/form>)[\S\s]*$/i, '$1');
-    const requests = document.querySelector('#requests') as HTMLElement;
+    const form = event.currentTarget as HTMLFormElement;
+    const body = new FormData(form);
+    body.append('email', 'deprecated@example.com');
+    body.append('cidade', 'deprecated');
+    body.append(
+        'aba',
+        document.querySelector<HTMLInputElement>('#request-song')?.value
+            ? 'pedido'
+            : 'recado',
+    );
+    body.append('request', 'ODAwOA==');
+    body.append('is_app', 'true');
 
-    requests.classList.add(css.requests);
-    requests.innerHTML = replaceClasses(data, css);
+    toggleControls(form, true);
 
-    if (requests.querySelectorAll(`.${css.success}`).length > 0) {
-        requests.classList.remove(css.requests);
-        requestsLoaded = false;
-        return;
-    }
-
-    requests.querySelector('form')?.addEventListener('submit', event => {
-        event.preventDefault();
-        const form = event.target as HTMLFormElement;
-        form.classList.add(css.hidden);
-        const data = new FormData(form);
-
-        if (!data.get('song')) {
-            data.set('aba', 'recado');
+    ajaxPost(form.action, body, data => {
+        if (data !== 'true') {
+            alert(data);
+            toggleControls(form, false);
+            return;
         }
 
-        data.set('is_app', 'true');
-        ajaxPost(form.action, data, validateForm);
+        alert(
+            'Pedido enviado com sucesso. Cabe exclusivamente ao DJ no ar atendê-lo ou não.',
+        );
+        toggleControls(form, false);
+        form.reset();
     });
 }
 
-export function setupRequests(force = false) {
-    if (!force && requestsLoaded) {
-        return;
-    }
-
-    const requests = document.querySelector('#requests');
-    if (!requests) {
-        return;
-    }
-
-    requests.innerHTML = 'Carregando...';
-
-    requestsLoaded = true;
-    ajaxGet(MAIN_WEBSITE_REQUESTS, parseForm);
+export function setupRequests() {
+    const form = document.querySelector<HTMLFormElement>('#requests form');
+    form?.removeEventListener('submit', onSubmit);
+    form?.addEventListener('submit', onSubmit);
 }

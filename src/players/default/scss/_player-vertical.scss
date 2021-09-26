@@ -297,29 +297,35 @@
     }
 
     .form-group {
-        display: flex;
-        align-items: center;
         margin: adjust-unit(5px, vertical) 0;
+
+        label,
+        input,
+        textarea {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
 
         input,
         textarea {
-            border: 0;
-            border-bottom: adjust-unit(1px, vertical) solid;
+            border: adjust-unit(1px, vertical) solid rgba($main-color, 0.75);
+            border-radius: adjust-unit(3px, vertical);
             color: inherit;
             flex: 1;
             font: inherit;
-            margin: 0 0 0 adjust-unit(10px, vertical);
             outline: 0;
-            padding: 0;
+            padding: adjust-unit(1px, vertical) adjust-unit(3px, vertical);
         }
 
         textarea {
-            height: adjust-unit(35px, vertical);
+            height: adjust-unit(40px, vertical);
             resize: none;
         }
     }
 
-    .text-center {
+    .buttons {
+        display: flex;
         justify-content: center;
 
         button {
