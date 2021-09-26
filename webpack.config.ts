@@ -171,7 +171,6 @@ export default ({
         devtool: 'source-map',
         devServer: {
             hot: true,
-            host: 'local-ip',
             port,
             static: {
                 directory: path.resolve(__dirname, 'dist'),
