@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as CopyPlugin from 'copy-webpack-plugin';
 import * as through2 from 'through2';
 import * as webpack from 'webpack';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 interface Settings {
@@ -56,6 +57,11 @@ export default ({
         mode: production ? 'production' : 'development',
         optimization: {
             splitChunks: false,
+            minimizer: [
+                new TerserPlugin({
+                    extractComments: false,
+                }),
+            ],
         },
         context,
         entry: (() => {

@@ -60,6 +60,7 @@
         "stylelint-no-unsupported-browser-features": "^5.0.2",
         "stylelint-prettier": "^1.2.0",
         "stylelint-scss": "^3.21.0",
+        "terser-webpack-plugin": "^5.2.4",
         "through2": "^4.0.2",
         "transform-loader": "^0.2.4",
         "ts-node": "^10.2.1",
