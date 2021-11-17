@@ -1,8 +1,7 @@
 {
     "plugins": ["stylelint-no-unsupported-browser-features"],
     "extends": [
-        "stylelint-config-standard",
-        "stylelint-config-recommended-scss",
+        "stylelint-config-standard-scss",
         "stylelint-prettier/recommended"
     ],
     "rules": {
