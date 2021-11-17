@@ -118,6 +118,11 @@
         &:focus + div > .volume-range-thumb {
             box-shadow: 0 0 0 adjust-unit(2px, horizontal)
                 fade-out($main-color, 0.75);
+
+            .night & {
+                box-shadow: 0 0 0 adjust-unit(2px, horizontal)
+                    fade-out($night-main-color, 0.75);
+            }
         }
     }
 

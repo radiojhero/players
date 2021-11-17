@@ -91,6 +91,11 @@
         &:focus + div > .volume-range-thumb {
             box-shadow: 0 0 0 adjust-unit(2px, vertical)
                 fade-out($main-color, 0.75);
+
+            .night & {
+                box-shadow: 0 0 0 adjust-unit(2px, vertical)
+                    fade-out($night-main-color, 0.75);
+            }
         }
     }
 
@@ -316,6 +321,10 @@
             font: inherit;
             outline: 0;
             padding: adjust-unit(1px, vertical) adjust-unit(3px, vertical);
+
+            .night & {
+                border-color: rgba($night-main-color, 0.75);
+            }
         }
 
         textarea {
@@ -329,7 +338,7 @@
         justify-content: center;
 
         button {
-            @include circle-hover-base($main-color);
+            @include circle-hover-base($main-color, $night-main-color);
             @include circle-hover(adjust-unit(12px, vertical));
 
             border-radius: adjust-unit(3px, vertical);
@@ -341,7 +350,7 @@
 
     .playlist-li {
         .playlist-link {
-            @include circle-hover-base($main-color);
+            @include circle-hover-base($main-color, $night-main-color);
             @include circle-hover(adjust-unit(18px, vertical));
 
             border-radius: adjust-unit(6px, vertical);

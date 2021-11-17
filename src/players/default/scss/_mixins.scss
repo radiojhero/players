@@ -116,3 +116,19 @@
         width: 100%;
     }
 }
+
+@keyframes night-ripple {
+    0% {
+        border-color: $night-main-color;
+        color: $night-main-color;
+        height: 0;
+        width: 0;
+    }
+
+    100% {
+        border-color: fade-out($night-main-color, 1);
+        color: fade-out($night-main-color, 1);
+        height: 100%;
+        width: 100%;
+    }
+}

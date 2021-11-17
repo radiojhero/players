@@ -46,11 +46,20 @@ a {
     transition: background-color $transition-duration,
         color $transition-duration;
 
+    .night & {
+        color: darken($night-main-color, 15%);
+    }
+
     &:hover,
     &:active,
     &:focus {
         background-color: fade-out($main-color, 0.9);
         color: $main-color;
+
+        .night & {
+            background-color: fade-out($night-main-color, 0.9);
+            color: $night-main-color;
+        }
     }
 
     &:focus {
@@ -126,7 +135,7 @@ svg {
 }
 
 .logo {
-    @include circle-hover-base($main-color);
+    @include circle-hover-base($main-color, $night-main-color);
 
     position: absolute;
     z-index: 2;
@@ -228,11 +237,19 @@ img {
     margin-right: 0.4em;
     position: relative;
 
+    .night & {
+        border-left-color: $night-main-color;
+    }
+
     &::before,
     &::after {
         border-left: solid $main-color;
         content: '';
         position: absolute;
+
+        .night & {
+            border-left-color: $night-main-color;
+        }
     }
 
     &::before {
@@ -362,6 +379,10 @@ img {
     position: absolute;
     top: 0;
     width: 50%;
+
+    .night & {
+        background: $night-main-color;
+    }
 }
 
 .volume-range-track {
@@ -386,10 +407,14 @@ img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+
+    .night & {
+        border-color: $night-main-color;
+    }
 }
 
 .play-btn {
-    @include circle-hover-base($main-color);
+    @include circle-hover-base($main-color, $night-main-color);
 
     position: absolute;
     z-index: 2;
@@ -405,6 +430,10 @@ img {
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
+
+            .night & {
+                animation-name: night-ripple;
+            }
         }
 
         &::after {
@@ -456,6 +485,10 @@ img {
 
     color: $main-color;
     margin: 0;
+
+    .night & {
+        color: $night-main-color;
+    }
 }
 
 .program-dj {
@@ -480,6 +513,10 @@ img {
         bottom: 0;
         content: '';
         position: absolute;
+
+        .night & {
+            border-bottom-color: $night-main-color;
+        }
     }
 }
 
@@ -520,6 +557,7 @@ img {
 
     .night & {
         border-color: $night-text-color;
+        color: $night-main-color;
     }
 
     .song-metadata & {
@@ -554,6 +592,10 @@ img {
     position: absolute;
     top: 0;
     width: 100%;
+
+    .night & {
+        background-color: $night-main-color;
+    }
 }
 
 .song-progress-time {
@@ -570,6 +612,10 @@ img {
 
 .song-total-time {
     color: $main-color;
+
+    .night & {
+        color: $night-main-color;
+    }
 }
 
 .song-current {
@@ -625,7 +671,7 @@ img {
 }
 
 .tabs-tab {
-    @include circle-hover-base($main-color);
+    @include circle-hover-base($main-color, $night-main-color);
 
     color: inherit !important;
     flex-flow: column;
@@ -644,6 +690,10 @@ img {
     &:active,
     &:focus {
         color: $main-color !important;
+
+        .night & {
+            color: $night-main-color;
+        }
     }
 }
 
@@ -673,6 +723,10 @@ img {
     transition-timing-function: $ease-out-quad;
     z-index: 2;
 
+    .night & {
+        color: $night-main-color;
+    }
+
     &.requests {
         justify-content: flex-start;
     }
@@ -685,6 +739,11 @@ img {
         position: absolute;
         top: 0;
         transform: translateX(-50%) translateY(-50%) rotate(45deg);
+
+        .night & {
+            border-color: $night-main-color transparent transparent
+                $night-main-color;
+        }
     }
 
     @for $i from 1 through $number-of-panes {
