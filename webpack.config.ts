@@ -3,6 +3,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+// eslint-disable-next-line import/namespace
 import * as CopyPlugin from 'copy-webpack-plugin';
 import * as through2 from 'through2';
 import * as webpack from 'webpack';
@@ -128,6 +129,7 @@ export default ({
         },
         resolve: {
             extensions: ['.ts', '.js'],
+            fallback: { querystring: require.resolve('querystring-es3') },
         },
         plugins: [
             ...(analyze ? [new BundleAnalyzerPlugin()] : []),

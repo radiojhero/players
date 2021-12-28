@@ -66,5 +66,8 @@
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.7.1"
+    },
+    "dependencies": {
+        "querystring-es3": "^0.2.1"
     }
 }
