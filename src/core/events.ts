@@ -33,7 +33,8 @@ type EventCallbacksInternal = {
 };
 
 export default class Events {
-    private readonly _callbacks: EventCallbacksInternal = {} as EventCallbacksInternal;
+    private readonly _callbacks: EventCallbacksInternal =
+        {} as EventCallbacksInternal;
 
     public on(events: EventCallbacks): void;
     public on<T extends keyof EventDetailMap>(

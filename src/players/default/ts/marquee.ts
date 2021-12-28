@@ -79,9 +79,8 @@ function resumeMarquee() {
 function maybeDoMarquee(force = false) {
     const currentSongWrapper = root.query(css.songCurrent);
     const currentSong = root.query<HTMLElement>(css.songCurrentScrollable);
-    const originalSongText = currentSong.querySelector<HTMLElement>(
-        'span:not([class])',
-    );
+    const originalSongText =
+        currentSong.querySelector<HTMLElement>('span:not([class])');
     let mimickedSongText = originalSongText?.nextSibling as HTMLElement;
 
     if (!force && currentSongText === originalSongText?.textContent) {

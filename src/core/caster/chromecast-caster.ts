@@ -10,9 +10,9 @@ export default class ChromecastCaster extends Caster {
         super(audio, events);
 
         const remote = audio.remote;
-        remote.onconnect = this._updateStatus;
-        remote.onconnecting = this._updateStatus;
-        remote.ondisconnect = this._updateStatus;
+        remote.addEventListener('connect', this._updateStatus);
+        remote.addEventListener('connecting', this._updateStatus);
+        remote.addEventListener('disconnect', this._updateStatus);
         this._updateStatus();
     }
 

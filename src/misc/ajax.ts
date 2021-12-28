@@ -6,7 +6,7 @@ function setupXhr(
     verb: string,
     url: string,
     callback?: AjaxCallback,
-    data?: Document | BodyInit,
+    data?: Document | XMLHttpRequestBodyInit,
     credentials = false,
     bustCache = false,
 ) {
@@ -43,7 +43,7 @@ export function ajaxGet(
 
 export function ajaxPost(
     url: string,
-    data: Document | BodyInit,
+    data: Document | XMLHttpRequestBodyInit,
     callback?: AjaxCallback,
     credentials = false,
     bustCache = false,
