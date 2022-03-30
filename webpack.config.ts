@@ -5,10 +5,11 @@ import * as path from 'path';
 
 // eslint-disable-next-line import/namespace
 import * as CopyPlugin from 'copy-webpack-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import * as through2 from 'through2';
 import * as webpack from 'webpack';
-import * as TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import type { Configuration } from 'webpack-dev-server';
 
 interface Settings {
     defines: {
@@ -33,6 +34,17 @@ interface Settings {
     };
     banner: string;
 }
+
+const wdsConfiguration: Configuration = {
+    hot: true,
+    static: {
+        directory: path.resolve(__dirname, 'dist'),
+        watch: true,
+    },
+    devMiddleware: {
+        publicPath: '/',
+    },
+};
 
 export default ({
     production = false,
@@ -177,16 +189,6 @@ export default ({
             }),
         ],
         devtool: 'source-map',
-        devServer: {
-            hot: true,
-            port,
-            static: {
-                directory: path.resolve(__dirname, 'dist'),
-                watch: true,
-            },
-            devMiddleware: {
-                publicPath: '/',
-            },
-        },
+        devServer: { ...wdsConfiguration, port },
     };
 };
