@@ -1,16 +1,23 @@
+@use 'sass:list';
+@use 'sass:math';
+
 @mixin visibility-transition(
     $props: (),
     $no-opacity: false,
     $duration: $transition-duration
 ) {
     @if not $no-opacity {
-        $props: append($props, opacity, comma);
+        $props: list.append($props, opacity, comma);
     }
 
     $transition-value: ();
 
     @each $prop in $props {
-        $transition-value: append($transition-value, $prop $duration, comma);
+        $transition-value: list.append(
+            $transition-value,
+            $prop $duration,
+            comma
+        );
     }
 
     transition: $transition-value, visibility 0s 0s;
@@ -75,7 +82,7 @@
 }
 
 @mixin circle-hover($font-size) {
-    border-width: ($font-size / 10);
+    border-width: math.div($font-size, 10);
     font-size: $font-size;
     height: $font-size * 1.5;
     width: $font-size * 1.5;
@@ -83,19 +90,19 @@
 
 @function adjust-unit($value, $mode) {
     @if $mode == vertical {
-        @return ($value * 100 / 350px) * 1vw;
+        @return math.div($value * 100, 350px) * 1vw;
     }
 
     @if $mode == compact-horizontal {
-        @return ($value * 100 / 260px) * 1vw;
+        @return math.div($value * 100, 260px) * 1vw;
     }
 
     @if $mode == horizontal {
-        @return ($value * 100 / 130px) * 1vh;
+        @return math.div($value * 100, 130px) * 1vh;
     }
 
     @if $mode == long-horizontal {
-        @return ($value * 100 / 65px) * 1vh;
+        @return math.div($value * 100, 65px) * 1vh;
     }
 
     @return $value;

@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'sass:math';
+
 html {
     background: $bg-color;
     color: $text-color;
@@ -8,7 +11,7 @@ html {
     text-size-adjust: 100%;
 
     &.sys-ui {
-        font-family: system-ui, '-apple-system', BlinkMacSystemFont;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont;
     }
 
     &.night {
@@ -42,12 +45,12 @@ button {
 }
 
 a {
-    color: darken($main-color, 15%);
+    color: color.adjust($main-color, $lightness: -15%);
     transition: background-color $transition-duration,
         color $transition-duration;
 
     .night & {
-        color: darken($night-main-color, 15%);
+        color: color.adjust($night-main-color, $lightness: -15%);
     }
 
     &:hover,
@@ -70,7 +73,7 @@ a {
 code {
     background: fade-out($text-color, 0.95);
     border-radius: 0.5em;
-    font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Ubuntu Mono',
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Ubuntu Mono',
         'Liberation Mono', Courier, monospace;
     font-size: 85%;
     padding: 0.2em 0;
@@ -87,7 +90,7 @@ code {
 }
 
 svg {
-    fill: currentColor;
+    fill: currentcolor;
     pointer-events: none;
 }
 
@@ -151,7 +154,7 @@ svg {
 .banner {
     @include visibility-transition;
 
-    background: currentColor;
+    background: currentcolor;
 
     .night & {
         color: $black;
@@ -437,12 +440,12 @@ img {
         }
 
         &::after {
-            animation-delay: -$animation-duration / 2;
+            animation-delay: math.div(-$animation-duration, 2);
         }
     }
 
     &-playing {
-        color: currentColor;
+        color: currentcolor;
     }
 }
 
@@ -477,7 +480,7 @@ img {
 }
 
 .program-name {
-    color: currentColor;
+    color: currentcolor;
 }
 
 .program-who {
@@ -496,11 +499,12 @@ img {
 }
 
 .program-genre {
-    color: currentColor;
+    color: currentcolor;
 }
 
 .program-description {
     -webkit-box-orient: vertical;
+    // stylelint-disable-next-line value-no-vendor-prefix
     display: -webkit-box;
     hyphens: auto;
     -webkit-line-clamp: 3;
@@ -749,7 +753,8 @@ img {
     @for $i from 1 through $number-of-panes {
         &:nth-child(#{$i}) {
             &::before {
-                left: $i * 100% / $number-of-panes - 50% / $number-of-panes;
+                left: math.div($i * 100%, $number-of-panes) -
+                    math.div(50%, $number-of-panes);
             }
         }
     }
@@ -769,7 +774,7 @@ form {
         margin-right: 0.5em;
 
         .success {
-            color: currentColor;
+            color: currentcolor;
         }
     }
 }
