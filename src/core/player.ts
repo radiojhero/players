@@ -93,19 +93,19 @@ export default class Player {
 
         ready(() => {
             const id = `${PLAYER_NAMESPACE}-container`;
-            const elems = document.querySelectorAll(`.${id}`);
+            const elements = document.querySelectorAll<HTMLElement>(`.${id}`);
 
-            Array.from(elems).forEach(element => {
+            Array.from(elements).forEach(element => {
                 element.classList.remove(id);
                 element.classList.add(`${id}-processed`);
 
                 if (getComputedStyle(element).position === 'static') {
-                    (element as HTMLElement).style.position = 'relative';
+                    element.style.position = 'relative';
                 }
 
-                (element as HTMLElement).style.overflow = 'hidden';
+                element.style.overflow = 'hidden';
 
-                const playerType = element.getAttribute('data-type');
+                const playerType = element.dataset.type;
                 const iframe = document.createElement('iframe');
 
                 if (!playerType || /[^\da-z]/i.test(playerType)) {
@@ -125,7 +125,7 @@ export default class Player {
 
                 iframe.src = 'about:blank';
 
-                const dataParameters = element.getAttribute('data-params');
+                const dataParameters = element.dataset.params;
                 let parameters: ParsedUrlQuery = {};
                 if (dataParameters) {
                     parameters = parse(dataParameters);
