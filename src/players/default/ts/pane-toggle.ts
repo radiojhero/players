@@ -5,7 +5,9 @@ import { setupRequests } from './song-requests';
 function togglePanes(toggle: boolean) {
     root.query(css.mainPane).classList[toggle ? 'add' : 'remove'](css.hidden);
     root.query(css.extraPane).classList[toggle ? 'remove' : 'add'](css.hidden);
-    root.query<HTMLButtonElement>(toggle ? css.backBtn : css.moreBtn).focus();
+    root.query<HTMLButtonElement>(toggle ? css.backBtn : css.moreBtn).focus({
+        preventScroll: true,
+    });
 
     const requestsTab = document.querySelector('#requests-tab');
 
