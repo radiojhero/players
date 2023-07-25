@@ -1,10 +1,11 @@
 {
-    "plugins": ["stylelint-no-unsupported-browser-features"],
-    "extends": [
-        "stylelint-config-standard-scss",
-        "stylelint-prettier/recommended"
+    "plugins": [
+        "stylelint-no-unsupported-browser-features",
+        "stylelint-prettier"
     ],
+    "extends": ["stylelint-config-standard-scss"],
     "rules": {
+        "prettier/prettier": true,
         "plugin/no-unsupported-browser-features": [
             true,
             {
