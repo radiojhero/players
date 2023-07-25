@@ -181,6 +181,7 @@ export default class HTMLPlayerElement extends Audio {
 
         if (!this.paused) {
             this.src = this._realSource;
+            void this.play();
         }
     }
 }

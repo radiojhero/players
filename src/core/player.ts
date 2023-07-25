@@ -184,20 +184,6 @@ export default class Player {
         iframeDocument.body.style.overflow = 'hidden';
     }
 
-    /*
-    public async play() {
-        if (!this._loaded) {
-            throw new Error('Player not loaded yet.');
-        }
-
-        if (this._audioSrcNode) {
-            this._audioSrcNode.context.resume();
-        }
-
-        await this._audio.play();
-    }
-    */
-
     public play() {
         if (!this._loaded) {
             throw new Error('Player not loaded yet.');
