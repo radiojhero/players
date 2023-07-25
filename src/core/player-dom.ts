@@ -3,18 +3,13 @@ import Events, { EventDetailMap } from './events';
 import MetadataWatcher from './metadata';
 import MediaSessionWrapper from './media-session';
 
-interface Source {
-    type: string;
-    bitrate: number;
-    burst: number;
-    src: string;
-}
-
 export default class HTMLPlayerElement extends Audio {
     private static readonly _EMPTY_SOURCE = 'about:blank';
     private static readonly _bypass = ['pause', 'error', 'volumechange'];
     private readonly _events: Events;
     private _realSource: string;
+    private _sources: Source[];
+    private _sourceIndex: number;
     private _metadataWatcher: MetadataWatcher;
     private _metadataSrc: string;
     private _continuousMetadata = true;
@@ -22,6 +17,7 @@ export default class HTMLPlayerElement extends Audio {
 
     constructor(sources: Source[], events: Events) {
         super();
+        this._sources = sources;
 
         if ('mediaSession' in navigator) {
             this._mediaSession = new MediaSessionWrapper(this, events);
@@ -47,10 +43,16 @@ export default class HTMLPlayerElement extends Audio {
             this.src = HTMLPlayerElement._EMPTY_SOURCE;
 
             let offset = 0;
-            sources.forEach(item => {
-                if (!offset && this._realSource === item.src) {
+            sources.forEach((item, index) => {
+                if (this._realSource !== item.src) {
+                    return;
+                }
+
+                if (!offset) {
                     offset = item.burst / item.bitrate;
                 }
+
+                this._sourceIndex = index;
             });
 
             this._metadataSrc = addToQueryString(METADATA_URL, { offset });
@@ -77,20 +79,6 @@ export default class HTMLPlayerElement extends Audio {
         this.addEventListener('volumechange', this._mapEvent('volumechange'));
         this.addEventListener('waiting', this._mapEvent('buffering'));
     }
-
-    /*
-    public async play() {
-        if (this.paused) {
-            if (!this._continuousMetadata && this._metadataWatcher) {
-                this._metadataWatcher.watch();
-            }
-
-            this.src = this._realSrc;
-        }
-
-        await super.play();
-    }
-    */
 
     public play() {
         if (this.paused) {
@@ -175,5 +163,24 @@ export default class HTMLPlayerElement extends Audio {
         }
 
         this._metadataWatcher.watch();
+    }
+
+    public get currentSourceIndex() {
+        return this._sourceIndex;
+    }
+
+    public set currentSourceIndex(index) {
+        index = Math.floor(index);
+
+        if (0 > index || index > this._sources.length) {
+            return;
+        }
+
+        this._sourceIndex = index;
+        this._realSource = this._sources[index].src;
+
+        if (!this.paused) {
+            this.src = this._realSource;
+        }
     }
 }

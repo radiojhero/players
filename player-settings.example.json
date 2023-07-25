@@ -2,18 +2,21 @@
     "defines": {
         "SOURCES": [
             {
+                "title": "Ogg Opus 24 kbps",
                 "type": "audio/ogg;codecs=\"opus\"",
                 "bitrate": 24000,
                 "burst": 524288,
                 "src": "https://example.com/listen.ogg"
             },
             {
+                "title": "AAC 32 kbps",
                 "type": "audio/mp4",
                 "bitrate": 32000,
                 "burst": 524288,
                 "src": "https://example.com/listen.aac"
             },
             {
+                "title": "MP3 128 kbps",
                 "type": "audio/mpeg",
                 "bitrate": 128000,
                 "burst": 524288,

@@ -71,6 +71,18 @@ export default class Player {
         return this._caster?.status ?? { type: 'none', available: false };
     }
 
+    public get allSources() {
+        return this._sources.map(source => source.title);
+    }
+
+    public get currentSourceIndex() {
+        return this._audio.currentSourceIndex;
+    }
+
+    public set currentSourceIndex(index) {
+        this._audio.currentSourceIndex = index;
+    }
+
     private _audio: HTMLPlayerElement;
     private _audioSource: AudioSource;
     private _events: Events;
@@ -79,6 +91,7 @@ export default class Player {
     private _tracker: Tracker;
     private _childPlayers: NodeListOf<HTMLIFrameElement>;
     private _caster?: Caster;
+    private _sources: Source[];
 
     constructor() {
         const existingPlayer = window[PLAYER_NAMESPACE];
@@ -242,8 +255,9 @@ export default class Player {
 
     private _load() {
         this._loaded = true;
+        this._sources = SOURCES;
         this._events = new Events();
-        this._audio = new HTMLPlayerElement(SOURCES, this._events);
+        this._audio = new HTMLPlayerElement(this._sources, this._events);
         this._clock = new Clock(this, this._events);
         this._tracker = new Tracker(this);
         this._childPlayers = document.querySelectorAll(
