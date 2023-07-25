@@ -8,15 +8,14 @@ more easily.
 
 ## Setting up development
 
-You must install Node.js and (optionally, yet highly recommended) Yarn first.
-You can replace `npm` with `yarn` if you did install Yarn.
+You must install Node.js and PNPM first.
 
 1.  Fork this repository on GitHub;
 2.  Clone it to your machine and `cd` to it;
-3.  Run `npm install`;
+3.  Run `pnpm install`;
 4.  Copy `player-settings.example.json` to `player-settings.json` and edit
     it accordingly;
-5.  Run `npm start` to view and monitor your changes in the browser;
+5.  Run `pnpm start` to view and monitor your changes in the browser;
 6.  If that didn't open a browser window, access `http://localhost:8080/`;
 7.  Work your magic.
 
@@ -37,15 +36,11 @@ You can replace `npm` with `yarn` if you did install Yarn.
 -   Before venturing on something big, open an issue about it first. Let us know
     and evaluate whether your idea is worthwhile, or you may end up wasting time
     on something we might not want to merge into the repository.
--   Don't forget to `npm run lint` before submitting your PR, so as to make sure
-    the code adheres to our standards.
+-   Don't forget to `pnpm run lint` before submitting your PR, so as to make 
+    sure the code adheres to our standards.
 -   Remember you can still push more commits to your branch when needed after
     submitting your PR; you'll probably want to do this based on feedback.
 
 ## Known issues / TODOs / Help wanted
 
--   If the repository is in an NFS folder or a VM, chances are Webpack won't be
-    able to properly watch file changes when running `npm start`; as such, pass
-    `--env.poll` to the command so Webpack is instructed to manually poll file
-    changes (e.g. `npm start -- --env.poll=1000`).
 -   This needs test suites! What a shame... orz
