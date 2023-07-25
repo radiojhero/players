@@ -172,7 +172,11 @@ export default class HTMLPlayerElement extends Audio {
     public set currentSourceIndex(index) {
         index = Math.floor(index);
 
-        if (0 > index || index >= this._sources.length) {
+        if (
+            0 > index ||
+            index >= this._sources.length ||
+            this._sourceIndex === index
+        ) {
             return;
         }
 
