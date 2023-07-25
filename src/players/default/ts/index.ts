@@ -14,12 +14,18 @@ import root from './root';
 import * as tabs from './tabs';
 import * as volume from './volume';
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const noObjectFit = document.createElement('img').style.objectFit === undefined;
 
 export type DefaultPlayer = Player;
 
-export default () => {
+const initPlayer = () => {
     const player = window[PLAYER_NAMESPACE];
+
+    if (!player) {
+        requestAnimationFrame(initPlayer);
+        return;
+    }
 
     const events: EventCallbacks = {
         play() {
@@ -55,11 +61,9 @@ export default () => {
             root.query(css.programName).textContent = program.name;
             root.query(css.programDj).textContent =
                 program.djs[0]?.name ?? 'Playlist';
-            root.query(css.programGenre).textContent =
-                program.genre ?? 'Variado';
+            root.query(css.programGenre).textContent = program.genre;
             root.query(css.programDescription).textContent =
-                program.description ??
-                'Tocando as melhores da programação J-Hero. J-Music em Geral, tanto como Animesong, J-Rock, J-Pop, Games, K-Music.';
+                program.description;
 
             let imageUrl = '';
             const imageSourceSet: string[] = [];
@@ -164,3 +168,5 @@ export default () => {
         analyser.teardown(player);
     });
 };
+
+export default initPlayer;

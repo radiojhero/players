@@ -2,20 +2,16 @@ $bg-color: #fff;
 $text-color: #111827;
 $transparent-light-gray: rgba($text-color, 0.1);
 $main-color: #1d8aa8;
-
 $night-bg-color: #111827;
 $night-text-color: #fff;
 $night-transparent-light-gray: rgba($night-text-color, 0.1);
 $night-main-color: #00d7ec;
-
 $light-gray: #e5e7eb;
 $gray: #9ca3af;
 $black: #000;
-$discrete-border-color: hsla(0, 0%, 50%, 0.35);
-
+$discrete-border-color: hsl(0deg 0% 50% / 35%);
 $animation-duration: 0.75s;
 $transition-duration: 0.25s;
 $ease-in-quad: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 $ease-out-quad: cubic-bezier(0.19, 1, 0.22, 1);
-
 $number-of-panes: 4;

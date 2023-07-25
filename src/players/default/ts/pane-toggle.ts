@@ -13,7 +13,7 @@ function togglePanes(toggle: boolean) {
 
     if (
         requestsTab?.getAttribute('aria-selected') === 'true' &&
-        requestsTab?.getClientRects().length
+        requestsTab.getClientRects().length > 0
     ) {
         setupRequests();
     }

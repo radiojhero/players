@@ -14,6 +14,7 @@ export default class MediaSessionWrapper {
     }
 
     public attach() {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!mediaSession) {
             return;
         }
@@ -64,6 +65,7 @@ export default class MediaSessionWrapper {
     }
 
     private _setMetadata(metadata: MediaMetadataInit) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!mediaSession) {
             return;
         }
@@ -72,6 +74,7 @@ export default class MediaSessionWrapper {
     }
 
     private _setPosition(state: MediaPositionState) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         mediaSession?.setPositionState?.({ duration: 0, ...state });
     }
 }

@@ -81,7 +81,9 @@ function maybeDoMarquee(force = false) {
     const currentSong = root.query<HTMLElement>(css.songCurrentScrollable);
     const originalSongText =
         currentSong.querySelector<HTMLElement>('span:not([class])');
-    let mimickedSongText = originalSongText?.nextSibling as HTMLElement;
+    let mimickedSongText = originalSongText?.nextSibling as
+        | HTMLElement
+        | undefined;
 
     if (!force && currentSongText === originalSongText?.textContent) {
         return;
@@ -98,7 +100,7 @@ function maybeDoMarquee(force = false) {
     currentSongWrapper.classList.remove(css.rightOverflow);
     currentSongWrapper.removeEventListener('mouseenter', pauseMarquee);
     currentSongWrapper.removeEventListener('mouseleave', resumeMarquee);
-    currentSongText = originalSongText?.textContent ?? '';
+    currentSongText = originalSongText.textContent ?? '';
 
     if (mimickedSongText) {
         currentSong.removeChild(mimickedSongText);
@@ -108,7 +110,7 @@ function maybeDoMarquee(force = false) {
         currentSongWrapper.classList.add(css.rightOverflow);
         currentSongWrapper.addEventListener('mouseenter', pauseMarquee);
         currentSongWrapper.addEventListener('mouseleave', resumeMarquee);
-        mimickedSongText = originalSongText?.cloneNode(true) as HTMLElement;
+        mimickedSongText = originalSongText.cloneNode(true) as HTMLElement;
         mimickedSongText.classList.add(css.mimic);
         mimickedSongText.setAttribute('aria-hidden', 'true');
         currentSong.appendChild(mimickedSongText);

@@ -11,7 +11,10 @@ html {
     text-size-adjust: 100%;
 
     &.sys-ui {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont;
+        font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont;
     }
 
     &.night {
@@ -46,7 +49,8 @@ button {
 
 a {
     color: color.adjust($main-color, $lightness: -15%);
-    transition: background-color $transition-duration,
+    transition:
+        background-color $transition-duration,
         color $transition-duration;
 
     .night & {
@@ -186,22 +190,16 @@ img {
 }
 
 .contents {
-    bottom: 0;
+    inset: 0;
     box-shadow: 0 0 0 1px $discrete-border-color;
-    left: 0;
     position: absolute;
-    right: 0;
-    top: 0;
 }
 
 .main-pane,
 .extra-pane {
-    bottom: 0;
+    inset: 0;
     box-sizing: border-box;
-    left: 0;
     position: absolute;
-    right: 0;
-    top: 0;
 }
 
 .main-pane {
@@ -727,16 +725,13 @@ img {
 
     background: inherit;
     border-top: solid;
-    bottom: 0;
+    inset: 0;
     color: $main-color;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    left: 0;
     position: absolute;
-    right: 0;
     text-align: center;
-    top: 0;
     transition-timing-function: $ease-out-quad;
     z-index: 2;
 

@@ -14,6 +14,7 @@ import type { Configuration } from 'webpack-dev-server';
 interface Settings {
     defines: {
         SOURCES: {
+            title: string;
             type: string;
             bitrate: number;
             burst: number;
@@ -53,6 +54,7 @@ export default ({
     analyze = false,
 } = {}): webpack.Configuration => {
     const settings = JSON.parse(
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         process.env.PLAYER_SETTINGS || fs.readFileSync(settingsFile, 'utf8'),
     ) as Settings;
 
@@ -168,7 +170,7 @@ export default ({
                                     for (const [k, v] of Object.entries(
                                         settings.defines,
                                     )) {
-                                        data = data.replace(
+                                        data = data.replaceAll(
                                             new RegExp(`\\b${k}\\b`, 'g'),
                                             v.toString(),
                                         );

@@ -29,10 +29,6 @@ export default class AudioAnalyser {
     private _analysing: boolean;
 
     constructor(source: AudioSource, callback: AnalyseCallback) {
-        if (!source) {
-            return;
-        }
-
         const audioContext = source.context;
         this._src = source;
         this._dest = source.connectedNodes[0];

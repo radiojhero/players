@@ -1,4 +1,4 @@
-@media (min-aspect-ratio: 29001/26000) and (max-aspect-ratio: 2/1) {
+@media (29001/26000 <= aspect-ratio <= 2/1) {
     .measure {
         width: adjust-unit(0.7px, compact-horizontal);
     }

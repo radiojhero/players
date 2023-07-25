@@ -58,7 +58,7 @@ function analyseAudio(event?: AudioAnalysis) {
         }
 
         canvasContext.clearRect(0, 0, width, height);
-        canvasContext.fillStyle = getComputedStyle(canvas).color ?? '#000';
+        canvasContext.fillStyle = getComputedStyle(canvas).color || '#000';
 
         canvasContext.strokeStyle = getComputedStyle(canvas).borderColor;
 

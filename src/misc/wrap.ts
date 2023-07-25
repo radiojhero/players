@@ -1,9 +1,9 @@
-interface WrappableFunction<T> extends Function {
+type WrappableFunction<T> = ((event: Event) => void) & {
     __wrappers__?: {
         guards: unknown[];
         wrapper: T;
     }[];
-}
+};
 
 export function unwrap<T extends WrappableFunction<T>>(
     callback: T,

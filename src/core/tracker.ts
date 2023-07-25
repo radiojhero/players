@@ -3,7 +3,7 @@ import Player from './player';
 export default class Tracker {
     private readonly _player: Player;
     private _isTracking = false;
-    private _iframe: HTMLIFrameElement;
+    private _iframe?: HTMLIFrameElement;
 
     constructor(player: Player) {
         this._player = player;
@@ -50,6 +50,6 @@ export default class Tracker {
     }
 
     private removeIframe() {
-        this._iframe.parentElement?.removeChild(this._iframe);
+        this._iframe?.parentElement?.removeChild(this._iframe);
     }
 }

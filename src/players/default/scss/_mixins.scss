@@ -20,14 +20,18 @@
         );
     }
 
-    transition: $transition-value, visibility 0s 0s;
+    transition:
+        $transition-value,
+        visibility 0s 0s;
 
     &.hidden {
         @if not $no-opacity {
             opacity: 0;
         }
 
-        transition: $transition-value, visibility 0s $duration;
+        transition:
+            $transition-value,
+            visibility 0s $duration;
     }
 }
 
@@ -50,7 +54,8 @@
     color: $color;
     display: flex;
     justify-content: center;
-    transition: background-color $transition-duration,
+    transition:
+        background-color $transition-duration,
         color $transition-duration;
 
     &:hover,

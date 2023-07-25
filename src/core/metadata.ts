@@ -44,7 +44,7 @@ export default class MetadataWatcher {
     private readonly _interval: number;
     private readonly _events: Events;
     private _intervalId: number;
-    private _latestData: Metadata;
+    private _latestData?: Metadata;
 
     constructor(url: string, interval: number, events: Events) {
         this._url = url;

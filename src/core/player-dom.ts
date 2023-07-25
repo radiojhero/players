@@ -10,10 +10,10 @@ export default class HTMLPlayerElement extends Audio {
     private _realSource: string;
     private _sources: Source[];
     private _sourceIndex: number;
-    private _metadataWatcher: MetadataWatcher;
+    private _metadataWatcher?: MetadataWatcher;
     private _metadataSrc: string;
     private _continuousMetadata = true;
-    private _mediaSession: MediaSessionWrapper;
+    private _mediaSession?: MediaSessionWrapper;
 
     constructor(sources: Source[], events: Events) {
         super();
@@ -82,8 +82,8 @@ export default class HTMLPlayerElement extends Audio {
 
     public play() {
         if (this.paused) {
-            if (!this._continuousMetadata && this._metadataWatcher) {
-                this._metadataWatcher.watch();
+            if (!this._continuousMetadata) {
+                this._metadataWatcher?.watch();
             }
 
             this.src = this._realSource;
@@ -106,7 +106,7 @@ export default class HTMLPlayerElement extends Audio {
         }
 
         if (!this._continuousMetadata) {
-            this._metadataWatcher.unwatch();
+            this._metadataWatcher?.unwatch();
         }
 
         setTimeout(() => {
@@ -128,7 +128,7 @@ export default class HTMLPlayerElement extends Audio {
     }
 
     public fetchMetadata() {
-        this._metadataWatcher.fetchNow();
+        this._metadataWatcher?.fetchNow();
     }
 
     private _mapEvent(eventName: keyof EventDetailMap) {

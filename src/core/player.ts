@@ -11,7 +11,7 @@ import Events, {
 import HTMLPlayerElement from './player-dom';
 import Tracker from './tracker';
 import Caster from './caster';
-import CasterFactory from './caster/factory';
+import createCaster from './caster/factory';
 
 interface ChildPlayer {
     element: Element;
@@ -52,7 +52,7 @@ export default class Player {
     }
 
     public get metadata() {
-        return this._audio.metadataWatcher.latestData;
+        return this._audio.metadataWatcher?.latestData;
     }
 
     public get continuousMetadata() {
@@ -84,7 +84,7 @@ export default class Player {
     }
 
     private _audio: HTMLPlayerElement;
-    private _audioSource: AudioSource;
+    private _audioSource?: AudioSource;
     private _events: Events;
     private _loaded: boolean;
     private _clock: Clock;
@@ -201,7 +201,7 @@ export default class Player {
     }
 
     public toggle(toggle?: boolean) {
-        toggle = toggle === undefined ? !this.playing : toggle;
+        toggle = toggle ?? !this.playing;
         void this[toggle ? 'play' : 'pause']();
     }
 
@@ -249,7 +249,7 @@ export default class Player {
         this._childPlayers = document.querySelectorAll(
             `iframe.${PLAYER_NAMESPACE}-view`,
         );
-        this._caster = CasterFactory.create(this._audio, this._events);
+        this._caster = createCaster(this._audio, this._events);
 
         this._audio.attach();
 

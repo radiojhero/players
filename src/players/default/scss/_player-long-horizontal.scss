@@ -1,4 +1,4 @@
-@media (min-aspect-ratio: 52001/13000) {
+@media (aspect-ratio >= 52001/13000) {
     .logo {
         @include circle-hover(adjust-unit(50px, long-horizontal));
 
@@ -35,7 +35,7 @@
         box-shadow: none;
         margin: 0 auto;
 
-        @media (min-aspect-ratio: 10/1) {
+        @media (aspect-ratio >= 10/1) {
             left: calc(25% - #{adjust-unit(162.5px, long-horizontal)});
             right: calc(25% - #{adjust-unit(162.5px, long-horizontal)});
         }
@@ -147,7 +147,7 @@
         overflow: hidden;
         text-align: center;
 
-        @media (max-aspect-ratio: 600/65) {
+        @media (aspect-ratio <= 600/65) {
             display: none;
         }
     }
@@ -172,7 +172,7 @@
         flex: 0 0 60%;
         height: adjust-unit(44px, long-horizontal);
 
-        @media (max-aspect-ratio: 600/65) {
+        @media (aspect-ratio <= 600/65) {
             flex: 1;
         }
 
@@ -183,7 +183,7 @@
             margin-right: adjust-unit(10px, long-horizontal);
             width: adjust-unit(44px, long-horizontal);
 
-            @media (max-aspect-ratio: 375/65) {
+            @media (aspect-ratio <= 375/65) {
                 display: none;
             }
         }
@@ -239,7 +239,7 @@
             margin-left: 0;
             white-space: nowrap;
 
-            @media (max-aspect-ratio: 375/65) {
+            @media (aspect-ratio <= 375/65) {
                 display: none;
             }
         }

@@ -30,9 +30,7 @@ s.style.font = 'initial';
 s.style.fontSize = testSize;
 s.innerHTML = testString;
 
-interface FontMap {
-    [font: string]: number;
-}
+type FontMap = Record<string, number>;
 
 const defaultWidth: FontMap = {};
 const defaultHeight: FontMap = {};

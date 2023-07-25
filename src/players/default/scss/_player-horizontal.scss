@@ -1,9 +1,9 @@
-@media (min-aspect-ratio: 26001/13000) and (max-aspect-ratio: 4/1) {
+@media (26001/13000 <= aspect-ratio <= 4/1) {
     .measure {
         width: adjust-unit(0.7px, horizontal);
     }
 
-    @media (max-aspect-ratio: 38999/13000) {
+    @media (aspect-ratio <= 38999/13000) {
         .logo {
             @include circle-hover(adjust-unit(15px, horizontal));
 
@@ -20,7 +20,7 @@
         }
     }
 
-    @media (min-aspect-ratio: 3/1) {
+    @media (aspect-ratio >= 3/1) {
         .logo {
             @include circle-hover(adjust-unit(30px, horizontal));
 
@@ -43,13 +43,13 @@
         top: 0;
         width: adjust-unit(130px, horizontal);
 
-        @media (min-aspect-ratio: 3/1) {
+        @media (aspect-ratio >= 3/1) {
             display: block;
         }
     }
 
     .contents {
-        @media (min-aspect-ratio: 3/1) {
+        @media (aspect-ratio >= 3/1) {
             left: adjust-unit(130px, horizontal);
             overflow: hidden;
         }
@@ -226,7 +226,7 @@
     }
 
     .song-analyser {
-        @media (min-aspect-ratio: 3/1) {
+        @media (aspect-ratio >= 3/1) {
             left: adjust-unit(130px, horizontal);
         }
     }

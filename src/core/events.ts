@@ -24,9 +24,7 @@ export type EventCallbacks = {
     [eventType in keyof EventDetailMap]?: EventHandlers<
         EventDetailMap[eventType]
     >;
-} & {
-    [eventType: string]: EventHandlers;
-};
+} & Record<string, EventHandlers>;
 
 type EventCallbacksInternal = {
     [eventType in keyof EventDetailMap]: EventHandler[];
@@ -112,11 +110,10 @@ export default class Events {
         type: T,
         detail?: EventDetailMap[T],
     ) {
-        if (this._callbacks[type]) {
-            this._callbacks[type].forEach(callback => {
-                callback({ type, detail });
-            });
-        }
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        this._callbacks[type]?.forEach(callback => {
+            callback({ type, detail });
+        });
     }
 
     private _initTypes(types: string) {
@@ -125,9 +122,8 @@ export default class Events {
             .map(t => t as keyof EventDetailMap);
 
         typeArray.forEach(type => {
-            if (!this._callbacks[type]) {
-                this._callbacks[type] = [];
-            }
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            this._callbacks[type] ??= [];
         });
 
         return typeArray;

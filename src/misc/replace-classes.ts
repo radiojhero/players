@@ -1,5 +1,5 @@
 function camelcase(cls: string) {
-    return cls.replace(/-+(\w|$)/g, (s0, s1: string) => s1.toUpperCase());
+    return cls.replaceAll(/-+(\w|$)/g, (s0, s1: string) => s1.toUpperCase());
 }
 
 export default function replaceClasses(
@@ -17,9 +17,9 @@ export default function replaceClasses(
     }
 
     return html
-        .replace(/(<[\S\s]*?\sclass=")([^"]+)/g, substitute)
-        .replace(/(<[\S\s]*?\sclass=')([^']+)/g, substitute)
-        .replace(
+        .replaceAll(/(<[\S\s]*?\sclass=")([^"]+)/g, substitute)
+        .replaceAll(/(<[\S\s]*?\sclass=')([^']+)/g, substitute)
+        .replaceAll(
             /(<[\S\s]*?\sclass=)([^\s"'<=>`]+)/g,
             (s0, s1: string, s2: string) => {
                 let string = substitute(s0, s1, s2);
