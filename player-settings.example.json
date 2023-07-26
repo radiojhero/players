@@ -5,14 +5,14 @@
                 "title": "Ogg Opus 24 kbps",
                 "type": "audio/ogg;codecs=\"opus\"",
                 "bitrate": 24000,
-                "burst": 524288,
+                "burst": 65536,
                 "src": "https://example.com/listen.ogg"
             },
             {
                 "title": "AAC 32 kbps",
                 "type": "audio/mp4",
                 "bitrate": 32000,
-                "burst": 524288,
+                "burst": 131072,
                 "src": "https://example.com/listen.aac"
             },
             {

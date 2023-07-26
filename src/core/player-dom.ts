@@ -49,7 +49,7 @@ export default class HTMLPlayerElement extends Audio {
                 }
 
                 if (!offset) {
-                    offset = item.burst / item.bitrate;
+                    offset = (item.burst * 8) / item.bitrate;
                 }
 
                 this._sourceIndex = index;
