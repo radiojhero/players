@@ -7,11 +7,9 @@ export default class HTMLPlayerElement extends Audio {
     private static readonly _EMPTY_SOURCE = 'about:blank';
     private static readonly _bypass = ['pause', 'error', 'volumechange'];
     private readonly _events: Events;
-    private _realSource: string;
     private _sources: Source[];
     private _sourceIndex: number;
     private _metadataWatcher?: MetadataWatcher;
-    private _metadataSrc: string;
     private _continuousMetadata = true;
     private _mediaSession?: MediaSessionWrapper;
 
@@ -39,32 +37,11 @@ export default class HTMLPlayerElement extends Audio {
                 return;
             }
 
-            this._realSource = this.currentSrc;
-            this.src = HTMLPlayerElement._EMPTY_SOURCE;
-
-            let offset = 0;
-            sources.forEach((item, index) => {
-                if (this._realSource !== item.src) {
-                    return;
-                }
-
-                if (!offset) {
-                    offset = (item.burst * 8) / item.bitrate;
-                }
-
-                this._sourceIndex = index;
-            });
-
-            this._metadataSrc = addToQueryString(METADATA_URL, { offset });
-            this._metadataWatcher = new MetadataWatcher(
-                this._metadataSrc,
-                METADATA_INTERVAL,
-                this._events,
+            this._sourceIndex = sources.findIndex(
+                item => this.currentSrc === item.src,
             );
-
-            if (this._continuousMetadata) {
-                this._metadataWatcher.watch();
-            }
+            this.src = HTMLPlayerElement._EMPTY_SOURCE;
+            this._createMetadataWatcher();
         };
         setSource();
 
@@ -86,7 +63,7 @@ export default class HTMLPlayerElement extends Audio {
                 this._metadataWatcher?.watch();
             }
 
-            this.src = this._realSource;
+            this.src = this._sources[this._sourceIndex].src;
         }
 
         return super.play();
@@ -142,6 +119,22 @@ export default class HTMLPlayerElement extends Audio {
         };
     }
 
+    private _createMetadataWatcher() {
+        const item = this._sources[this._sourceIndex];
+        const offset = (item.burst * 8) / item.bitrate;
+
+        this._metadataWatcher?.unwatch();
+        this._metadataWatcher = new MetadataWatcher(
+            addToQueryString(METADATA_URL, { offset }),
+            METADATA_INTERVAL,
+            this._events,
+        );
+
+        if (this._continuousMetadata) {
+            this._metadataWatcher.watch();
+        }
+    }
+
     public get metadataWatcher() {
         return this._metadataWatcher;
     }
@@ -181,10 +174,10 @@ export default class HTMLPlayerElement extends Audio {
         }
 
         this._sourceIndex = index;
-        this._realSource = this._sources[index].src;
+        this._createMetadataWatcher();
 
         if (!this.paused) {
-            this.src = this._realSource;
+            this.src = this._sources[this._sourceIndex].src;
             void this.play();
         }
     }
