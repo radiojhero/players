@@ -39,7 +39,7 @@ export default class HTMLPlayerElement extends Audio {
                 return;
             }
 
-            this._sourceIndex = sources.findIndex(
+            this._sourceIndex = this._sources.findIndex(
                 item => this.currentSrc === item.src,
             );
             this.src = HTMLPlayerElement._EMPTY_SOURCE;
