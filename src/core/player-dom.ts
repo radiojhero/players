@@ -15,13 +15,15 @@ export default class HTMLPlayerElement extends Audio {
 
     constructor(sources: Source[], events: Events) {
         super();
-        this._sources = sources;
 
         if ('mediaSession' in navigator) {
             this._mediaSession = new MediaSessionWrapper(this, events);
         }
 
-        sources.forEach(item => {
+        this._sources = sources.filter(
+            source => this.canPlayType(source.type) !== '',
+        );
+        this._sources.forEach(item => {
             const source = document.createElement('source');
             source.type = item.type;
             source.src = item.src;
