@@ -183,4 +183,8 @@ export default class HTMLPlayerElement extends Audio {
             void this.play();
         }
     }
+
+    public get allSources() {
+        return this._sources.map(source => source.title);
+    }
 }
