@@ -44,6 +44,7 @@ export default class MetadataWatcher {
     private readonly _interval: number;
     private readonly _events: Events;
     private _intervalId: number;
+    private _isFetching: boolean;
     private _latestData?: Metadata;
 
     constructor(url: string, interval: number, events: Events) {
@@ -67,13 +68,16 @@ export default class MetadataWatcher {
     }
 
     public fetchNow() {
-        if (!this._events.hasBindings('gotmetadata')) {
+        if (this._isFetching || !this._events.hasBindings('gotmetadata')) {
             return;
         }
 
+        this._isFetching = true;
         ajaxGet(
             this._url,
             data => {
+                this._isFetching = false;
+
                 if (!this._intervalId) {
                     return;
                 }
