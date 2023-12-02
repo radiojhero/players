@@ -28,9 +28,6 @@ devDependencies:
   '@types/webpack-bundle-analyzer':
     specifier: ^4.6.3
     version: 4.6.3(webpack-cli@5.1.4)
-  '@types/wicg-mediasession':
-    specifier: ^1.1.8
-    version: 1.1.8
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.12.0
     version: 6.12.0(@typescript-eslint/parser@6.12.0)(eslint@8.54.0)(typescript@5.3.2)
@@ -1773,10 +1770,6 @@ packages:
       - esbuild
       - uglify-js
       - webpack-cli
-    dev: true
-
-  /@types/wicg-mediasession@1.1.8:
-    resolution: {integrity: sha512-gUP5M+GG4d4V6kg14wAF7qcdwjmwKbumpM7Sw1MNxnu9uQQpaRHMjuluajSXwtDpnd1FSFpLKEu1B/LPtnhxKw==}
     dev: true
 
   /@types/ws@8.5.10:
