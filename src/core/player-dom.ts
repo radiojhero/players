@@ -20,9 +20,19 @@ export default class HTMLPlayerElement extends Audio {
             this._mediaSession = new MediaSessionWrapper(this, events);
         }
 
+        // @ts-expect-error: only supported on Chromium
+        // eslint-disable-next-line compat/compat, @typescript-eslint/no-unsafe-member-access
+        const isConnectionMetered = navigator.connection?.type === 'cellular';
+
         this._sources = sources.filter(
             source => this.canPlayType(source.type) !== '',
         );
+
+        // This assumes the declared sources are ordered by increasing bitrate
+        if (!isConnectionMetered) {
+            this._sources.reverse();
+        }
+
         this._sources.forEach(item => {
             const source = document.createElement('source');
             source.type = item.type;
