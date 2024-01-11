@@ -20,9 +20,11 @@ export default class HTMLPlayerElement extends Audio {
             this._mediaSession = new MediaSessionWrapper(this, events);
         }
 
-        // @ts-expect-error: only supported on Chromium
-        // eslint-disable-next-line compat/compat, @typescript-eslint/no-unsafe-member-access
-        const isConnectionMetered = navigator.connection?.type === 'cellular';
+        const isConnectionMetered =
+            // @ts-expect-error: only supported on Chromium
+            // eslint-disable-next-line compat/compat, @typescript-eslint/no-unsafe-member-access
+            navigator.connection?.type === 'cellular' ||
+            navigator.userAgent.includes('iPhone');
 
         this._sources = sources.filter(
             source => this.canPlayType(source.type) !== '',
