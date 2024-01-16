@@ -9,7 +9,7 @@ import * as TerserPlugin from 'terser-webpack-plugin';
 import * as through2 from 'through2';
 import * as webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import type { Configuration } from 'webpack-dev-server';
+import { type Configuration } from 'webpack-dev-server';
 
 interface Settings {
     defines: {
