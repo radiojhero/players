@@ -1,7 +1,5 @@
 # Rádio J-Hero Embeddable Players
 
-[![Dev dependencies status](https://david-dm.org/radiojhero/players/dev-status.svg)](https://david-dm.org/radiojhero/players?type=dev)
-
 This repository is comprised of code powering the embeddable players. They are
 all compiled to static assets, making them easy to be hosted almost anywhere.
 
