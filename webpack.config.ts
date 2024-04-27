@@ -47,7 +47,7 @@ const wdsConfiguration: Configuration = {
     },
 };
 
-export default ({
+const config = ({
     production = false,
     port = 8080,
     settingsFile = 'player-settings.json',
@@ -161,7 +161,7 @@ export default ({
                         () => {
                             let data = '';
                             return through2(
-                                function (buffer, _, callback) {
+                                function (buffer: string, _, callback) {
                                     data += buffer;
                                     // eslint-disable-next-line unicorn/no-null
                                     callback(null, '');
@@ -194,3 +194,5 @@ export default ({
         devServer: { ...wdsConfiguration, port },
     };
 };
+
+export default config;

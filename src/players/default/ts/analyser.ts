@@ -114,8 +114,8 @@ function fixCanvas() {
             const pixelRatio = window.devicePixelRatio;
             const rectangle = canvas.getBoundingClientRect();
 
-            canvas.style.width = `${Math.floor(rectangle.width)}px`;
-            canvas.style.height = `${Math.floor(rectangle.height)}px`;
+            canvas.style.width = `${Math.floor(rectangle.width).toString()}px`;
+            canvas.style.height = `${Math.floor(rectangle.height).toString()}px`;
             canvas.width = Math.floor(rectangle.width) * pixelRatio;
             canvas.height = Math.floor(rectangle.height) * pixelRatio;
             canvasContext?.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);

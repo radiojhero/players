@@ -4,12 +4,12 @@ function zeroFill(value: number, width: number) {
         const fill = Array.from({
             length: width + (/\./.test(value.toString()) ? 2 : 1),
         }).join('0');
-        return `${fill}${value}`;
+        return `${fill}${value.toString()}`;
     }
     return value.toString();
 }
 
-export default (seconds: number, noZeroFill = true) => {
+const timeFormat = (seconds: number, noZeroFill = true) => {
     seconds = Math.floor(seconds);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -29,3 +29,5 @@ export default (seconds: number, noZeroFill = true) => {
 
     return returnValue;
 };
+
+export default timeFormat;

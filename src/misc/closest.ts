@@ -1,4 +1,4 @@
-export default (root: Element, selector: string) => {
+const closest = (root: Element, selector: string) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (root.closest) {
         return root.closest(selector);
@@ -19,3 +19,5 @@ export default (root: Element, selector: string) => {
 
     return element;
 };
+
+export default closest;

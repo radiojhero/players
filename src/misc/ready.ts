@@ -13,7 +13,7 @@ if (!loaded) {
     });
 }
 
-export default (callback: Callback) => {
+const ready = (callback: Callback) => {
     if (loaded) {
         setTimeout(callback, 0);
         return;
@@ -21,3 +21,5 @@ export default (callback: Callback) => {
 
     callbacks.push(callback);
 };
+
+export default ready;

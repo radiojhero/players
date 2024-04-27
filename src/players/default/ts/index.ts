@@ -74,9 +74,8 @@ const initPlayer = () => {
             }
 
             if (noObjectFit) {
-                root.query<HTMLElement>(
-                    css.bannerInner,
-                ).style.backgroundImage = `url('${imageUrl}')`;
+                root.query<HTMLElement>(css.bannerInner).style.backgroundImage =
+                    `url('${imageUrl}')`;
             } else {
                 root.queryMultiple<HTMLImageElement>(css.programAvatar).forEach(
                     element => {

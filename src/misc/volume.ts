@@ -1,6 +1,6 @@
 let cached: boolean | undefined;
 
-export default () => {
+const volume = () => {
     if (cached === undefined) {
         const test = document.createElement('audio');
         test.volume = 0.5;
@@ -9,3 +9,5 @@ export default () => {
 
     return cached;
 };
+
+export default volume;

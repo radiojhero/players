@@ -87,8 +87,11 @@ export default class Player {
     private _audioSource?: AudioSource;
     private _events: Events;
     private _loaded: boolean;
+    // @ts-expect-error: really unused...
     private _clock: Clock;
+    // @ts-expect-error: really unused...
     private _tracker: Tracker;
+    // @ts-expect-error: really unused...
     private _childPlayers: NodeListOf<HTMLIFrameElement>;
     private _caster?: Caster;
 

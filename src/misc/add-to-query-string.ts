@@ -1,6 +1,6 @@
 import { parse, stringify } from 'querystring';
 
-export default (url: string, parameters: Record<string, any>) => {
+const addToQueryString = (url: string, parameters: Record<string, any>) => {
     const path = document.createElement('a');
     path.href = url;
     path.search = `?${stringify({
@@ -9,3 +9,5 @@ export default (url: string, parameters: Record<string, any>) => {
     })}`;
     return path.href;
 };
+
+export default addToQueryString;

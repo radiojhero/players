@@ -38,7 +38,7 @@ export default class SimpleQuery {
         const wrap = (event: Event) => {
             const delegateTarget = closest(event.target as Element, delegate);
 
-            if (delegateTarget && delegateTarget.matches(delegate)) {
+            if (delegateTarget?.matches(delegate)) {
                 callback.call(delegateTarget, event);
             }
         };

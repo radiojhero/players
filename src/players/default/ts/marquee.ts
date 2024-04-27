@@ -60,7 +60,7 @@ function runMarqueeFrame(force: boolean, timestamp?: number) {
 
     progress = previousProgress + ((timestamp - marqueeStarted) * 60) / 1000;
     marqueeScrolled = progress * marqueeDelta;
-    currentSong.style.transform = `translate3d(-${marqueeScrolled}px, 0, 0)`;
+    currentSong.style.transform = `translate3d(-${marqueeScrolled.toString()}px, 0, 0)`;
 
     currentSongWrapper.classList[
         marqueeScrolled < originalSongTextRight ? 'add' : 'remove'

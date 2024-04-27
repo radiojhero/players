@@ -46,7 +46,7 @@ ready(() => {
     });
 });
 
-export default (font: string) =>
+const font = (font: string) =>
     baseFonts.some(baseFont => {
         s.style.fontFamily = `${font},${baseFont}`; // Name of the font along with the base font for fallback.
         h.appendChild(s);
@@ -57,3 +57,5 @@ export default (font: string) =>
 
         return matched;
     });
+
+export default font;

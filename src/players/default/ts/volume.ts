@@ -26,9 +26,9 @@ function repaintRange() {
         ((thumbSize * volume - thumbSize / 2) * 100) / trackSize;
     const fill = root.query<HTMLElement>(css.volumeRangeFill);
 
-    thumb.style.left = `${(stop * (trackSize - thumbSize)) / trackSize}%`;
-    track.style.width = `${100 - stop + trackPadding}%`;
-    fill.style.width = `${stop - trackPadding}%`;
+    thumb.style.left = `${((stop * (trackSize - thumbSize)) / trackSize).toString()}%`;
+    track.style.width = `${(100 - stop + trackPadding).toString()}%`;
+    fill.style.width = `${(stop - trackPadding).toString()}%`;
 
     const volumeWaves = root.query(css.volumeWaves);
     volumeWaves.classList.remove(css.vol0);
@@ -36,7 +36,7 @@ function repaintRange() {
     volumeWaves.classList.remove(css.vol50);
 
     volumeWaves.classList.add(
-        css[`vol${Math.floor(Math.min(stop, 99) / 25) * 25}`],
+        css[`vol${(Math.floor(Math.min(stop, 99) / 25) * 25).toString()}`],
     );
 }
 
