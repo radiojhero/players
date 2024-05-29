@@ -1,11 +1,10 @@
-import HTMLPlayerElement from '../player-dom';
 import Events from '../events';
 import Caster from '.';
 
 export default class AirplayCaster extends Caster {
     protected readonly _type = 'airplay';
 
-    constructor(audio: HTMLPlayerElement, events: Events) {
+    constructor(audio: HTMLAudioElement, events: Events) {
         super(audio, events);
 
         this._audio.addEventListener(

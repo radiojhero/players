@@ -1,4 +1,3 @@
-import HTMLPlayerElement from '../player-dom';
 import Events from '../events';
 
 import Caster from '.';
@@ -6,7 +5,7 @@ import AirPlayCaster from './airplay-caster';
 import ChromecastCaster from './chromecast-caster';
 
 export default function createCaster(
-    audio: HTMLPlayerElement,
+    audio: HTMLAudioElement,
     events: Events,
 ): Caster | undefined {
     for (const subclass of [AirPlayCaster, ChromecastCaster]) {

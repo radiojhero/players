@@ -1,4 +1,3 @@
-import HTMLPlayerElement from '../player-dom';
 import Events from '../events';
 import Caster from '.';
 
@@ -6,7 +5,7 @@ export default class ChromecastCaster extends Caster {
     protected readonly _type = 'chromecast';
     private _chromecastCallbackId = -1;
 
-    constructor(audio: HTMLPlayerElement, events: Events) {
+    constructor(audio: HTMLAudioElement, events: Events) {
         super(audio, events);
 
         const remote = audio.remote;

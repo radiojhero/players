@@ -250,12 +250,12 @@ export default class Player {
         this._childPlayers = document.querySelectorAll(
             `iframe.${PLAYER_NAMESPACE}-view`,
         );
-        this._caster = createCaster(this._audio, this._events);
+        this._caster = createCaster(this._audio.domPlayer, this._events);
 
         this._audio.attach();
 
         try {
-            this._audioSource = new AudioSource(this._audio);
+            this._audioSource = new AudioSource(this._audio.domPlayer);
         } catch {
             // Do nothing if Web Audio API is unsupported
         }

@@ -1,13 +1,12 @@
-import HTMLPlayerElement from '../player-dom';
 import Events from '../events';
 
 export default abstract class Caster {
     protected abstract readonly _type: string;
-    protected _audio: HTMLPlayerElement;
+    protected _audio: HTMLAudioElement;
     protected _events: Events;
     protected _available: boolean;
 
-    constructor(audio: HTMLPlayerElement, events: Events) {
+    constructor(audio: HTMLAudioElement, events: Events) {
         this._audio = audio;
         this._events = events;
     }

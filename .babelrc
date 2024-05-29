@@ -9,13 +9,5 @@
             }
         ],
         "@babel/preset-typescript"
-    ],
-    "plugins": [
-        [
-            "babel-plugin-transform-builtin-extend",
-            {
-                "globals": ["Audio"]
-            }
-        ]
     ]
 }
