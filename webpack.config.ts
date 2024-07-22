@@ -100,22 +100,22 @@ const config = ({
             rules: [
                 {
                     enforce: 'pre',
-                    test: /\.js$/,
+                    test: /\.js$/i,
                     exclude: /node_modules/,
                     use: 'source-map-loader',
                 },
                 {
-                    test: /\.html$/,
+                    test: /\.html$/i,
                     exclude: /node_modules/,
                     use: ['html-loader', 'transform-loader?0'],
                 },
                 {
-                    test: /\.ts$/,
+                    test: /\.ts$/i,
                     exclude: /node_modules/,
                     use: 'babel-loader',
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.s[ac]ss$/i,
                     exclude: /node_modules/,
                     use: [
                         'style-loader',
