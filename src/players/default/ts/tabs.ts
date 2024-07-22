@@ -1,4 +1,4 @@
-import css from '../scss/index.scss';
+import * as css from '../scss/index.scss';
 import root from './root';
 import { setupRequests } from './song-requests';
 

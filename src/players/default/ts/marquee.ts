@@ -1,4 +1,4 @@
-import css from '../scss/index.scss';
+import * as css from '../scss/index.scss';
 import { DefaultPlayer } from '.';
 import root from './root';
 

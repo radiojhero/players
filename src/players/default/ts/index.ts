@@ -3,7 +3,7 @@ import Player from '../../../core/player';
 import replaceClasses from '../../../misc/replace-classes';
 import timeFormat from '../../../misc/time-format';
 import html from '../layout.html';
-import css from '../scss/index.scss';
+import * as css from '../scss/index.scss';
 import * as analyser from './analyser';
 import fontSupported from './font';
 import * as marquee from './marquee';
