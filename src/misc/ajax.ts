@@ -11,7 +11,7 @@ function setupXhr(
     bustCache = false,
 ) {
     if (bustCache) {
-        url = addToQueryString(url, { _: Date.now() });
+        url = addToQueryString(url, `_=${Date.now().toString()}`);
     }
 
     const request = new XMLHttpRequest();

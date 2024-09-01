@@ -6,7 +6,6 @@ const closest = (root: Element, selector: string) => {
 
     const matches = root.ownerDocument.querySelectorAll(selector);
     let index: number;
-    // eslint-disable-next-line unicorn/no-null
     let element: Element | null = root;
 
     do {

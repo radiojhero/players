@@ -41,12 +41,8 @@ function analyseAudio(event?: AudioAnalysis) {
 
         const slicesNumber = Math.round(width / 10);
         const sliceWidth = width / slicesNumber;
-        const sliceValues = Array.from<number>({ length: slicesNumber }).fill(
-            0,
-        );
-        const sliceDivisors = Array.from<number>({ length: slicesNumber }).fill(
-            0,
-        );
+        const sliceValues = new Array(slicesNumber).map(() => 0);
+        const sliceDivisors = new Array(slicesNumber).map(() => 0);
         const frequenciesNumber = frequencyData.length / 2;
 
         for (let index = 0; index < frequenciesNumber; index++) {

@@ -20,12 +20,18 @@ export default class SimpleQuery {
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
     public query<T extends Element = Element>(id: string) {
         return this.queryMultiple<T>(id)[0];
     }
 
     public queryMultiple<T extends Element = Element>(id: string) {
-        return Array.from(this._context.querySelectorAll<T>(`.${id}`));
+        const result: T[] = [];
+        this._context.querySelectorAll<T>(`.${id}`).forEach(item => {
+            result.push(item);
+        });
+
+        return result;
     }
 
     public addDelegateEventListener(

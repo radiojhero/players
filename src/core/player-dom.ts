@@ -17,14 +17,16 @@ export default class HTMLPlayerElement {
     constructor(sources: Source[], events: Events) {
         this._realPlayer = new Audio();
 
+        // eslint-disable-next-line n/no-unsupported-features/node-builtins
         if ('mediaSession' in navigator) {
             this._mediaSession = new MediaSessionWrapper(this, events);
         }
 
         const isConnectionMetered =
             // @ts-expect-error: only supported on Chromium
-            // eslint-disable-next-line compat/compat, @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line n/no-unsupported-features/node-builtins, compat/compat, @typescript-eslint/no-unsafe-member-access
             navigator.connection?.type === 'cellular' ||
+            // eslint-disable-next-line n/no-unsupported-features/node-builtins
             navigator.userAgent.includes('iPhone');
 
         this._sources = sources.filter(
@@ -146,7 +148,7 @@ export default class HTMLPlayerElement {
 
         this._metadataWatcher?.unwatch();
         this._metadataWatcher = new MetadataWatcher(
-            addToQueryString(METADATA_URL, { offset }),
+            addToQueryString(METADATA_URL, `offset=${offset.toString()}`),
             METADATA_INTERVAL,
             this._events,
         );

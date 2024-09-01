@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "module": "ESNext",
         "moduleResolution": "node",
         "noFallthroughCasesInSwitch": true,
         "noEmitOnError": true,

@@ -1,6 +1,7 @@
 import HTMLPlayerElement from './player-dom';
 import Events from './events';
 
+// eslint-disable-next-line compat/compat, n/no-unsupported-features/node-builtins
 const mediaSession = navigator.mediaSession;
 
 export default class MediaSessionWrapper {
@@ -70,6 +71,7 @@ export default class MediaSessionWrapper {
             return;
         }
 
+        // eslint-disable-next-line compat/compat
         mediaSession.metadata = new MediaMetadata(metadata);
     }
 

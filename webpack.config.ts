@@ -1,15 +1,17 @@
 /* eslint-disable compat/compat */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// eslint-disable-next-line import/namespace
-import * as CopyPlugin from 'copy-webpack-plugin';
-import * as TerserPlugin from 'terser-webpack-plugin';
-import * as through2 from 'through2';
-import * as webpack from 'webpack';
+import CopyPlugin from 'copy-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import through2 from 'through2';
+import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { type Configuration } from 'webpack-dev-server';
+
+const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 
 interface Settings {
     defines: {
@@ -39,7 +41,7 @@ interface Settings {
 const wdsConfiguration: Configuration = {
     hot: true,
     static: {
-        directory: path.resolve(__dirname, 'dist'),
+        directory: path.resolve(currentDirectory, 'dist'),
         watch: true,
     },
     devMiddleware: {
@@ -63,7 +65,7 @@ const config = ({
         defines[k] = JSON.stringify(v);
     }
 
-    const context = path.resolve(__dirname, 'src');
+    const context = path.resolve(currentDirectory, 'src');
     const players = fs
         .readdirSync(path.resolve(context, 'players'))
         .filter(file => fs.statSync(`./src/players/${file}`).isDirectory());
@@ -93,7 +95,7 @@ const config = ({
         })(),
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(currentDirectory, 'dist'),
             publicPath: '/',
         },
         module: {
@@ -143,15 +145,15 @@ const config = ({
         },
         resolve: {
             extensions: ['.ts', '.js'],
-            fallback: { querystring: require.resolve('querystring-es3') },
+            fallback: { querystring: import.meta.resolve('querystring-es3') },
         },
         plugins: [
             ...(analyze ? [new BundleAnalyzerPlugin()] : []),
             new CopyPlugin({
                 patterns: [
                     {
-                        from: path.resolve(__dirname, 'src', 'public'),
-                        to: path.resolve(__dirname, 'dist'),
+                        from: path.resolve(currentDirectory, 'src', 'public'),
+                        to: path.resolve(currentDirectory, 'dist'),
                     },
                 ],
             }),
@@ -163,7 +165,7 @@ const config = ({
                             return through2(
                                 function (buffer: string, _, callback) {
                                     data += buffer;
-                                    // eslint-disable-next-line unicorn/no-null
+
                                     callback(null, '');
                                 },
                                 function (callback) {

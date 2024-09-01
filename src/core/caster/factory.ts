@@ -1,5 +1,4 @@
 import Events from '../events';
-
 import Caster from '.';
 import AirPlayCaster from './airplay-caster';
 import ChromecastCaster from './chromecast-caster';

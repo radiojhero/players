@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable unicorn/no-null */
 
 // CustomEvent for IE
 (function () {
