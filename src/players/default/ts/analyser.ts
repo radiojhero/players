@@ -41,16 +41,17 @@ function analyseAudio(event?: AudioAnalysis) {
 
         const slicesNumber = Math.round(width / 10);
         const sliceWidth = width / slicesNumber;
-        const sliceValues = new Array(slicesNumber).map(() => 0);
-        const sliceDivisors = new Array(slicesNumber).map(() => 0);
+        const sliceValues = new Array<number>(slicesNumber);
+        const sliceDivisors = new Array<number>(slicesNumber);
         const frequenciesNumber = frequencyData.length / 2;
 
         for (let index = 0; index < frequenciesNumber; index++) {
             const sliceIndex = Math.floor(
                 (index * slicesNumber) / frequenciesNumber,
             );
-            sliceValues[sliceIndex] += frequencyData[index];
-            sliceDivisors[sliceIndex]++;
+            sliceValues[sliceIndex] =
+                (sliceValues[sliceIndex] ?? 0) + frequencyData[index];
+            sliceDivisors[sliceIndex] = (sliceDivisors[sliceIndex] ?? 0) + 1;
         }
 
         canvasContext.clearRect(0, 0, width, height);

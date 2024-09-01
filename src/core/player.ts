@@ -110,57 +110,55 @@ export default class Player {
             const id = `${PLAYER_NAMESPACE}-container`;
             const elements = document.querySelectorAll<HTMLElement>(`.${id}`);
 
-            new Array(elements.length)
-                .map((_, index) => elements.item(index))
-                .forEach(element => {
-                    element.classList.remove(id);
-                    element.classList.add(`${id}-processed`);
+            elements.forEach(element => {
+                element.classList.remove(id);
+                element.classList.add(`${id}-processed`);
 
-                    if (getComputedStyle(element).position === 'static') {
-                        element.style.position = 'relative';
-                    }
+                if (getComputedStyle(element).position === 'static') {
+                    element.style.position = 'relative';
+                }
 
-                    element.style.overflow = 'hidden';
+                element.style.overflow = 'hidden';
 
-                    const playerType = element.dataset.type;
-                    const iframe = document.createElement('iframe');
+                const playerType = element.dataset.type;
+                const iframe = document.createElement('iframe');
 
-                    if (!playerType || /[^\da-z]/i.test(playerType)) {
-                        throw new Error(
-                            'The attribute `data-type` is missing or invalid.',
-                        );
-                    }
+                if (!playerType || /[^\da-z]/i.test(playerType)) {
+                    throw new Error(
+                        'The attribute `data-type` is missing or invalid.',
+                    );
+                }
 
-                    iframe.style.border = 'none';
-                    iframe.style.position = 'absolute';
-                    iframe.style.left = '0';
-                    iframe.style.top = '0';
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.overflow = 'hidden';
-                    iframe.className = `${PLAYER_NAMESPACE}-view`;
+                iframe.style.border = 'none';
+                iframe.style.position = 'absolute';
+                iframe.style.left = '0';
+                iframe.style.top = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.overflow = 'hidden';
+                iframe.className = `${PLAYER_NAMESPACE}-view`;
 
-                    iframe.src = 'about:blank';
+                iframe.src = 'about:blank';
 
-                    const parameters = element.dataset.params ?? '';
+                const parameters = element.dataset.params ?? '';
 
-                    if (addToExistingPlayer) {
-                        existingPlayer._addChildPlayer({
-                            element,
-                            parameters,
-                            playerType,
-                            iframe,
-                        });
-                        return;
-                    }
-
-                    this._addChildPlayer({
+                if (addToExistingPlayer) {
+                    existingPlayer._addChildPlayer({
                         element,
                         parameters,
                         playerType,
                         iframe,
                     });
+                    return;
+                }
+
+                this._addChildPlayer({
+                    element,
+                    parameters,
+                    playerType,
+                    iframe,
                 });
+            });
         });
     }
 
