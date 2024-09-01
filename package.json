@@ -4,13 +4,13 @@
     "type": "module",
     "license": "MIT",
     "scripts": {
-        "dist": "webpack --env production",
+        "dist": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --env production",
         "clean": "del-cli -f dist",
         "lint": "run-s --silent -c 'lint:**'",
         "lint:scss": "stylelint './**/*.scss' --fix",
         "lint:ts": "eslint . --fix",
         "test": "echo 'Test suites are a TODO! Gonna need help with these... orz'",
-        "start": "webpack serve",
+        "start": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js serve",
         "prepare": "husky"
     },
     "devDependencies": {
