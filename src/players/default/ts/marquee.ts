@@ -85,11 +85,10 @@ function maybeDoMarquee(force = false) {
         | HTMLElement
         | undefined;
 
-    if (!force && currentSongText === originalSongText?.textContent) {
-        return;
-    }
-
-    if (!originalSongText) {
+    if (
+        (!force && currentSongText === originalSongText?.textContent) ||
+        !originalSongText
+    ) {
         return;
     }
 
@@ -106,25 +105,27 @@ function maybeDoMarquee(force = false) {
         currentSong.removeChild(mimickedSongText);
     }
 
-    if (currentSongWrapper.clientWidth < currentSongWrapper.scrollWidth) {
-        currentSongWrapper.classList.add(css.rightOverflow);
-        currentSongWrapper.addEventListener('mouseenter', pauseMarquee);
-        currentSongWrapper.addEventListener('mouseleave', resumeMarquee);
-        mimickedSongText = originalSongText.cloneNode(true) as HTMLElement;
-        mimickedSongText.classList.add(css.mimic);
-        mimickedSongText.setAttribute('aria-hidden', 'true');
-        currentSong.appendChild(mimickedSongText);
-
-        const currentSongLeft = currentSongWrapper.getBoundingClientRect().left;
-        originalSongTextRight =
-            originalSongText.getBoundingClientRect().right - currentSongLeft;
-        mimickedSongTextLeft =
-            (originalSongText.nextSibling as Element).getBoundingClientRect()
-                .left - currentSongLeft;
-        marqueeDelta = root.query(css.measure).getBoundingClientRect().width;
-
-        runMarqueeFrame(false);
+    if (currentSongWrapper.clientWidth >= currentSongWrapper.scrollWidth) {
+        return;
     }
+
+    currentSongWrapper.classList.add(css.rightOverflow);
+    currentSongWrapper.addEventListener('mouseenter', pauseMarquee);
+    currentSongWrapper.addEventListener('mouseleave', resumeMarquee);
+    mimickedSongText = originalSongText.cloneNode(true) as HTMLElement;
+    mimickedSongText.classList.add(css.mimic);
+    mimickedSongText.setAttribute('aria-hidden', 'true');
+    currentSong.appendChild(mimickedSongText);
+
+    const currentSongLeft = currentSongWrapper.getBoundingClientRect().left;
+    originalSongTextRight =
+        originalSongText.getBoundingClientRect().right - currentSongLeft;
+    mimickedSongTextLeft =
+        (originalSongText.nextSibling as Element).getBoundingClientRect().left -
+        currentSongLeft;
+    marqueeDelta = root.query(css.measure).getBoundingClientRect().width;
+
+    runMarqueeFrame(false);
 }
 
 function updateMarquee() {
