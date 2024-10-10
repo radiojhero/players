@@ -1,11 +1,13 @@
 import addToQueryString from '../misc/add-to-query-string';
+import { FADE_DURATION } from '../misc/gain';
 import Events, { EventDetailMap } from './events';
 import MetadataWatcher from './metadata';
 import MediaSessionWrapper from './media-session';
+import Player from './player';
 
 export default class HTMLPlayerElement {
     private static readonly _EMPTY_SOURCE = 'about:blank';
-    private static readonly _bypass = ['pause', 'error', 'volumechange'];
+    private static readonly _bypass = ['pause', 'error'];
     private readonly _events: Events;
     private _sources: Source[];
     private _sourceIndex: number;
@@ -13,9 +15,12 @@ export default class HTMLPlayerElement {
     private _continuousMetadata = true;
     private _mediaSession?: MediaSessionWrapper;
     private _realPlayer: HTMLAudioElement;
+    private _player: Player;
+    private _isPausing = false;
 
-    constructor(sources: Source[], events: Events) {
+    constructor(sources: Source[], events: Events, player: Player) {
         this._realPlayer = new Audio();
+        this._player = player;
 
         // eslint-disable-next-line n/no-unsupported-features/node-builtins
         if ('mediaSession' in navigator) {
@@ -46,7 +51,7 @@ export default class HTMLPlayerElement {
         });
 
         this._events = events;
-        this._realPlayer.volume = PLAYER_INITIAL_VOLUME;
+        this._realPlayer.volume = 1;
 
         const setSource = () => {
             if (!this._realPlayer.currentSrc) {
@@ -74,13 +79,13 @@ export default class HTMLPlayerElement {
         this._realPlayer.addEventListener('pause', this._mapEvent('pause'));
         this._realPlayer.addEventListener('playing', this._mapEvent('play'));
         this._realPlayer.addEventListener(
-            'volumechange',
-            this._mapEvent('volumechange'),
-        );
-        this._realPlayer.addEventListener(
             'waiting',
             this._mapEvent('buffering'),
         );
+
+        events.on('play', () => {
+            player.audioSource?.fadeIn();
+        });
     }
 
     public play() {
@@ -96,25 +101,24 @@ export default class HTMLPlayerElement {
     }
 
     public pause() {
-        if (this._realPlayer.paused) {
+        if (this._realPlayer.paused || this._isPausing) {
             return;
-        }
-
-        if (this._realPlayer.readyState) {
-            this._realPlayer.pause();
-        } else {
-            setTimeout(() => {
-                this._events.fire('pause');
-            });
         }
 
         if (!this._continuousMetadata) {
             this._metadataWatcher?.unwatch();
         }
 
-        setTimeout(() => {
-            this._realPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
-        });
+        this._isPausing = true;
+        this._player.audioSource?.fadeOut();
+        this._events.fire('pause');
+
+        if (this._realPlayer.readyState === HTMLMediaElement.HAVE_ENOUGH_DATA) {
+            setTimeout(this._realPause, FADE_DURATION);
+            return;
+        }
+
+        this._realPause();
     }
 
     public attach() {
@@ -130,6 +134,11 @@ export default class HTMLPlayerElement {
     public fetchMetadata() {
         this._metadataWatcher?.fetchNow();
     }
+
+    private _realPause = () => {
+        this._realPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
+        this._isPausing = false;
+    };
 
     private _mapEvent(eventName: keyof EventDetailMap) {
         return (event: Event) => {

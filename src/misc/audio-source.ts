@@ -1,3 +1,5 @@
+import Gain from './gain';
+
 export default class AudioSource {
     public get connectedNodes() {
         return [...this._connectedNodes];
@@ -8,13 +10,30 @@ export default class AudioSource {
     }
 
     private readonly _node: AudioNode;
+    private readonly _gain: Gain;
     private _connectedNodes: AudioNode[] = [];
 
     constructor(element: HTMLMediaElement) {
         // eslint-disable-next-line compat/compat
         const audioContext = new AudioContext();
         this._node = audioContext.createMediaElementSource(element);
-        this.connect(audioContext.destination);
+        this._gain = new Gain(audioContext, this._node);
+    }
+
+    public get volume() {
+        return this._gain.volume;
+    }
+
+    public set volume(level) {
+        this._gain.volume = level;
+    }
+
+    public fadeIn() {
+        this._gain.fadeIn();
+    }
+
+    public fadeOut() {
+        this._gain.fadeOut();
     }
 
     public connect(node: AudioNode) {

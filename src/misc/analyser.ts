@@ -12,8 +12,7 @@ export interface AudioAnalysis {
 type AnalyseCallback = (data?: AudioAnalysis) => void;
 
 export default class AudioAnalyser {
-    private readonly _src: AudioSource;
-    private readonly _dest: AudioNode;
+    private readonly _source: AudioSource;
     private readonly _callback: AnalyseCallback;
     private readonly _analyserL: AnalyserNode;
     private readonly _analyserR: AnalyserNode;
@@ -30,22 +29,19 @@ export default class AudioAnalyser {
 
     constructor(source: AudioSource, callback: AnalyseCallback) {
         const audioContext = source.context;
-        this._src = source;
-        this._dest = source.connectedNodes[0];
+        this._source = source;
         this._analyserL = audioContext.createAnalyser();
         this._analyserR = audioContext.createAnalyser();
         this._analyserMerged = audioContext.createAnalyser();
         this._splitter = audioContext.createChannelSplitter();
         this._merger = audioContext.createChannelMerger();
 
-        this._src.disconnect(this._dest);
-        this._src.connect(this._splitter);
+        this._source.connect(this._splitter);
         this._splitter.connect(this._analyserL, 0);
         this._splitter.connect(this._analyserR, 1);
         this._analyserL.connect(this._merger, 0, 0);
         this._analyserR.connect(this._merger, 0, 1);
         this._merger.connect(this._analyserMerged);
-        this._analyserMerged.connect(this._dest);
 
         /* eslint-disable compat/compat */
         this._frequencyL = new Uint8Array(this._analyserL.frequencyBinCount);
@@ -64,9 +60,8 @@ export default class AudioAnalyser {
     }
 
     public cleanup() {
-        this._src.disconnect(this._splitter);
+        this._source.disconnect(this._splitter);
         this._analyserMerged.disconnect();
-        this._src.connect(this._dest);
     }
 
     public start = () => {

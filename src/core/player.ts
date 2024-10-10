@@ -1,7 +1,6 @@
 import AudioSource from '../misc/audio-source';
 import parseParameters from '../misc/parse-parameters';
 import ready from '../misc/ready';
-import canChangeVolume from '../misc/volume';
 import Clock from './clock';
 import Events, {
     EventHandlers,
@@ -26,15 +25,18 @@ export default class Player {
     }
 
     public get volume() {
-        return canChangeVolume() ? this._audio.volume : -1;
+        const object = this._audioSource ?? this._audio;
+        return object.volume;
     }
 
     public set volume(level) {
-        if (!canChangeVolume() || this._audio.volume === level) {
+        const object = this._audioSource ?? this._audio;
+
+        if (object.volume === level) {
             return;
         }
 
-        this._audio.volume = level;
+        object.volume = level;
         this._events.fire('volumechange');
     }
 
@@ -240,7 +242,7 @@ export default class Player {
     private _load() {
         this._loaded = true;
         this._events = new Events();
-        this._audio = new HTMLPlayerElement(SOURCES, this._events);
+        this._audio = new HTMLPlayerElement(SOURCES, this._events, this);
         this._clock = new Clock(this, this._events);
         this._tracker = new Tracker(this);
         this._childPlayers = document.querySelectorAll(
