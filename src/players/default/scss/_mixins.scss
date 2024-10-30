@@ -1,10 +1,12 @@
+@use 'sass:color';
+@use 'vars';
 @use 'sass:list';
 @use 'sass:math';
 
 @mixin visibility-transition(
     $props: (),
     $no-opacity: false,
-    $duration: $transition-duration
+    $duration: vars.$transition-duration
 ) {
     @if not $no-opacity {
         $props: list.append($props, opacity, comma);
@@ -55,17 +57,17 @@
     display: flex;
     justify-content: center;
     transition:
-        background-color $transition-duration,
-        color $transition-duration;
+        background-color vars.$transition-duration,
+        color vars.$transition-duration;
 
     &:hover,
     &:active,
     &:focus {
-        background-color: fade-out($color, 0.9);
+        background-color: color.adjust($color, $alpha: -0.9);
     }
 
     &:focus {
-        border-color: fade-out($color, 0.8);
+        border-color: color.adjust($color, $alpha: -0.8);
         outline: 0;
     }
 
@@ -76,11 +78,11 @@
             &:hover,
             &:active,
             &:focus {
-                background-color: fade-out($night-color, 0.9);
+                background-color: color.adjust($night-color, $alpha: -0.9);
             }
 
             &:focus {
-                border-color: fade-out($night-color, 0.8);
+                border-color: color.adjust($night-color, $alpha: -0.8);
             }
         }
     }
@@ -115,15 +117,15 @@
 
 @keyframes ripple {
     0% {
-        border-color: $main-color;
-        color: $main-color;
+        border-color: vars.$main-color;
+        color: vars.$main-color;
         height: 0;
         width: 0;
     }
 
     100% {
-        border-color: fade-out($main-color, 1);
-        color: fade-out($main-color, 1);
+        border-color: color.adjust(vars.$main-color, $alpha: -1);
+        color: color.adjust(vars.$main-color, $alpha: -1);
         height: 100%;
         width: 100%;
     }
@@ -131,15 +133,15 @@
 
 @keyframes night-ripple {
     0% {
-        border-color: $night-main-color;
-        color: $night-main-color;
+        border-color: vars.$night-main-color;
+        color: vars.$night-main-color;
         height: 0;
         width: 0;
     }
 
     100% {
-        border-color: fade-out($night-main-color, 1);
-        color: fade-out($night-main-color, 1);
+        border-color: color.adjust(vars.$night-main-color, $alpha: -1);
+        color: color.adjust(vars.$night-main-color, $alpha: -1);
         height: 100%;
         width: 100%;
     }

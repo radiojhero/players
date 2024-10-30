@@ -1,20 +1,26 @@
+@use 'sass:color';
+@use 'mixins';
+@use 'vars';
+
 @media (29001/26000 <= aspect-ratio <= 2/1) {
     .measure {
-        width: adjust-unit(0.7px, compact-horizontal);
+        width: mixins.adjust-unit(0.7px, compact-horizontal);
     }
 
     .logo {
-        @include circle-hover(adjust-unit(15px, compact-horizontal));
+        @include mixins.circle-hover(
+            mixins.adjust-unit(15px, compact-horizontal)
+        );
 
-        border-radius: adjust-unit(4px, compact-horizontal);
+        border-radius: mixins.adjust-unit(4px, compact-horizontal);
         left: 0;
         margin: 0 auto;
         right: 0;
         top: 0;
-        width: adjust-unit(50px, compact-horizontal);
+        width: mixins.adjust-unit(50px, compact-horizontal);
 
         .icon {
-            width: adjust-unit(75px, compact-horizontal);
+            width: mixins.adjust-unit(75px, compact-horizontal);
         }
     }
 
@@ -24,104 +30,108 @@
 
     .main-pane,
     .extra-pane {
-        height: adjust-unit(130px, compact-horizontal);
+        height: mixins.adjust-unit(130px, compact-horizontal);
         margin: auto 0;
     }
 
     .main-pane {
-        padding: adjust-unit(20px, compact-horizontal)
-            adjust-unit(20px, compact-horizontal) 0;
+        padding: mixins.adjust-unit(20px, compact-horizontal)
+            mixins.adjust-unit(20px, compact-horizontal) 0;
     }
 
     .extra-pane {
-        padding-left: adjust-unit(25px, compact-horizontal);
-        padding-right: adjust-unit(20px, compact-horizontal);
-        padding-top: adjust-unit(10px, compact-horizontal);
+        padding-left: mixins.adjust-unit(25px, compact-horizontal);
+        padding-right: mixins.adjust-unit(20px, compact-horizontal);
+        padding-top: mixins.adjust-unit(10px, compact-horizontal);
     }
 
     .more-btn,
     .back-btn {
-        @include circle-hover(adjust-unit(12px, compact-horizontal));
+        @include mixins.circle-hover(
+            mixins.adjust-unit(12px, compact-horizontal)
+        );
 
-        left: adjust-unit(5px, compact-horizontal);
-        top: adjust-unit(5px, compact-horizontal);
+        left: mixins.adjust-unit(5px, compact-horizontal);
+        top: mixins.adjust-unit(5px, compact-horizontal);
     }
 
     .volume {
-        font-size: adjust-unit(12px, compact-horizontal);
-        right: adjust-unit(10px, compact-horizontal);
-        top: adjust-unit(8px, compact-horizontal);
+        font-size: mixins.adjust-unit(12px, compact-horizontal);
+        right: mixins.adjust-unit(10px, compact-horizontal);
+        top: mixins.adjust-unit(8px, compact-horizontal);
     }
 
     .volume-waves {
-        border-width: adjust-unit(1px, compact-horizontal);
+        border-width: mixins.adjust-unit(1px, compact-horizontal);
 
         &::before,
         &::after {
-            border-width: adjust-unit(1px, compact-horizontal);
+            border-width: mixins.adjust-unit(1px, compact-horizontal);
         }
 
         &::before {
-            left: adjust-unit(2px, compact-horizontal);
+            left: mixins.adjust-unit(2px, compact-horizontal);
         }
 
         &::after {
-            left: 2 * adjust-unit(2px, compact-horizontal) +
-                adjust-unit(1px, compact-horizontal);
+            left: 2 * mixins.adjust-unit(2px, compact-horizontal) +
+                mixins.adjust-unit(1px, compact-horizontal);
         }
     }
 
     .volume-range-wrapper {
-        height: adjust-unit(8px, compact-horizontal);
+        height: mixins.adjust-unit(8px, compact-horizontal);
         right: 0;
-        top: adjust-unit(10px, compact-horizontal);
+        top: mixins.adjust-unit(10px, compact-horizontal);
         transform: rotate(-90deg);
         transform-origin: bottom right;
         vertical-align: top;
-        width: adjust-unit(60px, compact-horizontal);
+        width: mixins.adjust-unit(60px, compact-horizontal);
     }
 
     .volume-range {
         cursor: ns-resize;
 
         &:focus + div > .volume-range-thumb {
-            box-shadow: 0 0 0 adjust-unit(2px, compact-horizontal)
-                fade-out($main-color, 0.75);
+            box-shadow: 0 0 0 mixins.adjust-unit(2px, compact-horizontal)
+                color.adjust(vars.$main-color, $alpha: -0.75);
 
             .night & {
-                box-shadow: 0 0 0 adjust-unit(2px, compact-horizontal)
-                    fade-out($night-main-color, 0.75);
+                box-shadow: 0 0 0 mixins.adjust-unit(2px, compact-horizontal)
+                    color.adjust(vars.$night-main-color, $alpha: -0.75);
             }
         }
     }
 
     .volume-range-thumb {
-        border-width: adjust-unit(1px, compact-horizontal);
-        height: adjust-unit(10px, compact-horizontal);
-        width: adjust-unit(10px, compact-horizontal);
+        border-width: mixins.adjust-unit(1px, compact-horizontal);
+        height: mixins.adjust-unit(10px, compact-horizontal);
+        width: mixins.adjust-unit(10px, compact-horizontal);
     }
 
     .play-btn {
-        @include circle-hover(adjust-unit(20px, compact-horizontal));
+        @include mixins.circle-hover(
+            mixins.adjust-unit(20px, compact-horizontal)
+        );
 
-        bottom: adjust-unit(5px, compact-horizontal);
-        right: adjust-unit(5px, compact-horizontal);
+        bottom: mixins.adjust-unit(5px, compact-horizontal);
+        right: mixins.adjust-unit(5px, compact-horizontal);
 
         &-paused {
-            margin-left: adjust-unit(2px, compact-horizontal);
+            margin-left: mixins.adjust-unit(2px, compact-horizontal);
         }
 
         &-buffering {
             &::before,
             &::after {
-                border-width: adjust-unit(4px, compact-horizontal);
+                border-width: mixins.adjust-unit(4px, compact-horizontal);
             }
         }
     }
 
     .stopped-message {
-        left: adjust-unit(20px, compact-horizontal);
-        right: adjust-unit(40px, compact-horizontal);
+        left: mixins.adjust-unit(20px, compact-horizontal);
+        right: mixins.adjust-unit(40px, compact-horizontal);
     }
 
     .program-metadata {
@@ -130,18 +140,18 @@
     }
 
     .program-name-wrapper {
-        font-size: adjust-unit(17px, compact-horizontal);
+        font-size: mixins.adjust-unit(17px, compact-horizontal);
     }
 
     .program-who {
-        @include pseudo-padding;
+        @include mixins.pseudo-padding;
 
-        font-size: adjust-unit(10px, compact-horizontal);
+        font-size: mixins.adjust-unit(10px, compact-horizontal);
     }
 
     .program-description {
-        font-size: adjust-unit(10px, compact-horizontal);
-        padding-top: adjust-unit(3px, compact-horizontal);
+        font-size: mixins.adjust-unit(10px, compact-horizontal);
+        padding-top: mixins.adjust-unit(3px, compact-horizontal);
 
         &::after {
             display: none;
@@ -150,20 +160,20 @@
 
     .song-metadata {
         .song-current {
-            bottom: adjust-unit(15px, compact-horizontal);
-            font-size: adjust-unit(11px, compact-horizontal);
-            left: adjust-unit(55px, compact-horizontal);
-            right: adjust-unit(75px, compact-horizontal);
+            bottom: mixins.adjust-unit(15px, compact-horizontal);
+            font-size: mixins.adjust-unit(11px, compact-horizontal);
+            left: mixins.adjust-unit(55px, compact-horizontal);
+            right: mixins.adjust-unit(75px, compact-horizontal);
 
             .mimic {
-                margin-left: adjust-unit(20px, compact-horizontal);
+                margin-left: mixins.adjust-unit(20px, compact-horizontal);
             }
 
             &.left-overflow {
                 mask-image: linear-gradient(
                     to right,
                     transparent,
-                    $bg-color adjust-unit(15px, compact-horizontal)
+                    vars.$bg-color mixins.adjust-unit(15px, compact-horizontal)
                 );
             }
 
@@ -171,22 +181,24 @@
                 mask-image: linear-gradient(
                     to left,
                     transparent,
-                    $bg-color adjust-unit(15px, compact-horizontal)
+                    vars.$bg-color mixins.adjust-unit(15px, compact-horizontal)
                 );
 
                 &.left-overflow {
                     mask-image: linear-gradient(
                             to left,
                             transparent,
-                            $bg-color adjust-unit(15px, compact-horizontal),
-                            $bg-color 51%,
+                            vars.$bg-color
+                                mixins.adjust-unit(15px, compact-horizontal),
+                            vars.$bg-color 51%,
                             transparent 51%
                         ),
                         linear-gradient(
                             to right,
                             transparent,
-                            $bg-color adjust-unit(15px, compact-horizontal),
-                            $bg-color 51%,
+                            vars.$bg-color
+                                mixins.adjust-unit(15px, compact-horizontal),
+                            vars.$bg-color 51%,
                             transparent 51%
                         );
                 }
@@ -195,33 +207,33 @@
     }
 
     .song-progress-wrapper {
-        border-radius: adjust-unit(1.5px, compact-horizontal);
-        bottom: adjust-unit(32px, compact-horizontal);
-        height: adjust-unit(4px, compact-horizontal);
-        left: adjust-unit(20px, compact-horizontal);
-        width: calc(100% - #{adjust-unit(60px, compact-horizontal)});
+        border-radius: mixins.adjust-unit(1.5px, compact-horizontal);
+        bottom: mixins.adjust-unit(32px, compact-horizontal);
+        height: mixins.adjust-unit(4px, compact-horizontal);
+        left: mixins.adjust-unit(20px, compact-horizontal);
+        width: calc(100% - #{mixins.adjust-unit(60px, compact-horizontal)});
 
         .song-progress-fill {
-            border-radius: adjust-unit(1.5px, compact-horizontal);
+            border-radius: mixins.adjust-unit(1.5px, compact-horizontal);
         }
     }
 
     .song-current-time,
     .song-total-time {
-        bottom: adjust-unit(20px, compact-horizontal);
-        font-size: adjust-unit(10px, compact-horizontal);
+        bottom: mixins.adjust-unit(20px, compact-horizontal);
+        font-size: mixins.adjust-unit(10px, compact-horizontal);
     }
 
     .song-current-time {
-        left: adjust-unit(20px, compact-horizontal);
+        left: mixins.adjust-unit(20px, compact-horizontal);
     }
 
     .song-total-time {
-        right: adjust-unit(40px, compact-horizontal);
+        right: mixins.adjust-unit(40px, compact-horizontal);
     }
 
     .tabs-list-paneless {
-        margin-top: adjust-unit(-10px, compact-horizontal);
+        margin-top: mixins.adjust-unit(-10px, compact-horizontal);
     }
 
     .tabs-tab-wrapper {
@@ -229,9 +241,11 @@
     }
 
     .tabs-tab {
-        @include circle-hover(adjust-unit(12px, compact-horizontal));
+        @include mixins.circle-hover(
+            mixins.adjust-unit(12px, compact-horizontal)
+        );
 
-        border-radius: adjust-unit(6px, compact-horizontal);
-        height: adjust-unit(30px, compact-horizontal);
+        border-radius: mixins.adjust-unit(6px, compact-horizontal);
+        height: mixins.adjust-unit(30px, compact-horizontal);
     }
 }

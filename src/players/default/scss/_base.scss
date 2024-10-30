@@ -1,9 +1,11 @@
+@use 'mixins';
+@use 'vars';
 @use 'sass:color';
 @use 'sass:math';
 
 html {
-    background: $bg-color;
-    color: $text-color;
+    background: vars.$bg-color;
+    color: vars.$text-color;
     cursor: default;
     font: menu;
     font-weight: 300;
@@ -18,8 +20,8 @@ html {
     }
 
     &.night {
-        background: $night-bg-color;
-        color: $night-text-color;
+        background: vars.$night-bg-color;
+        color: vars.$night-text-color;
     }
 }
 
@@ -48,24 +50,27 @@ button {
 }
 
 a {
-    color: color.adjust($main-color, $lightness: -15%);
+    color: color.adjust(vars.$main-color, $lightness: -15%);
     transition:
-        background-color $transition-duration,
-        color $transition-duration;
+        background-color vars.$transition-duration,
+        color vars.$transition-duration;
 
     .night & {
-        color: color.adjust($night-main-color, $lightness: -15%);
+        color: color.adjust(vars.$night-main-color, $lightness: -15%);
     }
 
     &:hover,
     &:active,
     &:focus {
-        background-color: fade-out($main-color, 0.9);
-        color: $main-color;
+        background-color: color.adjust(vars.$main-color, $alpha: -0.9);
+        color: vars.$main-color;
 
         .night & {
-            background-color: fade-out($night-main-color, 0.9);
-            color: $night-main-color;
+            background-color: color.adjust(
+                vars.$night-main-color,
+                $alpha: -0.9
+            );
+            color: vars.$night-main-color;
         }
     }
 
@@ -75,7 +80,7 @@ a {
 }
 
 code {
-    background: fade-out($text-color, 0.95);
+    background: color.adjust(vars.$text-color, $alpha: -0.95);
     border-radius: 0.5em;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Ubuntu Mono',
         'Liberation Mono', Courier, monospace;
@@ -83,7 +88,7 @@ code {
     padding: 0.2em 0;
 
     .night & {
-        background: fade-out($night-text-color, 0.95);
+        background: color.adjust(vars.$night-text-color, $alpha: -0.95);
     }
 
     &::before,
@@ -142,7 +147,7 @@ svg {
 }
 
 .logo {
-    @include circle-hover-base($main-color, $night-main-color);
+    @include mixins.circle-hover-base(vars.$main-color, vars.$night-main-color);
 
     position: absolute;
     z-index: 2;
@@ -156,12 +161,12 @@ svg {
 }
 
 .banner {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     background: currentcolor;
 
     .night & {
-        color: $black;
+        color: vars.$black;
     }
 }
 
@@ -170,7 +175,7 @@ img {
 }
 
 .banner-inner {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     .program-avatar {
         height: 100%;
@@ -191,7 +196,7 @@ img {
 
 .contents {
     inset: 0;
-    box-shadow: 0 0 0 1px $discrete-border-color;
+    box-shadow: 0 0 0 1px vars.$discrete-border-color;
     position: absolute;
 }
 
@@ -203,7 +208,7 @@ img {
 }
 
 .main-pane {
-    @include visibility-transition(transform);
+    @include mixins.visibility-transition(transform);
 
     &.hidden {
         transform: translateX(-33%);
@@ -219,7 +224,7 @@ img {
 
 .more-btn,
 .back-btn {
-    @include circle-hover-base($text-color, $night-text-color);
+    @include mixins.circle-hover-base(vars.$text-color, vars.$night-text-color);
 }
 
 .volume {
@@ -237,23 +242,23 @@ img {
 }
 
 .volume-waves {
-    border-left: solid $main-color;
+    border-left: solid vars.$main-color;
     height: 0.6em;
     margin-right: 0.4em;
     position: relative;
 
     .night & {
-        border-left-color: $night-main-color;
+        border-left-color: vars.$night-main-color;
     }
 
     &::before,
     &::after {
-        border-left: solid $main-color;
+        border-left: solid vars.$main-color;
         content: '';
         position: absolute;
 
         .night & {
-            border-left-color: $night-main-color;
+            border-left-color: vars.$night-main-color;
         }
     }
 
@@ -307,7 +312,7 @@ img {
 
     & + div {
         opacity: 0;
-        transition: opacity $transition-duration;
+        transition: opacity vars.$transition-duration;
     }
 
     &:focus + div {
@@ -386,7 +391,7 @@ img {
 }
 
 .volume-range-fill {
-    background: $main-color;
+    background: vars.$main-color;
     border-radius: 16777216px 0 0 16777216px;
     bottom: 0;
     left: 0;
@@ -395,12 +400,12 @@ img {
     width: 50%;
 
     .night & {
-        background: $night-main-color;
+        background: vars.$night-main-color;
     }
 }
 
 .volume-range-track {
-    background: $transparent-light-gray;
+    background: vars.$transparent-light-gray;
     border-radius: 0 16777216px 16777216px 0;
     bottom: 0;
     position: absolute;
@@ -409,13 +414,13 @@ img {
     width: 50%;
 
     .night & {
-        background: $night-transparent-light-gray;
+        background: vars.$night-transparent-light-gray;
     }
 }
 
 .volume-range-thumb {
-    background: $light-gray;
-    border: solid $main-color;
+    background: vars.$light-gray;
+    border: solid vars.$main-color;
     border-radius: 100%;
     box-sizing: border-box;
     position: absolute;
@@ -423,12 +428,12 @@ img {
     transform: translateY(-50%);
 
     .night & {
-        border-color: $night-main-color;
+        border-color: vars.$night-main-color;
     }
 }
 
 .play-btn {
-    @include circle-hover-base($main-color, $night-main-color);
+    @include mixins.circle-hover-base(vars.$main-color, vars.$night-main-color);
 
     position: absolute;
     z-index: 2;
@@ -436,7 +441,7 @@ img {
     &-buffering {
         &::before,
         &::after {
-            animation: ripple $animation-duration infinite linear;
+            animation: ripple vars.$animation-duration infinite linear;
             border-radius: 100%;
             border-style: solid;
             content: '';
@@ -451,7 +456,7 @@ img {
         }
 
         &::after {
-            animation-delay: math.div(-$animation-duration, 2);
+            animation-delay: math.div(-(vars.$animation-duration), 2);
         }
     }
 
@@ -461,7 +466,7 @@ img {
 }
 
 .stopped-message {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     align-items: center;
     bottom: 0;
@@ -477,15 +482,15 @@ img {
 }
 
 .program-metadata {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     position: relative;
     z-index: 1;
 }
 
 .program-name-wrapper {
-    @include ellipsis-overflow;
-    @include pseudo-padding;
+    @include mixins.ellipsis-overflow;
+    @include mixins.pseudo-padding;
 
     font-weight: 600;
 }
@@ -495,13 +500,13 @@ img {
 }
 
 .program-who {
-    @include ellipsis-overflow;
+    @include mixins.ellipsis-overflow;
 
-    color: $main-color;
+    color: vars.$main-color;
     margin: 0;
 
     .night & {
-        color: $night-main-color;
+        color: vars.$night-main-color;
     }
 }
 
@@ -524,19 +529,19 @@ img {
     position: relative;
 
     &::after {
-        border-bottom: 1px solid $main-color;
+        border-bottom: 1px solid vars.$main-color;
         bottom: 0;
         content: '';
         position: absolute;
 
         .night & {
-            border-bottom-color: $night-main-color;
+            border-bottom-color: vars.$night-main-color;
         }
     }
 }
 
 .song-metadata {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     .program-avatar-wrapper {
         display: none;
@@ -552,7 +557,7 @@ img {
         }
 
         &::after {
-            border: 1px solid $discrete-border-color;
+            border: 1px solid vars.$discrete-border-color;
             box-sizing: border-box;
             content: '';
         }
@@ -560,8 +565,8 @@ img {
 }
 
 .song-analyser {
-    border-color: $text-color;
-    color: $main-color;
+    border-color: vars.$text-color;
+    color: vars.$main-color;
     display: block;
     height: 100%;
     left: 0;
@@ -571,8 +576,8 @@ img {
     width: 100%;
 
     .night & {
-        border-color: $night-text-color;
-        color: $night-main-color;
+        border-color: vars.$night-text-color;
+        color: vars.$night-main-color;
     }
 
     .song-metadata & {
@@ -581,12 +586,12 @@ img {
 }
 
 .song-progress-wrapper {
-    background-color: $transparent-light-gray;
+    background-color: vars.$transparent-light-gray;
     overflow: hidden;
     position: absolute;
 
     .night & {
-        background-color: $night-transparent-light-gray;
+        background-color: vars.$night-transparent-light-gray;
     }
 }
 
@@ -601,7 +606,7 @@ img {
 }
 
 .song-progress-fill {
-    background-color: $main-color;
+    background-color: vars.$main-color;
     height: 100%;
     left: -100%;
     position: absolute;
@@ -609,7 +614,7 @@ img {
     width: 100%;
 
     .night & {
-        background-color: $night-main-color;
+        background-color: vars.$night-main-color;
     }
 }
 
@@ -626,15 +631,15 @@ img {
 }
 
 .song-total-time {
-    color: $main-color;
+    color: vars.$main-color;
 
     .night & {
-        color: $night-main-color;
+        color: vars.$night-main-color;
     }
 }
 
 .song-current {
-    @include pseudo-padding;
+    @include mixins.pseudo-padding;
 
     overflow: hidden;
     position: absolute;
@@ -653,7 +658,7 @@ img {
 }
 
 .extra-pane {
-    @include visibility-transition(transform);
+    @include mixins.visibility-transition(transform);
 
     &.hidden {
         transform: translateX(100%);
@@ -686,7 +691,7 @@ img {
 }
 
 .tabs-tab {
-    @include circle-hover-base($main-color, $night-main-color);
+    @include mixins.circle-hover-base(vars.$main-color, vars.$night-main-color);
 
     color: inherit !important;
     flex-flow: column;
@@ -704,10 +709,10 @@ img {
     &:hover,
     &:active,
     &:focus {
-        color: $main-color !important;
+        color: vars.$main-color !important;
 
         .night & {
-            color: $night-main-color;
+            color: vars.$night-main-color;
         }
     }
 }
@@ -718,25 +723,25 @@ img {
 }
 
 .pane {
-    @include visibility-transition(
+    @include mixins.visibility-transition(
         transform,
-        $duration: $transition-duration * 2
+        $duration: vars.$transition-duration * 2
     );
 
     background: inherit;
     border-top: solid;
     inset: 0;
-    color: $main-color;
+    color: vars.$main-color;
     display: flex;
     flex-flow: column;
     justify-content: center;
     position: absolute;
     text-align: center;
-    transition-timing-function: $ease-out-quad;
+    transition-timing-function: vars.$ease-out-quad;
     z-index: 2;
 
     .night & {
-        color: $night-main-color;
+        color: vars.$night-main-color;
     }
 
     &.requests {
@@ -746,24 +751,24 @@ img {
     &::before {
         background: inherit;
         border: solid;
-        border-color: $main-color transparent transparent $main-color;
+        border-color: vars.$main-color transparent transparent vars.$main-color;
         content: '';
         position: absolute;
         top: 0;
         transform: translateX(-50%) translateY(-50%) rotate(45deg);
 
         .night & {
-            border-color: $night-main-color transparent transparent
-                $night-main-color;
+            border-color: vars.$night-main-color transparent transparent
+                vars.$night-main-color;
         }
     }
 
-    @for $i from 1 through $number-of-panes {
+    @for $i from 1 through vars.$number-of-panes {
         &:nth-child(#{$i}) {
             &::before {
-                left: math.div($i * 100%, $number-of-panes) - math.div(
+                left: math.div($i * 100%, vars.$number-of-panes) - math.div(
                         50%,
-                        $number-of-panes
+                        vars.$number-of-panes
                     );
             }
         }
@@ -771,13 +776,13 @@ img {
 
     &.hidden {
         transform: translateY(100%);
-        transition-timing-function: $ease-in-quad;
+        transition-timing-function: vars.$ease-in-quad;
         z-index: 1;
     }
 }
 
 form {
-    @include visibility-transition;
+    @include mixins.visibility-transition;
 
     .msg {
         margin-left: 0.5em;
@@ -817,7 +822,7 @@ form {
         appearance: none;
         background: transparent;
         border: 0;
-        color: $text-color;
+        color: vars.$text-color;
         flex: 1;
         font: inherit;
         line-height: normal;
@@ -825,7 +830,7 @@ form {
         padding: 0;
 
         .night & {
-            color: $night-text-color;
+            color: vars.$night-text-color;
         }
 
         &:focus {
@@ -836,7 +841,7 @@ form {
     input,
     textarea {
         &::placeholder {
-            color: $gray;
+            color: vars.$gray;
             font-style: italic;
             opacity: 1;
         }
@@ -844,15 +849,15 @@ form {
 
     select {
         &:invalid {
-            color: $gray;
+            color: vars.$gray;
             font-style: italic;
         }
 
         &:focus {
-            background: $transparent-light-gray;
+            background: vars.$transparent-light-gray;
 
             .night & {
-                background: $night-transparent-light-gray;
+                background: vars.$night-transparent-light-gray;
             }
         }
     }
