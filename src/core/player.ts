@@ -105,6 +105,7 @@ export default class Player {
         if (!addToExistingPlayer) {
             this._load();
             window[PLAYER_NAMESPACE] = this;
+            // eslint-disable-next-line n/no-unsupported-features/node-builtins
             document.dispatchEvent(new CustomEvent(`${PLAYER_NAMESPACE}init`));
         }
 
@@ -122,7 +123,10 @@ export default class Player {
 
                 element.style.overflow = 'hidden';
 
-                const playerType = element.dataset.type;
+                const playerType =
+                    element.dataset.type === 'default'
+                        ? 'v4'
+                        : element.dataset.type;
                 const iframe = document.createElement('iframe');
 
                 if (!playerType || /[^\da-z]/i.test(playerType)) {

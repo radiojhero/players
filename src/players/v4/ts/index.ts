@@ -147,7 +147,7 @@ const initPlayer = () => {
         togglePlayState(player, true, false);
     }
 
-    if (window.params.night) {
+    if ((globalThis as any).params.night) {
         document.documentElement.classList.add(css.night);
     }
 

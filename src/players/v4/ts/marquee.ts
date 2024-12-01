@@ -6,7 +6,7 @@ let currentSongText: string | undefined;
 let originalSongTextRight: number;
 let mimickedSongTextLeft: number;
 let marqueeFrame: number;
-let marqueeTimeout: number;
+let marqueeTimeout: ReturnType<typeof globalThis.setTimeout>;
 let marqueeScrolled: number;
 let marqueeDelta: number;
 let marqueeStarted: number;
@@ -48,7 +48,7 @@ function runMarqueeFrame(force: boolean, timestamp?: number) {
 
     if (!(force || marqueeScrolled)) {
         pauseMarquee();
-        marqueeTimeout = window.setTimeout(() => {
+        marqueeTimeout = globalThis.setTimeout(() => {
             runMarqueeFrame(true);
         }, 1500);
         return;
