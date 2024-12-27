@@ -22,6 +22,7 @@ interface Settings {
             burst: number;
             src: string;
         }[];
+        TIMESTAMPS_IN_SECONDS: boolean;
         METADATA_URL: string;
         METADATA_INTERVAL: number;
         PLAYER_DOMAIN: string;
@@ -176,9 +177,15 @@ const config = ({
                                     callback(null, '');
                                 },
                                 function (callback) {
-                                    for (const [k, v] of Object.entries(
+                                    // eslint-disable-next-line prefer-const
+                                    for (let [k, v] of Object.entries(
                                         settings.defines,
                                     )) {
+                                        if (k === 'TIMESTAMPS_IN_SECONDS') {
+                                            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                            v ??= true;
+                                        }
+
                                         data = data.replaceAll(
                                             new RegExp(`\\b${k}\\b`, 'g'),
                                             v.toString(),

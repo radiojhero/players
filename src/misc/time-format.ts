@@ -10,7 +10,7 @@ function zeroFill(value: number, width: number) {
 }
 
 const timeFormat = (seconds: number, noZeroFill = true) => {
-    seconds = Math.floor(seconds);
+    seconds = Math.floor(seconds / (TIMESTAMPS_IN_SECONDS ? 1 : 1000));
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
 

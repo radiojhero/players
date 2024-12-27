@@ -39,7 +39,8 @@ export default class Clock {
         let songProgress =
             this._songNow -
             this._songStart +
-            (performance.now() - this._lastUpdateTime) / 1000;
+            (performance.now() - this._lastUpdateTime) /
+                (TIMESTAMPS_IN_SECONDS ? 1000 : 1);
 
         if (this._songDuration > 0 && songProgress >= this._songDuration) {
             this._stop();

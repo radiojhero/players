@@ -8,6 +8,7 @@ declare interface Source {
 
 declare const SOURCES: Source[];
 
+declare const TIMESTAMPS_IN_SECONDS: boolean;
 declare const METADATA_URL: string;
 declare const METADATA_INTERVAL: number;
 declare const PLAYER_DOMAIN: string;

@@ -76,6 +76,10 @@ export default class MediaSessionWrapper {
     }
 
     private _setPosition(state: MediaPositionState) {
+        if (!TIMESTAMPS_IN_SECONDS) {
+            state.duration = state.duration ? state.duration / 1000 : 0;
+            state.position = state.position ? state.position / 1000 : 0;
+        }
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         mediaSession?.setPositionState({ duration: 0, ...state });
     }
