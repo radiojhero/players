@@ -36,11 +36,13 @@ export default class Clock {
     };
 
     private readonly _tick = () => {
-        let songProgress =
+        let songProgress = Math.max(
+            0,
             this._songNow -
-            this._songStart +
-            (performance.now() - this._lastUpdateTime) /
-                (TIMESTAMPS_IN_SECONDS ? 1000 : 1);
+                this._songStart +
+                (performance.now() - this._lastUpdateTime) /
+                    (TIMESTAMPS_IN_SECONDS ? 1000 : 1),
+        );
 
         if (this._songDuration > 0 && songProgress >= this._songDuration) {
             this._stop();
