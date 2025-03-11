@@ -1,13 +1,13 @@
 {
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "spec": true,
-                "modules": false,
-                "debug": true
-            }
-        ],
-        "@babel/preset-typescript"
-    ]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "spec": true,
+        "modules": false,
+        "debug": true
+      }
+    ],
+    "@babel/preset-typescript"
+  ]
 }

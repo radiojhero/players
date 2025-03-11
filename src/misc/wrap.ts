@@ -1,38 +1,38 @@
 type WrappableFunction<T> = ((event: Event) => void) & {
-    __wrappers__?: {
-        guards: unknown[];
-        wrapper: T;
-    }[];
+  __wrappers__?: {
+    guards: unknown[];
+    wrapper: T;
+  }[];
 };
 
 export function unwrap<T extends WrappableFunction<T>>(
-    callback: T,
-    ...guards: unknown[]
+  callback: T,
+  ...guards: unknown[]
 ) {
-    if (callback.__wrappers__ !== undefined) {
-        const toRemove = callback.__wrappers__.filter(entry =>
-            guards.every(item => entry.guards.indexOf(item) !== -1),
-        );
-        callback.__wrappers__ = callback.__wrappers__.filter(
-            entry => toRemove.indexOf(entry) === -1,
-        );
+  if (callback.__wrappers__ !== undefined) {
+    const toRemove = callback.__wrappers__.filter((entry) =>
+      guards.every((item) => entry.guards.indexOf(item) !== -1),
+    );
+    callback.__wrappers__ = callback.__wrappers__.filter(
+      (entry) => toRemove.indexOf(entry) === -1,
+    );
 
-        return toRemove[0].wrapper;
-    }
+    return toRemove[0].wrapper;
+  }
 
-    return;
+  return;
 }
 
 export function wrap<T extends WrappableFunction<T>>(
-    callback: T,
-    wrapper: T,
-    ...guards: unknown[]
+  callback: T,
+  wrapper: T,
+  ...guards: unknown[]
 ) {
-    if (callback.__wrappers__ === undefined) {
-        callback.__wrappers__ = [];
-    }
+  if (callback.__wrappers__ === undefined) {
+    callback.__wrappers__ = [];
+  }
 
-    unwrap(callback, ...guards);
-    callback.__wrappers__.push({ guards, wrapper });
-    return wrapper;
+  unwrap(callback, ...guards);
+  callback.__wrappers__.push({ guards, wrapper });
+  return wrapper;
 }

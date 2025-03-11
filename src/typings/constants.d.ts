@@ -1,9 +1,9 @@
 declare interface Source {
-    title: string;
-    type: string;
-    bitrate: number;
-    burst: number;
-    src: string;
+  title: string;
+  type: string;
+  bitrate: number;
+  burst: number;
+  src: string;
 }
 
 declare const SOURCES: Source[];
@@ -12,7 +12,7 @@ declare const TIMESTAMPS_IN_SECONDS: boolean;
 declare const METADATA_URL: string;
 declare const METADATA_INTERVAL: number;
 declare const PLAYER_DOMAIN: string;
-declare const PLAYER_NAMESPACE: '__player_namespace';
+declare const PLAYER_NAMESPACE: "__player_namespace";
 declare const PLAYER_INITIAL_VOLUME: number;
 declare const MAIN_WEBSITE_HOME: string;
 declare const MAIN_WEBSITE_TIMETABLE: string;

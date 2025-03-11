@@ -1,3 +1,3 @@
-import SimpleQuery from '../../../misc/query';
+import SimpleQuery from "../../../misc/query";
 
 export default new SimpleQuery();

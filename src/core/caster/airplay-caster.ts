@@ -1,45 +1,45 @@
-import Events from '../events';
-import Caster from '.';
+import Caster from ".";
+import type Events from "../events";
 
 export default class AirplayCaster extends Caster {
-    protected readonly _type = 'airplay';
+  protected readonly _type = "airplay";
 
-    constructor(audio: HTMLAudioElement, events: Events) {
-        super(audio, events);
+  constructor(audio: HTMLAudioElement, events: Events) {
+    super(audio, events);
 
-        this._audio.addEventListener(
-            'webkitcurrentplaybacktargetiswirelesschanged',
-            this._updateStatus,
-        );
-        this._updateStatus();
+    this._audio.addEventListener(
+      "webkitcurrentplaybacktargetiswirelesschanged",
+      this._updateStatus,
+    );
+    this._updateStatus();
+  }
+
+  public static isSupported() {
+    return !!window.WebKitPlaybackTargetAvailabilityEvent;
+  }
+
+  private _updateStatus = () => {
+    if (this._audio.webkitCurrentPlaybackTargetIsWireless) {
+      this._audio.removeEventListener(
+        "webkitplaybacktargetavailabilitychanged",
+        this._castAvailabilityChange,
+      );
+      return;
     }
 
-    public static isSupported() {
-        return !!window.WebKitPlaybackTargetAvailabilityEvent;
-    }
+    this._audio.addEventListener(
+      "webkitplaybacktargetavailabilitychanged",
+      this._castAvailabilityChange,
+    );
+  };
 
-    private _updateStatus = () => {
-        if (this._audio.webkitCurrentPlaybackTargetIsWireless) {
-            this._audio.removeEventListener(
-                'webkitplaybacktargetavailabilitychanged',
-                this._castAvailabilityChange,
-            );
-            return;
-        }
+  private _castAvailabilityChange = (
+    event: WebKitPlaybackTargetAvailabilityEvent,
+  ) => {
+    this._fireAvailabililtyEvent(event.availability === "available");
+  };
 
-        this._audio.addEventListener(
-            'webkitplaybacktargetavailabilitychanged',
-            this._castAvailabilityChange,
-        );
-    };
-
-    private _castAvailabilityChange = (
-        event: WebKitPlaybackTargetAvailabilityEvent,
-    ) => {
-        this._fireAvailabililtyEvent(event.availability === 'available');
-    };
-
-    public showCastPicker() {
-        this._audio.webkitShowPlaybackTargetPicker();
-    }
+  public showCastPicker() {
+    this._audio.webkitShowPlaybackTargetPicker();
+  }
 }

@@ -1,52 +1,54 @@
-import addToQueryString from './add-to-query-string';
+import addToQueryString from "./add-to-query-string";
 
 type AjaxCallback = (data?: string) => void;
 
 function setupXhr(
-    verb: string,
-    url: string,
-    callback?: AjaxCallback,
-    data?: Document | XMLHttpRequestBodyInit,
-    credentials = false,
-    bustCache = false,
+  verb: string,
+  originalUrl: string,
+  callback?: AjaxCallback,
+  data?: Document | XMLHttpRequestBodyInit,
+  credentials = false,
+  bustCache = false,
 ) {
-    if (bustCache) {
-        url = addToQueryString(url, `_=${Date.now().toString()}`);
-    }
+  let url = originalUrl;
 
-    const request = new XMLHttpRequest();
-    if (callback) {
-        request.addEventListener('load', () => {
-            callback(request.responseText);
-        });
-        request.addEventListener('error', () => {
-            callback();
-        });
-    }
-    request.open(verb, url);
+  if (bustCache) {
+    url = addToQueryString(url, `_=${Date.now().toString()}`);
+  }
 
-    if (credentials) {
-        request.withCredentials = credentials;
-    }
+  const request = new XMLHttpRequest();
+  if (callback) {
+    request.addEventListener("load", () => {
+      callback(request.responseText);
+    });
+    request.addEventListener("error", () => {
+      callback();
+    });
+  }
+  request.open(verb, url);
 
-    request.send(data);
+  if (credentials) {
+    request.withCredentials = credentials;
+  }
+
+  request.send(data);
 }
 
 export function ajaxGet(
-    url: string,
-    callback?: AjaxCallback,
-    credentials = false,
-    bustCache = false,
+  url: string,
+  callback?: AjaxCallback,
+  credentials = false,
+  bustCache = false,
 ) {
-    setupXhr('GET', url, callback, undefined, credentials, bustCache);
+  setupXhr("GET", url, callback, undefined, credentials, bustCache);
 }
 
 export function ajaxPost(
-    url: string,
-    data: Document | XMLHttpRequestBodyInit,
-    callback?: AjaxCallback,
-    credentials = false,
-    bustCache = false,
+  url: string,
+  data: Document | XMLHttpRequestBodyInit,
+  callback?: AjaxCallback,
+  credentials = false,
+  bustCache = false,
 ) {
-    setupXhr('POST', url, callback, data, credentials, bustCache);
+  setupXhr("POST", url, callback, data, credentials, bustCache);
 }

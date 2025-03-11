@@ -1,4 +1,4 @@
-import ready from '../../../misc/ready';
+import ready from "../../../misc/ready";
 
 /**
  * This is code adapted from Lalit Patel's font detector, which is licensed
@@ -13,20 +13,20 @@ import ready from '../../../misc/ready';
 
 // A font will be compared against all the three default fonts.
 // And if it doesn't match all 3 then that font is not available.
-const baseFonts = ['monospace', 'sans-serif', 'serif'];
+const baseFonts = ["monospace", "sans-serif", "serif"];
 
 // We use m or w because these two characters take up the maximum width.
 // And we use a LLi so that the same matching fonts can get separated
-const testString = 'mmmmmmmmmmlli';
+const testString = "mmmmmmmmmmlli";
 
 // We test using 72px font size, we may use any size. I guess larger the better.
-const testSize = '72px';
+const testSize = "72px";
 
 const h = document.body;
 
 // Create a SPAN in the document to get the width of the text we use to test
-const s = document.createElement('span');
-s.style.font = 'initial';
+const s = document.createElement("span");
+s.style.font = "initial";
 s.style.fontSize = testSize;
 s.innerHTML = testString;
 
@@ -36,26 +36,26 @@ const defaultWidth: FontMap = {};
 const defaultHeight: FontMap = {};
 
 ready(() => {
-    baseFonts.forEach(baseFont => {
-        // Get the default width for the three base fonts
-        s.style.fontFamily = baseFont;
-        h.appendChild(s);
-        defaultWidth[baseFont] = s.offsetWidth; // Width for the default font
-        defaultHeight[baseFont] = s.offsetHeight; // Height for the defualt font
-        h.removeChild(s);
-    });
+  baseFonts.forEach((baseFont) => {
+    // Get the default width for the three base fonts
+    s.style.fontFamily = baseFont;
+    h.appendChild(s);
+    defaultWidth[baseFont] = s.offsetWidth; // Width for the default font
+    defaultHeight[baseFont] = s.offsetHeight; // Height for the defualt font
+    h.removeChild(s);
+  });
 });
 
 const font = (font: string) =>
-    baseFonts.some(baseFont => {
-        s.style.fontFamily = `${font},${baseFont}`; // Name of the font along with the base font for fallback.
-        h.appendChild(s);
-        const matched =
-            s.offsetWidth !== defaultWidth[baseFont] ||
-            s.offsetHeight !== defaultHeight[baseFont];
-        h.removeChild(s);
+  baseFonts.some((baseFont) => {
+    s.style.fontFamily = `${font},${baseFont}`; // Name of the font along with the base font for fallback.
+    h.appendChild(s);
+    const matched =
+      s.offsetWidth !== defaultWidth[baseFont] ||
+      s.offsetHeight !== defaultHeight[baseFont];
+    h.removeChild(s);
 
-        return matched;
-    });
+    return matched;
+  });
 
 export default font;
