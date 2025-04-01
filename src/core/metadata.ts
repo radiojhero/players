@@ -9,7 +9,6 @@ interface ImageSize {
 
 export interface Metadata {
   current_time: number;
-  autodj: boolean;
   is_live: boolean;
   program: {
     name: string;
@@ -28,10 +27,12 @@ export interface Metadata {
     max_time: number;
   };
   song_history: {
+    album: string;
     artist: string;
     title: string;
     start_time: number;
     duration: number;
+    cover?: ImageSize[];
   }[];
 }
 

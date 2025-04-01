@@ -32,15 +32,16 @@ export default class MediaSessionWrapper {
         return;
       }
 
-      let { artist, title, duration } = event.detail.song_history[0];
+      let { album, artist, title, duration, cover } =
+        event.detail.song_history[0];
 
       if (!title) {
         title = artist;
         artist = "???";
       }
 
-      const album = event.detail.program.name;
-      const artwork = event.detail.program.cover;
+      const artwork =
+        (cover?.length ?? 0) > 0 ? cover : event.detail.program.cover;
       this._setMetadata({ artist, title, album, artwork });
 
       this._songDuration = duration;
