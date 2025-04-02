@@ -84,16 +84,24 @@ const initPlayer = () => {
       }
 
       const song = event.detail.song_history[0];
+      const songMetadata = root.query(css.songMetadata);
+      const quantity = [song.album, song.artist, song.title].filter(
+        Boolean,
+      ).length;
+      songMetadata.classList.toggle(css.items1, quantity === 1);
+      songMetadata.classList.toggle(css.items2, quantity === 2);
+      songMetadata.classList.toggle(css.items3, quantity === 3);
 
-      if (song.artist && song.title) {
-        root.query(css.songArtist).textContent = song.artist;
-        root.query(css.songSeparator).classList.remove(css.forceHidden);
-        root.query(css.songTitle).textContent = song.title;
-      } else {
-        root.query(css.songArtist).textContent = "";
-        root.query(css.songSeparator).classList.add(css.forceHidden);
-        root.query(css.songTitle).textContent = song.artist || song.title;
-      }
+      root.query(css.songAlbum).textContent = song.album;
+      root.query(css.songArtist).textContent = song.artist;
+      root.query(css.songTitle).textContent = song.title;
+
+      root
+        .query(css.songSeparator1)
+        .classList.toggle(css.forceHidden, !song.album || !song.title);
+      root
+        .query(css.songSeparator2)
+        .classList.toggle(css.forceHidden, !song.artist || !song.title);
 
       if (song.duration > 0) {
         root.query(css.songTotalTime).textContent = timeFormat(song.duration);

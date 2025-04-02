@@ -653,8 +653,13 @@ img {
     }
 }
 
-.song-artist {
+.song-title {
     font-weight: 600;
+}
+
+.song-separator-1,
+.song-separator-2 {
+    opacity: 0.75;
 }
 
 .extra-pane {
