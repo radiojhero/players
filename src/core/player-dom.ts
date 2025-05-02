@@ -205,6 +205,8 @@ export default class HTMLPlayerElement {
       this._realPlayer.src = this._sources[this._sourceIndex].src;
       void this.play();
     }
+
+    this._events.fire("sourcechange");
   }
 
   public get allSources() {

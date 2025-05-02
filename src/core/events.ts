@@ -18,6 +18,7 @@ export interface EventDetailMap {
   metadataerror: never;
   songprogress: number;
   castavailabilitychange: never;
+  sourcechange: never;
 }
 
 export type EventCallbacks = {
