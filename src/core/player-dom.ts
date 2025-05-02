@@ -15,12 +15,12 @@ export default class HTMLPlayerElement {
   private _metadataWatcher?: MetadataWatcher;
   private _continuousMetadata = true;
   private _mediaSession?: MediaSessionWrapper;
-  private _realPlayer: HTMLAudioElement;
+  private _domPlayer: HTMLAudioElement;
   private _player: Player;
   private _isPausing = false;
 
   constructor(sources: Source[], events: Events, player: Player) {
-    this._realPlayer = new Audio();
+    this._domPlayer = new Audio();
     this._player = player;
 
     if ("mediaSession" in navigator) {
@@ -33,7 +33,7 @@ export default class HTMLPlayerElement {
       navigator.userAgent.includes("iPhone");
 
     this._sources = sources.filter(
-      (source) => this._realPlayer.canPlayType(source.type) !== "",
+      (source) => this._domPlayer.canPlayType(source.type) !== "",
     );
 
     // This assumes the declared sources are ordered by increasing bitrate
@@ -45,36 +45,36 @@ export default class HTMLPlayerElement {
       const source = document.createElement("source");
       source.type = item.type;
       source.src = item.src;
-      this._realPlayer.appendChild(source);
+      this._domPlayer.appendChild(source);
     });
 
     this._events = events;
-    this._realPlayer.volume = 1;
+    this._domPlayer.volume = 1;
 
     const setSource = () => {
-      if (!this._realPlayer.currentSrc) {
+      if (!this._domPlayer.currentSrc) {
         requestAnimationFrame(setSource);
         return;
       }
 
       this._sourceIndex = this._sources.findIndex(
-        (item) => this._realPlayer.currentSrc === item.src,
+        (item) => this._domPlayer.currentSrc === item.src,
       );
       this._events.fire("sourcechange");
-      this._realPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
+      this._domPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
       this._createMetadataWatcher();
     };
     setSource();
 
-    this._realPlayer.preload = "none";
-    this._realPlayer.crossOrigin = "anonymous";
-    this._realPlayer.id = PLAYER_NAMESPACE;
+    this._domPlayer.preload = "none";
+    this._domPlayer.crossOrigin = "anonymous";
+    this._domPlayer.id = PLAYER_NAMESPACE;
 
-    this._realPlayer.addEventListener("error", this._mapEvent("error"));
-    this._realPlayer.addEventListener("loadstart", this._mapEvent("buffering"));
-    this._realPlayer.addEventListener("pause", this._mapEvent("pause"));
-    this._realPlayer.addEventListener("playing", this._mapEvent("play"));
-    this._realPlayer.addEventListener("waiting", this._mapEvent("buffering"));
+    this._domPlayer.addEventListener("error", this._mapEvent("error"));
+    this._domPlayer.addEventListener("loadstart", this._mapEvent("buffering"));
+    this._domPlayer.addEventListener("pause", this._mapEvent("pause"));
+    this._domPlayer.addEventListener("playing", this._mapEvent("play"));
+    this._domPlayer.addEventListener("waiting", this._mapEvent("buffering"));
 
     events.on("play", () => {
       player.audioSource?.fadeIn();
@@ -82,19 +82,19 @@ export default class HTMLPlayerElement {
   }
 
   public play() {
-    if (this._realPlayer.paused) {
+    if (this._domPlayer.paused) {
       if (!this._continuousMetadata) {
         this._metadataWatcher?.watch();
       }
 
-      this._realPlayer.src = this._sources[this._sourceIndex].src;
+      this._domPlayer.src = this._sources[this._sourceIndex].src;
     }
 
-    return this._realPlayer.play();
+    return this._domPlayer.play();
   }
 
   public pause() {
-    if (this._realPlayer.paused || this._isPausing) {
+    if (this._domPlayer.paused || this._isPausing) {
       return;
     }
 
@@ -106,7 +106,7 @@ export default class HTMLPlayerElement {
     this._player.audioSource?.fadeOut();
     this._events.fire("pause");
 
-    if (this._realPlayer.readyState === HTMLMediaElement.HAVE_ENOUGH_DATA) {
+    if (this._domPlayer.readyState === HTMLMediaElement.HAVE_ENOUGH_DATA) {
       setTimeout(this._realPause, FADE_DURATION);
       return;
     }
@@ -115,13 +115,13 @@ export default class HTMLPlayerElement {
   }
 
   public attach() {
-    document.body.appendChild(this._realPlayer);
+    document.body.appendChild(this._domPlayer);
     this._mediaSession?.attach();
   }
 
   public detach() {
     this._mediaSession?.detach();
-    this._realPlayer.parentNode?.removeChild(this._realPlayer);
+    this._domPlayer.parentNode?.removeChild(this._domPlayer);
   }
 
   public fetchMetadata() {
@@ -129,14 +129,14 @@ export default class HTMLPlayerElement {
   }
 
   private _realPause = () => {
-    this._realPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
+    this._domPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
     this._isPausing = false;
   };
 
   private _mapEvent(eventName: keyof EventDetailMap) {
     return (event: Event) => {
       if (
-        !this._realPlayer.paused ||
+        !this._domPlayer.paused ||
         HTMLPlayerElement._bypass.indexOf(event.type) > -1
       ) {
         this._events.fire(eventName);
@@ -203,8 +203,8 @@ export default class HTMLPlayerElement {
     this._sourceIndex = index;
     this._createMetadataWatcher();
 
-    if (!this._realPlayer.paused) {
-      this._realPlayer.src = this._sources[this._sourceIndex].src;
+    if (!this._domPlayer.paused) {
+      this._domPlayer.src = this._sources[this._sourceIndex].src;
       void this.play();
     }
 
@@ -216,26 +216,26 @@ export default class HTMLPlayerElement {
   }
 
   public get paused() {
-    return this._realPlayer.paused;
+    return this._domPlayer.paused;
   }
 
   public get volume() {
-    return this._realPlayer.volume;
+    return this._domPlayer.volume;
   }
 
   public set volume(level) {
-    this._realPlayer.volume = level;
+    this._domPlayer.volume = level;
   }
 
   public get muted() {
-    return this._realPlayer.muted;
+    return this._domPlayer.muted;
   }
 
   public set muted(muted) {
-    this._realPlayer.muted = muted;
+    this._domPlayer.muted = muted;
   }
 
   public get domPlayer() {
-    return this._realPlayer;
+    return this._domPlayer;
   }
 }
