@@ -191,6 +191,7 @@ export default class HTMLPlayerElement {
     const index = Math.floor(originalIndex);
 
     if (
+      Number.isNaN(index) ||
       0 > index ||
       index >= this._sources.length ||
       this._sourceIndex === index
