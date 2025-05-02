@@ -60,6 +60,7 @@ export default class HTMLPlayerElement {
       this._sourceIndex = this._sources.findIndex(
         (item) => this._realPlayer.currentSrc === item.src,
       );
+      this._events.fire("sourcechange");
       this._realPlayer.src = HTMLPlayerElement._EMPTY_SOURCE;
       this._createMetadataWatcher();
     };
