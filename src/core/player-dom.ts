@@ -115,7 +115,10 @@ export default class HTMLPlayerElement {
   }
 
   public attach() {
-    document.body.appendChild(this._domPlayer);
+    const audioContainer = document.querySelector(
+      document.currentScript?.dataset.container ?? "body",
+    ) as HTMLElement;
+    audioContainer.appendChild(this._domPlayer);
     this._mediaSession?.attach();
   }
 
