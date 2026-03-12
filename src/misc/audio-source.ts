@@ -9,7 +9,12 @@ export default class AudioSource {
     return this._node.context as AudioContext;
   }
 
+  public get element() {
+    return this._element;
+  }
+
   private readonly _node: AudioNode;
+  private readonly _element: HTMLMediaElement;
   private readonly _gain: Gain;
   private _connectedNodes: AudioNode[] = [];
 
@@ -17,6 +22,7 @@ export default class AudioSource {
     const audioContext = new AudioContext();
     this._node = audioContext.createMediaElementSource(element);
     this._gain = new Gain(audioContext, this._node, volume);
+    this._element = element;
   }
 
   public get volume() {
