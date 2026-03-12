@@ -1,3 +1,4 @@
+import AudioAnalyser from "../misc/analyser";
 import AudioSource from "../misc/audio-source";
 import parseParameters from "../misc/parse-parameters";
 import ready from "../misc/ready";
@@ -5,9 +6,9 @@ import type Caster from "./caster";
 import createCaster from "./caster/factory";
 import Clock from "./clock";
 import Events, {
-  type EventHandlers,
   type EventCallbacks,
   type EventDetailMap,
+  type EventHandlers,
 } from "./events";
 import HTMLPlayerElement from "./player-dom";
 import Tracker from "./tracker";
@@ -67,6 +68,14 @@ export default class Player {
 
   public get audioSource() {
     return this._audioSource;
+  }
+
+  public get AudioAnalyser() {
+    return AudioAnalyser;
+  }
+
+  public get AudioSource() {
+    return AudioSource;
   }
 
   public get castStatus() {
