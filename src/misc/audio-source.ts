@@ -13,10 +13,10 @@ export default class AudioSource {
   private readonly _gain: Gain;
   private _connectedNodes: AudioNode[] = [];
 
-  constructor(element: HTMLMediaElement) {
+  constructor(element: HTMLMediaElement, volume = PLAYER_INITIAL_VOLUME) {
     const audioContext = new AudioContext();
     this._node = audioContext.createMediaElementSource(element);
-    this._gain = new Gain(audioContext, this._node);
+    this._gain = new Gain(audioContext, this._node, volume);
   }
 
   public get volume() {

@@ -3,15 +3,20 @@ export const FADE_DURATION = 150;
 export default class Gain {
   private _baseGain: GainNode;
   private _gain: GainNode;
-  private _volume = PLAYER_INITIAL_VOLUME;
+  private _volume: number;
 
   private _fadeFrame: number;
 
-  constructor(audioContext: AudioContext, node: AudioNode) {
+  constructor(
+    audioContext: AudioContext,
+    node: AudioNode,
+    volume = PLAYER_INITIAL_VOLUME,
+  ) {
+    this._volume = volume;
     this._baseGain = audioContext.createGain();
     this._baseGain.gain.value = 1;
     this._gain = audioContext.createGain();
-    this._gain.gain.value = PLAYER_INITIAL_VOLUME * PLAYER_INITIAL_VOLUME;
+    this._gain.gain.value = volume * volume;
     node.connect(this._baseGain);
     this._baseGain.connect(this._gain);
     this._gain.connect(audioContext.destination);
