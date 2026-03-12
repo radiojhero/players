@@ -25,9 +25,15 @@ export default class AudioAnalyser {
   private readonly _timeDomainL: Uint8Array<ArrayBuffer>;
   private readonly _timeDomainR: Uint8Array<ArrayBuffer>;
   private readonly _timeDomainMerged: Uint8Array<ArrayBuffer>;
+  private readonly _errored: boolean = false;
   private _analysing: boolean;
 
   constructor(source: AudioSource, callback: AnalyseCallback) {
+    if (!source) {
+      this._errored = true;
+      return;
+    }
+
     const audioContext = source.context;
     this._source = source;
     this._analyserL = audioContext.createAnalyser();
@@ -63,7 +69,7 @@ export default class AudioAnalyser {
   }
 
   public start = () => {
-    if (this._analysing) {
+    if (this._analysing || this._errored) {
       return;
     }
 
@@ -72,7 +78,7 @@ export default class AudioAnalyser {
   };
 
   public stop = () => {
-    if (!this._analysing) {
+    if (!this._analysing || this._errored) {
       return;
     }
 
@@ -81,7 +87,7 @@ export default class AudioAnalyser {
   };
 
   private readonly _frame = () => {
-    if (!this._analysing) {
+    if (!this._analysing || this._errored) {
       return;
     }
 
