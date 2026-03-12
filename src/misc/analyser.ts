@@ -1,12 +1,12 @@
 import type AudioSource from "./audio-source";
 
 export interface AudioAnalysis {
-  frequencyL: Uint8Array;
-  frequencyR: Uint8Array;
-  frequencyMerged: Uint8Array;
-  timeDomainL: Uint8Array;
-  timeDomainR: Uint8Array;
-  timeDomainMerged: Uint8Array;
+  frequencyL: Uint8Array<ArrayBuffer>;
+  frequencyR: Uint8Array<ArrayBuffer>;
+  frequencyMerged: Uint8Array<ArrayBuffer>;
+  timeDomainL: Uint8Array<ArrayBuffer>;
+  timeDomainR: Uint8Array<ArrayBuffer>;
+  timeDomainMerged: Uint8Array<ArrayBuffer>;
 }
 
 type AnalyseCallback = (data?: AudioAnalysis) => void;
@@ -19,12 +19,12 @@ export default class AudioAnalyser {
   private readonly _analyserMerged: AnalyserNode;
   private readonly _splitter: ChannelSplitterNode;
   private readonly _merger: ChannelMergerNode;
-  private readonly _frequencyL: Uint8Array;
-  private readonly _frequencyR: Uint8Array;
-  private readonly _frequencyMerged: Uint8Array;
-  private readonly _timeDomainL: Uint8Array;
-  private readonly _timeDomainR: Uint8Array;
-  private readonly _timeDomainMerged: Uint8Array;
+  private readonly _frequencyL: Uint8Array<ArrayBuffer>;
+  private readonly _frequencyR: Uint8Array<ArrayBuffer>;
+  private readonly _frequencyMerged: Uint8Array<ArrayBuffer>;
+  private readonly _timeDomainL: Uint8Array<ArrayBuffer>;
+  private readonly _timeDomainR: Uint8Array<ArrayBuffer>;
+  private readonly _timeDomainMerged: Uint8Array<ArrayBuffer>;
   private _analysing: boolean;
 
   constructor(source: AudioSource, callback: AnalyseCallback) {
