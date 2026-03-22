@@ -6,7 +6,6 @@ const mediaSession = navigator.mediaSession;
 export default class MediaSessionWrapper {
   private _player: HTMLPlayerElement;
   private _events: Events;
-  private _songDuration: number;
 
   constructor(player: HTMLPlayerElement, events: Events) {
     this._player = player;
@@ -32,7 +31,7 @@ export default class MediaSessionWrapper {
         return;
       }
 
-      let { album, artist, title, duration, cover } =
+      let { album, artist, title, duration, cover, start_time } =
         event.detail.song_history[0];
 
       if (!title) {
@@ -44,19 +43,8 @@ export default class MediaSessionWrapper {
         (cover?.length ?? 0) > 0 ? cover : event.detail.program.cover;
       this._setMetadata({ artist, title, album, artwork });
 
-      this._songDuration = duration;
-      this._setPosition(duration > 0 ? { duration } : {});
-    });
-
-    this._events.on("songprogress", (event) => {
-      this._setPosition(
-        this._songDuration > 0
-          ? {
-              duration: this._songDuration,
-              position: Math.min(this._songDuration, event.detail),
-            }
-          : {},
-      );
+      const position = event.detail.current_time - start_time;
+      this._setPosition(duration > 0 ? { duration, position } : {});
     });
   }
 
