@@ -149,8 +149,7 @@ export default class HTMLPlayerElement {
 
   private _createMetadataWatcher() {
     const item = this._sources[this._sourceIndex];
-    const offset =
-      ((TIMESTAMPS_IN_SECONDS ? 1 : 1000) * (item.burst * 8)) / item.bitrate;
+    const offset = (1000 * (item.burst * 8)) / item.bitrate;
 
     this._metadataWatcher?.unwatch();
     this._metadataWatcher = new MetadataWatcher(

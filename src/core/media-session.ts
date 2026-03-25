@@ -64,10 +64,8 @@ export default class MediaSessionWrapper {
   }
 
   private _setPosition(state: MediaPositionState) {
-    if (!TIMESTAMPS_IN_SECONDS) {
-      state.duration = (state.duration ?? 0) / 1000;
-      state.position = (state.position ?? 0) / 1000;
-    }
+    state.duration = (state.duration ?? 0) / 1000;
+    state.position = (state.position ?? 0) / 1000;
     mediaSession?.setPositionState({ duration: 0, ...state });
   }
 }

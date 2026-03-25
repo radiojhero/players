@@ -41,8 +41,7 @@ export default class Clock {
       0,
       this._songNow -
         this._songStart +
-        (performance.now() - this._lastUpdateTime) /
-          (TIMESTAMPS_IN_SECONDS ? 1000 : 1),
+        (performance.now() - this._lastUpdateTime),
     );
 
     if (this._songDuration > 0 && songProgress >= this._songDuration) {

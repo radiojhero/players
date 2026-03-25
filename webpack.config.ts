@@ -20,7 +20,6 @@ interface Settings {
       burst: number;
       src: string;
     }[];
-    TIMESTAMPS_IN_SECONDS: boolean;
     METADATA_URL: string;
     METADATA_INTERVAL: number;
     PLAYER_DOMAIN: string;
@@ -174,11 +173,7 @@ const config = ({
                   callback(null, "");
                 },
                 function (callback) {
-                  for (let [k, v] of Object.entries(settings.defines)) {
-                    if (k === "TIMESTAMPS_IN_SECONDS") {
-                      v ??= true;
-                    }
-
+                  for (const [k, v] of Object.entries(settings.defines)) {
                     data = data.replaceAll(
                       new RegExp(`\\b${k}\\b`, "g"),
                       v.toString(),

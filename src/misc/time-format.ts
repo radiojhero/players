@@ -9,10 +9,8 @@ function zeroFill(value: number, numberWidth: number) {
   return value.toString();
 }
 
-const timeFormat = (timestampInSeconds: number, noZeroFill = true) => {
-  const seconds = Math.floor(
-    timestampInSeconds / (TIMESTAMPS_IN_SECONDS ? 1 : 1000),
-  );
+const timeFormat = (timestamp: number, noZeroFill = true) => {
+  const seconds = Math.floor(timestamp / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
