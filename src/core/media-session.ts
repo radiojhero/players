@@ -43,7 +43,10 @@ export default class MediaSessionWrapper {
         (cover?.length ?? 0) > 0 ? cover : event.detail.program.cover;
       this._setMetadata({ artist, title, album, artwork });
 
-      const position = event.detail.current_time - start_time;
+      const position = Math.min(
+        duration,
+        event.detail.current_time - start_time,
+      );
       this._setPosition(duration > 0 ? { duration, position } : {});
     });
   }
