@@ -66,6 +66,7 @@ export default class HTMLPlayerElement {
     };
     setSource();
 
+    this._domPlayer.setAttribute("loading", "eager");
     this._domPlayer.preload = "none";
     this._domPlayer.crossOrigin = "anonymous";
     this._domPlayer.id = PLAYER_NAMESPACE;
