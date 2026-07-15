@@ -3,11 +3,13 @@
     [
       "@babel/preset-env",
       {
-        "spec": true,
         "modules": false,
         "debug": true
       }
     ],
     "@babel/preset-typescript"
-  ]
+  ],
+  "assumptions": {
+    "noNewArrows": false
+  }
 }

@@ -1,0 +1,4 @@
+allowBuilds:
+  '@parcel/watcher': true
+  lefthook: true
+minimumReleaseAge: 4320

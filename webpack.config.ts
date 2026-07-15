@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import CopyPlugin from "copy-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
-import through2 from "through2";
+import { transform } from "through2";
 import webpack from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import type { Configuration } from "webpack-dev-server";
@@ -45,6 +45,7 @@ const wdsConfiguration: Configuration = {
   devMiddleware: {
     publicPath: "/",
   },
+  allowedHosts: "localhost",
 };
 
 const config = ({
@@ -135,14 +136,7 @@ const config = ({
                 },
               },
             },
-            {
-              loader: "sass-loader",
-              options: {
-                sassOptions: {
-                  silenceDeprecations: ["mixed-decls"],
-                },
-              },
-            },
+            "sass-loader",
           ],
         },
       ],
@@ -165,25 +159,21 @@ const config = ({
         options: {
           transforms: [
             () => {
-              let data = "";
-              return through2(
-                (buffer: string, _, callback) => {
-                  data += buffer;
-
-                  callback(null, "");
-                },
-                function (callback) {
+              return transform(async function* (source: AsyncIterable<any>) {
+                let data = "";
+                for await (const chunk of source) {
+                  data += chunk.toString();
+                }
+                if (data) {
                   for (const [k, v] of Object.entries(settings.defines)) {
                     data = data.replaceAll(
                       new RegExp(`\\b${k}\\b`, "g"),
                       v.toString(),
                     );
                   }
-
-                  this.push(data);
-                  callback();
-                },
-              );
+                  yield data;
+                }
+              });
             },
           ],
         },
