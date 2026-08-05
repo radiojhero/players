@@ -33,15 +33,13 @@ export default class Clock {
     this._lastUpdateTime = performance.now();
     this._stop();
 
-    this._tick();
+    this._tick(this._lastUpdateTime);
   };
 
-  private readonly _tick = () => {
+  private readonly _tick: FrameRequestCallback = (now) => {
     let songProgress = Math.max(
       0,
-      this._songNow -
-        this._songStart +
-        (performance.now() - this._lastUpdateTime),
+      this._songNow - this._songStart + (now - this._lastUpdateTime),
     );
 
     if (this._songDuration > 0 && songProgress >= this._songDuration) {
