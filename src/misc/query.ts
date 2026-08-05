@@ -21,16 +21,12 @@ export default class SimpleQuery {
   }
 
   public query<T extends Element = Element>(id: string) {
-    return this.queryMultiple<T>(id)[0];
+    // biome-ignore lint/style/noNonNullAssertion: _
+    return this._context.querySelector<T>(`.${id}`)!;
   }
 
   public queryMultiple<T extends Element = Element>(id: string) {
-    const result: T[] = [];
-    this._context.querySelectorAll<T>(`.${id}`).forEach((item) => {
-      result.push(item);
-    });
-
-    return result;
+    return this._context.querySelectorAll<T>(`.${id}`);
   }
 
   public addDelegateEventListener(

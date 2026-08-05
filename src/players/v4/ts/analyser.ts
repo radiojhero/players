@@ -1,6 +1,6 @@
-import type { DefaultPlayer } from ".";
 import AudioAnalyser, { type AudioAnalysis } from "../../../misc/analyser";
 import * as css from "../scss/index.scss";
+import type { DefaultPlayer } from ".";
 import root from "./root";
 
 let visibleCanvases: HTMLCanvasElement[];
@@ -92,9 +92,12 @@ function analyseAudio(event?: AudioAnalysis) {
 }
 
 function fixCanvas() {
-  visibleCanvases = root
-    .queryMultiple<HTMLCanvasElement>(css.songAnalyser)
-    .filter((canvas) => getComputedStyle(canvas).display !== "none");
+  visibleCanvases = [];
+  root.queryMultiple<HTMLCanvasElement>(css.songAnalyser).forEach((canvas) => {
+    if (getComputedStyle(canvas).display !== "none") {
+      visibleCanvases.push(canvas);
+    }
+  });
 
   visibleCanvases.forEach((canvas) => {
     const canvasContext = canvas.getContext("2d");
