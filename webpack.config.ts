@@ -184,7 +184,6 @@ const config = ({
         entryOnly: true,
       }),
     ],
-    devtool: "source-map",
     devServer: { ...wdsConfiguration, port },
   };
 };
