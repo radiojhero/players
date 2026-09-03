@@ -11,7 +11,6 @@ import Events, {
   type EventHandlers,
 } from "./events";
 import HTMLPlayerElement from "./player-dom";
-import Tracker from "./tracker";
 
 interface ChildPlayer {
   element: Element;
@@ -100,8 +99,6 @@ export default class Player {
   private _loaded: boolean;
   // @ts-expect-error: really unused...
   private _clock: Clock;
-  // @ts-expect-error: really unused...
-  private _tracker: Tracker;
   // @ts-expect-error: really unused...
   private _childPlayers: NodeListOf<HTMLIFrameElement>;
   private _caster?: Caster;
@@ -248,7 +245,6 @@ export default class Player {
     this._events = new Events();
     this._audio = new HTMLPlayerElement(SOURCES, this._events, this);
     this._clock = new Clock(this, this._events);
-    this._tracker = new Tracker(this);
     this._childPlayers = document.querySelectorAll(
       `iframe.${PLAYER_NAMESPACE}-view`,
     );

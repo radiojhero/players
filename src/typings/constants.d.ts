@@ -20,4 +20,3 @@ declare const MAIN_WEBSITE_CHAT: string;
 declare const MAIN_WEBSITE_LISTEN: string;
 declare const LISTEN_URL: string;
 declare const LISTEN_MANUAL_URL: string;
-declare const TRACKER_URL: string;
