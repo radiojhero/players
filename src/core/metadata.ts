@@ -113,42 +113,43 @@ export default class MetadataWatcher {
     );
   }
 
-  private _handleMessage = (event: MessageEvent) => {
-    if (!event.data) {
+  private _handleMessage = (originalEvent: MessageEvent) => {
+    if (!originalEvent.data) {
       return;
     }
 
-    const data = JSON.parse(event.data);
-    let latestData = structuredClone(this._latestData ?? ({} as Metadata));
-    this._latestData = latestData;
-    latestData.current_time = Number(event.lastEventId);
+    const event = structuredClone(originalEvent);
+    const inner = (isShifted = true) => {
+      const data = JSON.parse(event.data);
+      let latestData = structuredClone(this._latestData ?? ({} as Metadata));
+      this._latestData = latestData;
+      latestData.current_time = Number(event.lastEventId);
 
-    switch (event.type) {
-      case "reset": {
-        latestData = data;
-        this._latestData = data;
-        break;
+      switch (event.type) {
+        case "reset": {
+          latestData = data;
+          this._latestData = data;
+          break;
+        }
+        case "radioShow": {
+          latestData.program = data;
+          break;
+        }
+        case "song": {
+          latestData.song_history.unshift(data);
+          latestData.song_history.pop();
+          break;
+        }
+        case "listeners": {
+          latestData.listeners = data;
+          break;
+        }
+        case "lyrics": {
+          latestData.current_song_lyrics = data;
+          break;
+        }
       }
-      case "radioShow": {
-        latestData.program = data;
-        break;
-      }
-      case "song": {
-        latestData.song_history.unshift(data);
-        latestData.song_history.pop();
-        break;
-      }
-      case "listeners": {
-        latestData.listeners = data;
-        break;
-      }
-      case "lyrics": {
-        latestData.current_song_lyrics = data;
-        break;
-      }
-    }
 
-    const fireEvent = (isShifted = true) => {
       if (isShifted) {
         latestData.current_time += this._offset;
         latestData.song_history.forEach((song) => {
@@ -165,12 +166,12 @@ export default class MetadataWatcher {
       event.type === "listeners" ||
       event.type === "reset"
     ) {
-      fireEvent(false);
+      inner(false);
       return;
     }
 
     const timeout = window.setTimeout(() => {
-      fireEvent();
+      inner();
     }, this._offset);
     this._timeouts.push(timeout);
   };
