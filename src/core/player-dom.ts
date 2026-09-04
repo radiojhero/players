@@ -1,4 +1,3 @@
-import addToQueryString from "../misc/add-to-query-string";
 import { FADE_DURATION } from "../misc/gain";
 import type Events from "./events";
 import type { EventDetailMap } from "./events";
@@ -153,11 +152,7 @@ export default class HTMLPlayerElement {
     const offset = (1000 * (item.burst * 8)) / item.bitrate;
 
     this._metadataWatcher?.unwatch();
-    this._metadataWatcher = new MetadataWatcher(
-      addToQueryString(METADATA_URL, `offset=${offset.toString()}`),
-      METADATA_INTERVAL,
-      this._events,
-    );
+    this._metadataWatcher = new MetadataWatcher(offset, this._events);
 
     if (this._continuousMetadata) {
       this._metadataWatcher.watch();

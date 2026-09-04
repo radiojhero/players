@@ -45,7 +45,7 @@ export default class MediaSessionWrapper {
 
       const position = Math.min(
         duration,
-        event.detail.current_time - start_time,
+        Math.max(0, event.detail.current_time - start_time),
       );
       this._setPosition(duration > 0 ? { duration, position } : {});
     });
