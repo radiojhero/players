@@ -148,9 +148,7 @@ export default class MetadataWatcher {
       }
     }
 
-    const fireEvent = () => {
-      const isShifted = !(event.type === "listeners" || event.type === "reset");
-
+    const fireEvent = (isShifted = true) => {
       if (isShifted) {
         latestData.current_time += this._offset;
         latestData.song_history.forEach((song) => {
@@ -167,11 +165,13 @@ export default class MetadataWatcher {
       event.type === "listeners" ||
       event.type === "reset"
     ) {
-      fireEvent();
+      fireEvent(false);
       return;
     }
 
-    const timeout = window.setTimeout(fireEvent, this._offset);
+    const timeout = window.setTimeout(() => {
+      fireEvent();
+    }, this._offset);
     this._timeouts.push(timeout);
   };
 
