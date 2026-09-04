@@ -113,12 +113,11 @@ export default class MetadataWatcher {
     );
   }
 
-  private _handleMessage = (originalEvent: MessageEvent) => {
-    if (!originalEvent.data) {
+  private _handleMessage = (event: MessageEvent) => {
+    if (!event.data) {
       return;
     }
 
-    const event = structuredClone(originalEvent);
     const inner = (isShifted = true) => {
       const data = JSON.parse(event.data);
       let latestData = structuredClone(this._latestData ?? ({} as Metadata));
