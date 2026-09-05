@@ -118,11 +118,14 @@ export default class MetadataWatcher {
       return;
     }
 
-    const inner = (isShifted = true) => {
+    const currentTime = Number(event.lastEventId);
+    const isNext = event.type === "next";
+
+    const dispatch = (event: MessageEvent, offset = 0) => {
       const data = JSON.parse(event.data);
       let latestData = structuredClone(this._latestData ?? ({} as Metadata));
       this._latestData = latestData;
-      latestData.current_time = Number(event.lastEventId);
+      latestData.current_time = currentTime + offset;
 
       switch (event.type) {
         case "reset": {
@@ -149,15 +152,22 @@ export default class MetadataWatcher {
         }
       }
 
-      if (isShifted) {
-        latestData.current_time += this._offset;
-        latestData.song_history.forEach((song) => {
-          song.start_time += this._offset;
-        });
+      if (offset > 0) {
+        if (event.type === "song" && !isNext) {
+          latestData.song_history[0].start_time += offset;
+        }
+
         this._timeouts.shift();
       }
 
       this._events.fire("gotmetadata", latestData);
+    };
+
+    const delayDispatch = (event: MessageEvent, offset: number) => {
+      const timeout = window.setTimeout(() => {
+        dispatch(event, offset);
+      }, offset);
+      this._timeouts.push(timeout);
     };
 
     if (
@@ -165,14 +175,41 @@ export default class MetadataWatcher {
       event.type === "listeners" ||
       event.type === "reset"
     ) {
-      inner(false);
+      dispatch(event);
       return;
     }
 
-    const timeout = window.setTimeout(() => {
-      inner();
-    }, this._offset);
-    this._timeouts.push(timeout);
+    if (!isNext) {
+      delayDispatch(event, this._offset);
+      return;
+    }
+
+    const {
+      next_lyrics = [],
+      next_radio_shows = [],
+      next_songs = [],
+    } = JSON.parse(event.data);
+
+    for (const { start_time, lyrics } of next_lyrics) {
+      delayDispatch(
+        { type: "lyrics", data: JSON.stringify(lyrics) } as MessageEvent,
+        start_time - currentTime,
+      );
+    }
+
+    for (const { timestamp, radio_show } of next_radio_shows) {
+      delayDispatch(
+        { type: "radioShow", data: JSON.stringify(radio_show) } as MessageEvent,
+        timestamp - currentTime,
+      );
+    }
+
+    for (const song of next_songs) {
+      delayDispatch(
+        { type: "song", data: JSON.stringify(song) } as MessageEvent,
+        song.start_time - currentTime,
+      );
+    }
   };
 
   private _setupSse() {
@@ -182,5 +219,6 @@ export default class MetadataWatcher {
     this._eventSource.addEventListener("song", this._handleMessage);
     this._eventSource.addEventListener("listeners", this._handleMessage);
     this._eventSource.addEventListener("lyrics", this._handleMessage);
+    this._eventSource.addEventListener("next", this._handleMessage);
   }
 }
