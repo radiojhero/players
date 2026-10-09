@@ -13,10 +13,8 @@ import Events, {
 import HTMLPlayerElement from "./player-dom";
 
 interface ChildPlayer {
-  element: Element;
-  parameters: string;
-  playerType: string;
-  iframe: HTMLIFrameElement;
+  type: string;
+  parameters: Record<string, string>;
 }
 
 export default class Player {
@@ -93,14 +91,17 @@ export default class Player {
     this._audio.currentSourceIndex = index;
   }
 
+  public get childPlayers() {
+    return [...this._childPlayers];
+  }
+
   private _audio: HTMLPlayerElement;
   private _audioSource?: AudioSource;
   private _events: Events;
   private _loaded: boolean;
   // @ts-expect-error: really unused...
   private _clock: Clock;
-  // @ts-expect-error: really unused...
-  private _childPlayers: NodeListOf<HTMLIFrameElement>;
+  private _childPlayers: ChildPlayer[] = [];
   private _caster?: Caster;
 
   constructor() {
@@ -148,45 +149,48 @@ export default class Player {
 
         const parameters = element.dataset.params ?? "";
 
-        if (addToExistingPlayer) {
-          existingPlayer._addChildPlayer({
-            element,
-            parameters,
-            playerType,
-            iframe,
-          });
-          return;
-        }
-
-        this._addChildPlayer({
-          element,
-          parameters,
-          playerType,
-          iframe,
-        });
+        const player = addToExistingPlayer ? existingPlayer : this;
+        player._addChildPlayer(element, parameters, playerType, iframe);
       });
     });
   }
 
-  public _addChildPlayer(childPlayer: ChildPlayer) {
-    childPlayer.element.appendChild(childPlayer.iframe);
+  public _addChildPlayer(
+    element: Element,
+    parameters: string,
+    playerType: string,
+    iframe: HTMLIFrameElement,
+  ) {
+    element.appendChild(iframe);
 
-    const iframeWindow = childPlayer.iframe.contentWindow;
-    const iframeDocument = childPlayer.iframe.contentDocument;
+    const iframeWindow = iframe.contentWindow;
+    const iframeDocument = iframe.contentDocument;
 
     if (!iframeWindow || !iframeDocument) {
-      childPlayer.element.removeChild(childPlayer.iframe);
+      element.removeChild(iframe);
       return;
     }
 
     iframeWindow[PLAYER_NAMESPACE] = this;
-    iframeWindow.params = parseParameters(childPlayer.parameters);
+    iframeWindow.params = parseParameters(parameters);
 
     const script = iframeDocument.createElement("script");
     script.async = true;
-    script.src = `${PLAYER_DOMAIN}/players/${childPlayer.playerType}.js`;
+    script.src = `${PLAYER_DOMAIN}/players/${playerType}.js`;
     iframeDocument.documentElement.appendChild(script);
     iframeDocument.body.style.overflow = "hidden";
+    this._childPlayers.push({
+      get type() {
+        return playerType;
+      },
+      get parameters() {
+        return { ...iframeWindow.params };
+      },
+      set parameters(parameters) {
+        iframeWindow.params = parameters;
+        iframeWindow.dispatchEvent(new CustomEvent("parameterschange"));
+      },
+    });
   }
 
   public play() {
@@ -246,9 +250,6 @@ export default class Player {
     this._events = new Events();
     this._audio = new HTMLPlayerElement(SOURCES, this._events, this);
     this._clock = new Clock(this, this._events);
-    this._childPlayers = document.querySelectorAll(
-      `iframe.${PLAYER_NAMESPACE}-view`,
-    );
     this._caster = createCaster(this._audio.domPlayer, this._events);
 
     this._audio.attach();

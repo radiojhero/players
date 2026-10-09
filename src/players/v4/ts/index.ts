@@ -18,6 +18,15 @@ const noObjectFit = document.createElement("img").style.objectFit === undefined;
 
 export type DefaultPlayer = Player;
 
+const parametersChange = () => {
+  const classes = document.documentElement.classList;
+  if ((globalThis as any).params.night) {
+    classes.add(css.night);
+  } else {
+    classes.remove(css.night);
+  }
+};
+
 const initPlayer = () => {
   const player = window[PLAYER_NAMESPACE];
 
@@ -148,9 +157,8 @@ const initPlayer = () => {
     togglePlayState(player, true, false);
   }
 
-  if ((globalThis as any).params.night) {
-    document.documentElement.classList.add(css.night);
-  }
+  window.addEventListener("parameterschange", parametersChange);
+  parametersChange();
 
   player.on(events);
   panes.setup();
@@ -161,6 +169,7 @@ const initPlayer = () => {
   analyser.setup(player);
 
   window.addEventListener("unload", () => {
+    window.removeEventListener("parameterschange", parametersChange);
     player.off(events);
     volume.teardown();
     marquee.teardown(player);
