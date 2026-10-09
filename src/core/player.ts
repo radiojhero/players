@@ -181,10 +181,11 @@ export default class Player {
 
     iframeWindow[PLAYER_NAMESPACE] = this;
     iframeWindow.params = parseParameters(childPlayer.parameters);
-    iframeDocument.write(
-      `<script async src="${PLAYER_DOMAIN}/players/${childPlayer.playerType}.js"></script>`,
-    );
-    iframeDocument.close();
+
+    const script = iframeDocument.createElement("script");
+    script.async = true;
+    script.src = `${PLAYER_DOMAIN}/players/${childPlayer.playerType}.js`;
+    iframeDocument.documentElement.appendChild(script);
     iframeDocument.body.style.overflow = "hidden";
   }
 
