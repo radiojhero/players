@@ -8,14 +8,14 @@ more easily.
 
 ## Setting up development
 
-You must install Node.js and PNPM first.
+You must install Bun first.
 
 1.  Fork this repository on GitHub;
 2.  Clone it to your machine and `cd` to it;
-3.  Run `pnpm install`;
+3.  Run `bun install`;
 4.  Copy `player-settings.example.json` to `player-settings.json` and edit
     it accordingly;
-5.  Run `pnpm start` to view and monitor your changes in the browser;
+5.  Run `bun run start` to view and monitor your changes in the browser;
 6.  If that didn't open a browser window, access `http://localhost:8080/`;
 7.  Work your magic.
 
@@ -36,8 +36,8 @@ You must install Node.js and PNPM first.
 -   Before venturing on something big, open an issue about it first. Let us know
     and evaluate whether your idea is worthwhile, or you may end up wasting time
     on something we might not want to merge into the repository.
--   Don't forget to `pnpm run lint` before submitting your PR, so as to make 
-    sure the code adheres to our standards.
+-   Don't forget to `bun run lint` before submitting your PR, so as to make sure
+    the code adheres to our standards.
 -   Remember you can still push more commits to your branch when needed after
     submitting your PR; you'll probably want to do this based on feedback.
 
